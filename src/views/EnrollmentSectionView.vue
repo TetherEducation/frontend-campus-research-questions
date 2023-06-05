@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { i18n } from "../i18n";
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useResearchStore } from '../stores/research';
 import { StepOfEnrollmentSection } from '@/enums/stepOfResearch.enum';
 
@@ -40,8 +40,8 @@ const enrollmentSection = computed( () => {
                     currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
     <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="key">
-        <input class="radio-option" type="radio" :id="option" name="options_of_questions" :value="key">
-        <label class="ml-1" :for="option">{{ option }}</label>
+        <input class="radio-option" type="radio" :id="String(option)" name="options_of_questions" :value="key">
+        <label class="ml-1" :for="String(option)">{{ option }}</label>
     </div>
         
     </template>

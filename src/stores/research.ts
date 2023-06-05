@@ -21,27 +21,32 @@ export const useResearchStore = defineStore('research', {
         centerLocation: (state): ResearchLocation => state.userLocation,
         getAnswerCampusAround: (state) => state.answerCampusAround,
         getAnswerCampusPaymentAndPerformance: (state) => state.answerCampusPaymentAndPerformance,
-    },
-    actions: {
-        nextStep() {
-            const steps = {
+        sizeOfSteps: () => {
+            return  {
                 [StepOFResearch.EnrollmentSection as number]: Object.keys(StepOfEnrollmentSection).length,
                 [StepOFResearch.CampusAround as number]: Object.keys(StepOfCampusAround).length,
                 [StepOFResearch.PerformanceAndPayment as number]: Object.keys(StepOfPerformanceAndPayment).length ,
             }
-
-            const isNextStep = ((steps[this.step] / 2) - 1) === this.stepChild
+        }
+    },
+    actions: {
+        nextStep() {
+            const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
             
             if (isNextStep) {
                 this.stepChild = 0;
                 this.step++;
                 this.router.push({ name: 'campusAround' });
-            } else {
-                this.stepChild++;
+                return;
             }
+
+            this.stepChild++;
+            
         },
         previousStep() {
-            this.step--;
+            if (this.stepChild === 0 ) {
+                
+            }
         },
         setAnswerCampusAround(answer: number) {
             this.answerCampusAround = answer;
