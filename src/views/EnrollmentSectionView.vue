@@ -6,6 +6,7 @@ import { useResearchStore } from '../stores/research';
 import { StepOfEnrollmentSection } from '@/enums/stepOfResearch.enum';
 
 const { currentStepChild  } = storeToRefs(useResearchStore());
+const { setDataOfResearch } = useResearchStore();
 
 const enrollmentSection = computed( () => {
     const questions: any = {
@@ -20,17 +21,26 @@ const enrollmentSection = computed( () => {
             question: i18n.global.t('enrollment_section.question_2.title'),
             options: i18n.global.t('enrollment_section.question_2.options').split('%space%'),
         },
-        [StepOfEnrollmentSection.ThirdQuestionEnrollmentSection]: {
-            question: i18n.global.t('enrollment_section.question_3.title'),
-            options: i18n.global.t('enrollment_section.question_3.not_sure'),
-        },
+        // [StepOfEnrollmentSection.ThirdQuestionEnrollmentSection]: {
+        //     question: i18n.global.t('enrollment_section.question_3.title'),
+        //     options: i18n.global.t('enrollment_section.question_3.not_sure'),
+        // },
     }
 
     return questions[currentStepChild.value];
 });
 
 const setAnswer = (answer: number | string) => {
-    console.log('setAnswer', answer);
+  const keysAnswer: any  = {
+        [StepOfEnrollmentSection.FirstQuestionEnrollmentSection]: 'plans_to_enroll',
+        [StepOfEnrollmentSection.SecondQuestionEnrollmentSection]: 'knows_school',
+        // [StepOfEnrollmentSection.ThirdQuestionEnrollmentSection]: 'school',
+    }
+
+    setDataOfResearch({
+        key: keysAnswer[currentStepChild.value],
+        value: answer,
+    });
 }
 </script>
 <template>
@@ -43,7 +53,7 @@ const setAnswer = (answer: number | string) => {
     <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection || 
                     currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
-        <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="key">
+        <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="option">
             <label class="container label-selection"> {{ option }}
                 <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
                 <span class="checkmark"></span>
@@ -52,13 +62,13 @@ const setAnswer = (answer: number | string) => {
         
     </template>
 
-    <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
+    <!-- <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
         <input class="w-full" type="text" />
         <div class="d-flex align-items-center">
         <input class="radio-option" type="checkbox" :id="enrollmentSection.options" name="options_of_questions" value="true">
         <label class="ml-1" :for="enrollmentSection.options">{{ enrollmentSection.options }}</label>
         </div>
-    </div>
+    </div> -->
 </template>
 <style scoped>
 /* Customize the label (the container) */

@@ -4,6 +4,11 @@ import { useResearchStore } from '../stores/research';
 
 const { nextStep } = useResearchStore();
 
+window.addEventListener("message", function(event: any) {
+    console.log('event', event)
+});
+
+window.parent.postMessage('close', '*');
 </script>
 <template>
     <Navbar />

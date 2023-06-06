@@ -9,6 +9,7 @@ export const useResearchStore = defineStore('research', {
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number, 
         userLocation: defaultLocation as ResearchLocation,
+        dataOfResearch: {} as any,
         campusesAround: [],
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
@@ -31,6 +32,9 @@ export const useResearchStore = defineStore('research', {
         },
     },
     actions: {
+        setDataOfResearch(data: any) {
+            this.dataOfResearch[data.key] = data.value;
+        },
         getBreadcrumb() {
             const breadcrumEnrollmentSection = () => {
                 const isFirstStep = this.stepChild === 0;
@@ -46,9 +50,6 @@ export const useResearchStore = defineStore('research', {
                 [StepOFResearch.GoToExplorer as number]: breadcrumGoToExplorer(),
 
             }
-
-            
-           
 
             function breadcrumCampusAround() {
                 return i18n.global.t('campus_around.title');

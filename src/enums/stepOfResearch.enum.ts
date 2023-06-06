@@ -9,7 +9,7 @@ export enum StepOfEnrollmentSection {
     DescriptionEnrollmentSection,
     FirstQuestionEnrollmentSection,
     SecondQuestionEnrollmentSection,
-    ThirdQuestionEnrollmentSection,
+    // ThirdQuestionEnrollmentSection,
 }
 
 export enum StepOfCampusAround {
