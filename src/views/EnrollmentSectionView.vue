@@ -28,6 +28,10 @@ const enrollmentSection = computed( () => {
 
     return questions[currentStepChild.value];
 });
+
+const setAnswer = (answer: number | string) => {
+    console.log('setAnswer', answer);
+}
 </script>
 <template>
     <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment">
@@ -39,39 +43,86 @@ const enrollmentSection = computed( () => {
     <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection || 
                     currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
-    <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="key">
-        <input class="radio-option" type="radio" :id="String(option)" name="options_of_questions" :value="key">
-        <label class="ml-1" :for="String(option)">{{ option }}</label>
-    </div>
+        <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="key">
+            <label class="container label-selection"> {{ option }}
+                <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
+                <span class="checkmark"></span>
+            </label>
+        </div>
         
     </template>
 
-    <div class="d-flex flex-row" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
+    <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
         <input class="w-full" type="text" />
         <div class="d-flex align-items-center">
         <input class="radio-option" type="checkbox" :id="enrollmentSection.options" name="options_of_questions" value="true">
         <label class="ml-1" :for="enrollmentSection.options">{{ enrollmentSection.options }}</label>
-    </div>
+        </div>
     </div>
 </template>
-<style>
-.description-enrollment {
-    font-weight: 500;
+<style scoped>
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-input [type='radio'] {
-  background: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  border: none !important;
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #EBEBEB;
+  border-radius: 50%;
+}
 
-.radio-option {
-    width: 24px;
-    background: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  border: 0.15em solid #EBEBEB !important;
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #EBEBEB;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #1E0C61;;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
 }
 </style>

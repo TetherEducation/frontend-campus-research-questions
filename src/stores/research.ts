@@ -2,6 +2,7 @@ import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerf
 import { defaultLocation } from "@/mocks/defaultLocation";
 import { ResearchLocation } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
+import { i18n } from "../i18n";
 
 export const useResearchStore = defineStore('research', {
     state: () => ({
@@ -27,16 +28,50 @@ export const useResearchStore = defineStore('research', {
                 [StepOFResearch.CampusAround as number]: Object.keys(StepOfCampusAround).length,
                 [StepOFResearch.PerformanceAndPayment as number]: Object.keys(StepOfPerformanceAndPayment).length ,
             }
-        }
+        },
     },
     actions: {
+        getBreadcrumb() {
+            const breadcrumEnrollmentSection = () => {
+                const isFirstStep = this.stepChild === 0;
+                const label = i18n.global.t('enrollment_section.title', isFirstStep ? 2 : 1 );
+
+                return isFirstStep ? label : `${label} ${this.stepChild}`;
+            }
+
+            const breadcrumbOfStep = {
+                [StepOFResearch.EnrollmentSection as number]: breadcrumEnrollmentSection(),
+                [StepOFResearch.CampusAround as number]: breadcrumCampusAround(),
+                [StepOFResearch.PerformanceAndPayment as number]: breadcrumPerformanceAndPayment(),
+                [StepOFResearch.GoToExplorer as number]: breadcrumGoToExplorer(),
+
+            }
+
+            
+           
+
+            function breadcrumCampusAround() {
+                return i18n.global.t('campus_around.title');
+            }
+
+            function breadcrumPerformanceAndPayment() {
+                return i18n.global.t('performance_and_payment.title');
+            }
+
+            function breadcrumGoToExplorer() {
+                return i18n.global.t('go_to_explorer.title');
+            }
+
+
+            return breadcrumbOfStep[this.step];
+        },
         nextStep() {
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
             
             if (isNextStep) {
                 this.stepChild = 0;
                 this.step++;
-                this.router.push({ name: 'campusAround' });
+                this.router.push({ name: StepOFResearch[this.step] });
                 return;
             }
 
@@ -45,8 +80,13 @@ export const useResearchStore = defineStore('research', {
         },
         previousStep() {
             if (this.stepChild === 0 ) {
-                
+                this.step = this.step - 1;
+                this.stepChild = this.sizeOfSteps[this.step] / 2 - 1;
+                this.router.push({ name: StepOFResearch[this.step] });
+            } else {
+                this.stepChild = this.stepChild - 1;
             }
+            
         },
         setAnswerCampusAround(answer: number) {
             this.answerCampusAround = answer;

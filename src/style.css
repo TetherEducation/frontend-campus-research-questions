@@ -131,14 +131,6 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
-p {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75rem;
-  letter-spacing: 0.0025em;
-}
-
 h1 {
   font-size: 1.25rem;
   line-height: 2rem;
@@ -148,6 +140,14 @@ label{
   font-weight: 600;
   font-size: 0.9rem;
   line-height: 1rem;
+}
+
+p, .label-selection {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.0025em;
 }
 
 .map-and-question {
@@ -269,14 +269,15 @@ label{
 /* desktop media queary */
 
 @media only screen and (min-width: 992px) {
+
+  label, .label-selection {
+    font-size: 1rem;
+    line-height: 0.016rem;
+  }
+
   p {
     font-size: 1.25rem;
     line-height: 2.25rem;
-  }
-
-  label {
-    font-size: 1rem;
-    line-height: 0.016rem;
   }
 
   .description-enrollment {

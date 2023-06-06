@@ -8,18 +8,14 @@ const routes:RouteRecordRaw[] = [
         children: [
             {
                 path: 'enrollment-section',
-                name: 'enrollmentSection',
+                name: 'EnrollmentSection',
                 component: () => import('../views/EnrollmentSectionView.vue'),
             },
             {
                 path: 'campus-around',
-                name: 'campusAround',
+                name: 'CampusAround',
                 component: () => import('../views/CampusAroundView.vue'),
             },
-            {
-                path: '',
-                redirect: { name: 'enrollmentSection' },
-            }
         ]
     },
     {

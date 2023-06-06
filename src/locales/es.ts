@@ -7,7 +7,7 @@ export const es = {
         "title": "Explora tu radio",
     },
     "enrollment_section": {
-        "title": "Preguntas",
+        "title": "Pregunta | Preguntas",
         "description": "Antes de comenzar, nos gustaría hacerte un par de {questions} para entender mejor tu situación y mejorar las recomendaciones que te ofreceremos, adaptadas a tus necesidades específicas.",
         "questions": "preguntas",
         "question_1": {
