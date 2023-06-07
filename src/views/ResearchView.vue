@@ -8,7 +8,7 @@ window.addEventListener("message", function(event: any) {
     console.log('event', event)
 });
 
-window.parent.postMessage('close', '*');
+window.top!.postMessage('close', '*');
 </script>
 <template>
     <Navbar />
