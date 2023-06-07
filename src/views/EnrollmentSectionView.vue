@@ -44,31 +44,28 @@ const setAnswer = (answer: number | string) => {
 }
 </script>
 <template>
-    <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment">
-        <template v-slot:questions>
-            <b v-t="'enrollment_section.questions'" />
-        </template>
-    </i18n-t>
+  <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment" />
 
-    <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection || 
+  <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection || 
                     currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
-        <div class="d-flex align-items-center ml-1" v-for="(option, key) in enrollmentSection.options" :key="option">
-            <label class="container label-selection"> {{ option }}
-                <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
-                <span class="checkmark"></span>
-            </label>
-        </div>
-        
-    </template>
+    <div class="d-flex align-items-center ml-1 mt-2" v-for="(option, key) in enrollmentSection.options" :key="Number(option)">
+      <label class="container label-selection"> {{ option }}
+        <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
+        <span class="checkmark"></span>
+      </label>
+    </div>
 
-    <!-- <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
-        <input class="w-full" type="text" />
-        <div class="d-flex align-items-center">
-        <input class="radio-option" type="checkbox" :id="enrollmentSection.options" name="options_of_questions" value="true">
-        <label class="ml-1" :for="enrollmentSection.options">{{ enrollmentSection.options }}</label>
-        </div>
-    </div> -->
+  </template>
+
+  <!-- <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
+    <input class="w-full" type="text" />
+    <div class="d-flex align-items-center">
+      <input class="radio-option" type="checkbox" :id="enrollmentSection.options" name="options_of_questions"
+        value="true">
+      <label class="ml-1" :for="enrollmentSection.options">{{ enrollmentSection.options }}</label>
+    </div>
+  </div> -->
 </template>
 <style scoped>
 /* Customize the label (the container) */
@@ -105,13 +102,13 @@ const setAnswer = (answer: number | string) => {
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.container:hover input~.checkmark {
   background-color: #EBEBEB;
 }
 
 /* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #1E0C61;;
+.container input:checked~.checkmark {
+  background-color: #5627FF;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -122,7 +119,7 @@ const setAnswer = (answer: number | string) => {
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -134,5 +131,9 @@ const setAnswer = (answer: number | string) => {
   height: 8px;
   border-radius: 50%;
   background: white;
+}
+
+.description-enrollment {
+  font-weight: 500 !important;
 }
 </style>
