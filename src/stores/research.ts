@@ -4,6 +4,7 @@ import { ResearchLocation } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
 import { i18n } from "../i18n";
 import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
+import { campuses } from "@/mocks/campuses";
 
 export const useResearchStore = defineStore('research', {
     state: () => ({
@@ -13,7 +14,8 @@ export const useResearchStore = defineStore('research', {
         userLocation: defaultLocation as ResearchLocation,
         listOfCampus: [],
         dataOfResearch: {} as any,
-        campusesAround: [],
+        campusesAround: campuses,
+        // campusesAround: [],
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
         treatment: 0,
@@ -49,7 +51,6 @@ export const useResearchStore = defineStore('research', {
 
             return actions[actionDataOfResearch];
         },
-    
         setAnswersResearch(data: any) {
             this.dataOfResearch[data.key] = data.value;
             this.isValidStep = true;
@@ -100,6 +101,19 @@ export const useResearchStore = defineStore('research', {
                 return;
             }
 
+            if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 2) {
+                this.stepChild = 0;
+                this.step = 1;
+                this.router.push({ name: StepOFResearch[this.step] });
+                return;
+            }
+
+            if (this.stepChild === 2 && this.step === 0 && this.dataOfResearch?.knows_school !== 0) {
+                this.stepChild = 0;
+                this.step = 1;
+                this.router.push({ name: StepOFResearch[this.step] });
+                return;
+            }
             this.stepChild++;
             this.isValidStep = false;
         },

@@ -1,4 +1,4 @@
-const campuses = [
+export const campuses = [
     {
         "id": 10151,
         "uuid": "fd5532db-daef-4488-b6d7-eed76f9919c0",

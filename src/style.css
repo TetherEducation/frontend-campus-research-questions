@@ -97,9 +97,9 @@ progress[value]::-moz-progress-value {
   background: var(--secondary-color);
 }
 
-input.question {
+input.answer-of-question {
   width: 12.5rem;
-  height: 3.5rem;
+  height: 3.5rem !important;
   background: var(--primary-color-light);
   box-shadow: inset 0px 0px 3px rgba(129, 129, 129, 0.36);
   border-radius: 0.875rem;
@@ -117,7 +117,7 @@ input.question {
   color: var(--secondary-color);
 }
 
-input.question::placeholder {
+input.answer-of-question::placeholder {
   text-align: center;
   letter-spacing: 0.0025em;
   font-weight: 700;
@@ -270,7 +270,55 @@ p, .label-selection {
   padding-right: 2rem;
 }
 
+/*  */
+.section-of-anwsers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
+.section-of-anwsers > div {
+  width: 99%;
+  background-color: #FFFFFF;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  -webkit-border-radius: 0.8rem;
+  -moz-border-radius: 0.8rem;
+  -ms-border-radius: 0.8rem;
+  -o-border-radius: 0.8rem;
+  color: #9B9696;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.section-of-anwsers > div > span {
+  width: 80px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background-color: #EEE9FF;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  -webkit-border-radius: 0.8rem;
+  -moz-border-radius: 0.8rem;
+  -ms-border-radius: 0.8rem;
+  -o-border-radius: 0.8rem;
+  color: #9B9696;
+  color: #5627FF;
+  display: flex;
+}
+
+.good-answer {
+  background: #D5FDF9 !important;
+  color: #128E81 !important;
+}
+
+.bad-answer {
+  background: #FEE9F0 !important;
+  color: #F3276B !important;
+}
 /* desktop media queary */
 
 @media only screen and (min-width: 992px) {
@@ -330,4 +378,11 @@ p, .label-selection {
     padding: 0 0 4rem 0 !important;
   }
   
+  .section-of-anwsers {
+    flex-direction: row;
+  }
+  
+  .section-of-anwsers > div {
+    width: 49%;
+  }
 }

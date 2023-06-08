@@ -3,22 +3,18 @@ import { storeToRefs } from 'pinia';
 import { MapAndQuestionInterface } from '../interfaces/mapAndQuestion.interface';
 import { useResearchStore } from '../stores/research';
 import { mapStyle } from '../assets/map/mapStyle';
-import { computed } from 'vue';
-import { StepOFResearch } from '@/enums/stepOfResearch.enum';
 
 defineProps<{ config: MapAndQuestionInterface }>();
 
-const { centerLocation, getAnswerCampusAround, getAnswerCampusPaymentAndPerformance, currentStep  } = storeToRefs(useResearchStore());
-
-const answer = computed( () =>  {
-    const value = currentStep.value === StepOFResearch.CampusAround ? getAnswerCampusAround.value : getAnswerCampusPaymentAndPerformance.value;
-    return value === 0 ? null : value;
-})
+const { centerLocation } = storeToRefs(useResearchStore());
+const { setAnswersResearch, currentStepChild } = useResearchStore();
 
 const getAnswer = (event: any) => {
-    
-    if (currentStep.value === StepOFResearch.CampusAround) {
-        useResearchStore().setAnswerCampusAround(event.target.value);
+    if (currentStepChild === 0 ) {
+        setAnswersResearch({
+            key: 'num_estab_answer1',
+            value: event?.target.value,
+        });
     } else {
         useResearchStore().setAnswerCampusPaymentAndPerformance(event.target.value);
     }
@@ -49,8 +45,8 @@ const styleCircle =  {
             <p>
                 {{ config.question }}
             </p>
-            <label for="answer" class="mt-1">{{ config.description }}</label>
-            <input :value="answer" @input="getAnswer($event)" name="answer" id="answer" class="mt-2" type="number" placeholder="XXX" />
+            <label for="answer" class="mt-8">{{ config.description }}</label>
+            <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number" placeholder="XXX" />
         </div>
     </section>
 </template>
