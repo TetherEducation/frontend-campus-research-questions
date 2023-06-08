@@ -5,10 +5,11 @@ import { useResearchStore } from '../stores/research';
 const { nextStep } = useResearchStore();
 
 window.addEventListener("message", function(event: any) {
-    console.log('event', event)
+    console.log('Received from parent:', event);
 });
 
-window.top!.postMessage('close', '*');
+window.top!.postMessage({context: 'research', action: 'close'}, '*');
+
 </script>
 <template>
     <Navbar />
