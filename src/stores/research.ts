@@ -3,9 +3,11 @@ import { defaultLocation } from "@/mocks/defaultLocation";
 import { ResearchLocation } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
 import { i18n } from "../i18n";
+import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
 
 export const useResearchStore = defineStore('research', {
     state: () => ({
+        isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number, 
         userLocation: defaultLocation as ResearchLocation,
@@ -13,6 +15,7 @@ export const useResearchStore = defineStore('research', {
         campusesAround: [],
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
+        treatment: 0,
     }),
     getters: {
         currentStep: (state) => state.step,
@@ -30,9 +33,18 @@ export const useResearchStore = defineStore('research', {
                 [StepOFResearch.PerformanceAndPayment as number]: Object.keys(StepOfPerformanceAndPayment).length ,
             }
         },
+        getTreatment: (state) => state.treatment,
     },
     actions: {
-        setDataOfResearch(data: any) {
+        setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
+            const setTreatment = () => this.treatment = data;
+            const actions = {
+                [ActionDataOfResearch.setTreatment as number]: setTreatment(),
+            }
+            actions[actionDataOfResearch];
+        },
+    
+        setAnswersResearch(data: any) {
             this.dataOfResearch[data.key] = data.value;
         },
         getBreadcrumb() {
@@ -67,6 +79,8 @@ export const useResearchStore = defineStore('research', {
             return breadcrumbOfStep[this.step];
         },
         nextStep() {
+            if(!this.isValidStep) return;
+
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
             
             if (isNextStep) {
@@ -77,7 +91,7 @@ export const useResearchStore = defineStore('research', {
             }
 
             this.stepChild++;
-            
+            this.isValidStep = false;
         },
         previousStep() {
             if (this.stepChild === 0 ) {

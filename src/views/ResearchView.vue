@@ -1,11 +1,12 @@
 <script setup lang="ts">
-
 import { useResearchStore } from '../stores/research';
 
-const { nextStep } = useResearchStore();
+const { nextStep, setDataResearch  } = useResearchStore();
 
 window.addEventListener("message", function(event: any) {
-    console.log('Received from parent:', event);
+
+    setDataResearch(event?.data?.action, event?.data?.value);
+    console.log('Received from parent:', event.data);
 });
 
 window.top!.postMessage({context: 'research', action: 'close'}, '*');

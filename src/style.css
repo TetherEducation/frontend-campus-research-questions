@@ -290,13 +290,13 @@ p, .label-selection {
 
   .g-map-container {
     width: 50%;
-    height: calc(100% - 200px);
+    height: calc(100% - 250px);
     position: absolute;
     border-radius: 0.62rem;
-  -webkit-border-radius: 0.62rem;
-  -moz-border-radius: 0.62rem;
-  -ms-border-radius: 0.62rem;
-  -o-border-radius: 0.62rem;
+    -webkit-border-radius: 0.62rem;
+    -moz-border-radius: 0.62rem;
+    -ms-border-radius: 0.62rem;
+    -o-border-radius: 0.62rem;
   overflow: hidden;
   }
 
