@@ -11,6 +11,17 @@ import App from './App.vue'
 import './style.css'
 import CampusAroundView from './views/CampusAroundView.vue';
 import { Router } from 'vue-router';
+import 'vuetify/styles';
+
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 
 declare module 'pinia' {
     export interface PiniaCustomProperties {
@@ -28,6 +39,7 @@ createApp(App)
     .use(pinia)
     .use(router)
     .use(i18n)
+    .use(vuetify)
     .component('Counter', Counter)
     .component('Navbar', Navbar)
     .component('CampusAroundView', CampusAroundView)

@@ -5,16 +5,19 @@ const { nextStep, setDataResearch  } = useResearchStore();
 
 window.addEventListener("message", function(event: any) {
 
-    setDataResearch(event?.data?.action, event?.data?.value);
-    console.log('Received from parent:', event.data);
+    if (event.data.context === 'research') {
+        setDataResearch(event?.data?.action, event?.data?.value);
+        console.log('Received from parent:', event.data);
+        return;
+    }
 });
 
-window.top!.postMessage({context: 'research', action: 'close'}, '*');
+window.top!.postMessage({context: 'explorer', action: 'close'}, '*');
 
 </script>
 <template>
     <Navbar />
-    <main class="px-2">
+    <main class="px-8">
        <router-view></router-view>
     </main>
     <section class="mt-2 research-buttons px-2">

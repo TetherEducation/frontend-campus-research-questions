@@ -11,7 +11,7 @@
   --custom-padding: 1rem;
   /* configuration default */
   background-color: var(--secondary-color-light);
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
   /* color-scheme: light dark; */
   font-weight: 400;
   font-size: 1.125rem;
@@ -29,7 +29,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 main {
@@ -45,6 +45,7 @@ button {
   -moz-transition: border-color 0.25s;
   -ms-transition: border-color 0.25s;
   -o-transition: border-color 0.25s;
+  color: var(--primary-color-light) !important;
 }
 
 nav {
@@ -96,7 +97,7 @@ progress[value]::-moz-progress-value {
   background: var(--secondary-color);
 }
 
-input {
+input.question {
   width: 12.5rem;
   height: 3.5rem;
   background: var(--primary-color-light);
@@ -116,7 +117,7 @@ input {
   color: var(--secondary-color);
 }
 
-input::placeholder {
+input.question::placeholder {
   text-align: center;
   letter-spacing: 0.0025em;
   font-weight: 700;
@@ -230,28 +231,32 @@ p, .label-selection {
 
 /* margin */
 .mx-1 {
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
 }
 
 .ml-1 {
-  margin-left: 2rem;
+  margin-left: 2rem !important;
+}
+
+.ml-2 {
+  padding-left: 2rem !important;
 }
 
 .mt-1 {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 .mt-2 {
-  margin-top: 2rem;
+  margin-top: 2rem !important;
 }
 
 .mt-3 {
-  margin-top: 3rem;
+  margin-top: 3rem !important;
 }
 
 .mt-4 {
-  margin-top: 4rem;
+  margin-top: 4rem !important;
 }
 
 /* padding */

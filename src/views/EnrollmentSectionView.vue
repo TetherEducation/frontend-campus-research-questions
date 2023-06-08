@@ -4,11 +4,24 @@ import { i18n } from "../i18n";
 import { computed } from 'vue'
 import { useResearchStore } from '../stores/research';
 import { StepOfEnrollmentSection } from '@/enums/stepOfResearch.enum';
+import { ref, watch } from 'vue'
+import { ActionDataOfResearch } from '@/enums/actionDataOfResearch.enum';
 
-const { currentStepChild  } = storeToRefs(useResearchStore());
+const { currentStepChild, getListOfCampus  } = storeToRefs(useResearchStore());
 const { setAnswersResearch } = useResearchStore();
+const nameSchool = ref<string>('')
+const listOfSchools = ref<string[]>([]);
+const search = ref<string>('');
+// const iKnowSchool = ref<boolean>(false);
 
-const enrollmentSection = computed( () => {
+watch(nameSchool, async (name) => {
+  setAnswer(name);
+})
+
+watch(search, async (newSearch) => {
+  changeValue(newSearch)
+})
+  const enrollmentSection = computed( () => {
     const questions: any = {
         [StepOfEnrollmentSection.DescriptionEnrollmentSection]: {
             question: i18n.global.t('enrollment_section.description'),
@@ -42,14 +55,28 @@ const setAnswer = (answer: number | string) => {
         value: answer,
     });
 }
+
+const changeValue = (value: any) => {
+  const data = getListOfCampus?.value || [];
+  if (data?.length > 0 ) {
+    listOfSchools.value = [...data.map((campus: any) => campus?.campus_name)]
+  }
+
+  window.top!.postMessage(
+    {
+      context: 'explorer',
+      action: ActionDataOfResearch.setNameOfCampus,
+      value,
+    }, '*');
+}
 </script>
 <template>
   <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment" />
-
   <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection || 
                     currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
-    <div class="d-flex align-items-center ml-1 mt-2" v-for="(option, key) in enrollmentSection.options" :key="String(option)">
+    <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in enrollmentSection.options"
+      :key="String(option)">
       <label class="container label-selection"> {{ option }}
         <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
         <span class="checkmark"></span>
@@ -58,13 +85,10 @@ const setAnswer = (answer: number | string) => {
 
   </template>
 
-  <div class="d-flex flex-row mt-2" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
-    <input class="w-full" type="text" />
-    <div class="d-flex align-items-center">
-      <input class="radio-option" type="checkbox" :id="enrollmentSection.options" name="options_of_questions"
-        value="true">
-      <label class="ml-1" :for="enrollmentSection.options">{{ enrollmentSection.options }}</label>
-    </div>
+  <div class="d-flex flex-row mt-8" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
+    <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
+      hide-details></v-autocomplete>
+    <!-- <v-checkbox v-model="iKnowSchool" label="No estoy seguro del nombre del centro educativo." color="#1A0C4C" value="a"></v-checkbox> -->
   </div>
 </template>
 <style scoped>

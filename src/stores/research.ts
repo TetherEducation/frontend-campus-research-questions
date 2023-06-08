@@ -11,6 +11,7 @@ export const useResearchStore = defineStore('research', {
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number, 
         userLocation: defaultLocation as ResearchLocation,
+        listOfCampus: [],
         dataOfResearch: {} as any,
         campusesAround: [],
         answerCampusAround: null || 0,
@@ -34,18 +35,27 @@ export const useResearchStore = defineStore('research', {
             }
         },
         getTreatment: (state) => state.treatment,
+        getListOfCampus: (state) => state.listOfCampus,
     },
     actions: {
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
             const setTreatment = () => this.treatment = data;
+            const setListOfCampus = () => this.listOfCampus = data;
+
             const actions = {
-                [ActionDataOfResearch.setTreatment as number]: setTreatment(),
+                [ActionDataOfResearch.setTreatment as string]: setTreatment(),
+                [ActionDataOfResearch.getListOfCampus as string]: setListOfCampus(),
             }
-            actions[actionDataOfResearch];
+
+            return actions[actionDataOfResearch];
         },
     
         setAnswersResearch(data: any) {
             this.dataOfResearch[data.key] = data.value;
+            this.isValidStep = true;
+        },
+        setIsValidStep(isValid: boolean) {
+            this.isValidStep = isValid;
         },
         getBreadcrumb() {
             const breadcrumEnrollmentSection = () => {
