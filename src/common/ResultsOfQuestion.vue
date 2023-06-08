@@ -3,16 +3,8 @@ import { useResearchStore } from '../stores/research';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
-// const { currentStepChild, currentStep, dataOfResearch, campusesAround} = useResearchStore();
-
-const { currentStepChild, currentStep, dataOfResearch, campusesAround  } = storeToRefs(useResearchStore());
+const { dataOfResearch, campusesAround  } = storeToRefs(useResearchStore());
 const classOfAnswer = ref<string>('')
-
-const isGoodAnswer = () => {
-    if (currentStep.value === 1 && currentStepChild.value === 1) {
-        return +dataOfResearch?.value?.num_estab_answer1 === +campusesAround.value.length;
-    }
-}
 
 const text = () => {
     const rest = +campusesAround.value.length - +dataOfResearch?.value?.num_estab_answer1;

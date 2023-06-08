@@ -12,7 +12,7 @@ window.addEventListener("message", function(event: any) {
     }
 });
 
-window.top!.postMessage({context: 'explorer', action: 'close'}, '*');
+// window.top!.postMessage({context: 'explorer', action: 'close'}, '*');
 
 </script>
 <template>

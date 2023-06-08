@@ -16,6 +16,11 @@ const routes:RouteRecordRaw[] = [
                 name: 'CampusAround',
                 component: () => import('../views/CampusAroundView.vue'),
             },
+            {
+                path: 'performance-and-payment',
+                name: 'PerformanceAndPayment',
+                component: () => import('../views/PerformanceAndPayment.vue'),
+            }
         ]
     },
     {

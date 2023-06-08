@@ -47,5 +47,8 @@ export const es = {
             "value": "Tu respuesta",
             "answer": "Respuesta Correcta"
         }
-    }
+    },
+    "performance_and_payment": {
+        "title": "Explora tu radio",
+    },
 }

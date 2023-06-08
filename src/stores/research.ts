@@ -90,6 +90,11 @@ export const useResearchStore = defineStore('research', {
             return breadcrumbOfStep[this.step];
         },
         nextStep() {
+            if (this.step === 1 && this.stepChild === 1) {
+                console.log('entry here')
+                this.isValidStep = true;
+            }
+
             if(!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
