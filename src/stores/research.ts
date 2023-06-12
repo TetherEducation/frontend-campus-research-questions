@@ -41,7 +41,12 @@ export const useResearchStore = defineStore('research', {
     },
     actions: {
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
-            const setTreatment = () => this.treatment = data;
+            const setTreatment = () => {
+                this.treatment = data.treatment;
+                this.userLocation = data.currentLocation;
+                this.dataOfResearch.num_estab_correct1 = data.campusesAround.total;
+                this.dataOfResearch.num_estab_correct2 = data.campusesAround.payment + data.campusesAround.performance || 0;
+            };
             const setListOfCampus = () => this.listOfCampus = data;
 
             const actions = {
@@ -49,7 +54,7 @@ export const useResearchStore = defineStore('research', {
                 [ActionDataOfResearch.getListOfCampus as string]: setListOfCampus(),
             }
 
-            return actions[actionDataOfResearch];
+            actions[actionDataOfResearch];
         },
         setAnswersResearch(data: any) {
             this.dataOfResearch[data.key] = data.value;
@@ -90,11 +95,18 @@ export const useResearchStore = defineStore('research', {
             return breadcrumbOfStep[this.step];
         },
         nextStep() {
-            if (this.step === 1 && this.stepChild === 1) {
-                console.log('entry here')
+            if (this.step === 1 && this.stepChild === 1 || this.step === 2 && (this.stepChild === 1 || this.stepChild === 3)) {
                 this.isValidStep = true;
             }
 
+            if (this.step === 3) {
+                window.top!.postMessage(
+                                {
+                                    context: 'explorer',
+                                    action: 'close',
+                                    value: true,
+                                }, '*');
+                            }
             if(!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild

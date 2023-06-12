@@ -15,7 +15,7 @@
   /* color-scheme: light dark; */
   font-weight: 400;
   font-size: 1.125rem;
-  line-height: 1.75rem;
+  /* line-height: 1.75rem; */
   letter-spacing: 0.0025em;
   font-family: Poppins, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
@@ -140,14 +140,14 @@ h1 {
 label{
   font-weight: 600;
   font-size: 0.9rem;
-  line-height: 1rem;
+  /* line-height: 1rem; */
 }
 
 p, .label-selection {
   font-style: normal;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.75rem;
+  /* line-height: 1.75rem; */
   letter-spacing: 0.0025em;
 }
 
@@ -354,7 +354,7 @@ p, .label-selection {
 
   label {
     font-size: 1rem;
-    line-height: 0.016rem;
+    /* line-height: 0.016rem; */
   }
 
   p {
@@ -422,5 +422,19 @@ p, .label-selection {
   .section-detail > div {
     width: 49%;
     gap: 0;
+  }
+
+  .go-to-explorer {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+
+  .go-to-explorer > span:first-child {
+    width: 50% !important;
+  }
+
+  .go-to-explorer__information {
+    width: 50% !important;
+    margin-bottom: -1rem;
   }
 }

@@ -20,6 +20,11 @@ const routes:RouteRecordRaw[] = [
                 path: 'performance-and-payment',
                 name: 'PerformanceAndPayment',
                 component: () => import('../views/PerformanceAndPayment.vue'),
+            },
+            {
+                path: 'go-to-explorer',
+                name: 'GoToExplorer',
+                component: () => import('../views/GoToExplorerView.vue'),
             }
         ]
     },

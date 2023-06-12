@@ -51,4 +51,8 @@ export const es = {
     "performance_and_payment": {
         "title": "Explora tu radio",
     },
+    "go_to_explorer": {
+        "title": "¡Comienza explorando!",
+        "go": "Ir a Explorar"
+    }
 }

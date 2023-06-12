@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const { nextStep, setDataResearch  } = useResearchStore();
+
+const { currentStep } = storeToRefs(useResearchStore());
 
 window.addEventListener("message", function(event: any) {
 
@@ -12,6 +16,10 @@ window.addEventListener("message", function(event: any) {
     }
 });
 
+
+const textButton = computed( () => {
+    return currentStep.value === 3 ? 'Ir a Explorar' : 'Continuar'
+});
 // window.top!.postMessage({context: 'explorer', action: 'close'}, '*');
 
 </script>
@@ -21,7 +29,9 @@ window.addEventListener("message", function(event: any) {
        <router-view></router-view>
     </main>
     <section class="mt-2 research-buttons px-2">
-        <button type="button" v-t="'generic.continue'" class="button button-active" @click="nextStep()" />
+        <button type="button" class="button button-active" :class="{'btn-go': currentStep === 3}" @click="nextStep()">
+            {{ textButton }}
+        </button>
         <!-- <button type="button" v-t="'generic.skip'" class="button button-skip"/> -->
     </section>
 </template>
@@ -36,5 +46,10 @@ window.addEventListener("message", function(event: any) {
         align-items: center;
         flex-direction: column;
         bottom: 0;
+    }
+
+    .btn-go {
+        background-color: white !important;
+        color: var(--primary-color) !important;
     }
 </style>

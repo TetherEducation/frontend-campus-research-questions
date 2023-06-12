@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-const { dataOfResearch, campusesAround  } = storeToRefs(useResearchStore());
+const { dataOfResearch, currentStep } = storeToRefs(useResearchStore());
+
+const restOfAnswer = computed( () => {
+    return currentStep.value === 2 ? dataOfResearch?.value.num_estab_correct2 - +dataOfResearch?.value?.num_estab_answer2: dataOfResearch?.value.num_estab_correct1 - +dataOfResearch?.value?.num_estab_answer1
+});
+
 const classOfAnswer = ref<string>('')
 
 const text = () => {
-    const rest = +campusesAround.value.length - +dataOfResearch?.value?.num_estab_answer1;
+    const rest: any = restOfAnswer
     if (rest === 0 ) {
         classOfAnswer.value = 'good-answer'
         return {
             title: 'Respuesta correcta',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${campusesAround.value.length}`,
+            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${dataOfResearch?.value.num_estab_correct1}`,
         }
     }
 
@@ -20,20 +25,20 @@ const text = () => {
         classOfAnswer.value = 'bad-answer'
         return {
             title: 'Te pasaste',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
+            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
         }
     }
 
     if(rest < 3) {
         return {
             title: 'Estuviste muy cerca',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
+            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
         }
     }
 
     return {
         title: 'Estuviste muy lejos',
-        description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
+        description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
     }
     
 }
@@ -47,7 +52,7 @@ const text = () => {
         </div>
 
         <div>
-            Respuesta Correcta <span>{{ campusesAround.length }}</span>
+            Respuesta Correcta <span>{{ dataOfResearch.num_estab_correct1 }}</span>
         </div>
     </section>
 </template>
