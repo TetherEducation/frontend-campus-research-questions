@@ -47,14 +47,16 @@ export const useResearchStore = defineStore('research', {
                 this.dataOfResearch.num_estab_correct1 = data.campusesAround.total;
                 this.dataOfResearch.num_estab_correct2 = data.campusesAround.payment + data.campusesAround.performance || 0;
             };
-            const setListOfCampus = () => this.listOfCampus = data;
+            const setListOfCampus = () => {
+                this.listOfCampus = data;
+            };
 
             const actions = {
-                [ActionDataOfResearch.setTreatment as string]: setTreatment(),
-                [ActionDataOfResearch.getListOfCampus as string]: setListOfCampus(),
+                [ActionDataOfResearch.setTreatment as string]: () => setTreatment(),
+                [ActionDataOfResearch.getListOfCampus as string]: () => setListOfCampus(),
             }
 
-            actions[actionDataOfResearch];
+            actions[actionDataOfResearch]();
         },
         setAnswersResearch(data: any) {
             this.dataOfResearch[data.key] = data.value;
@@ -95,7 +97,6 @@ export const useResearchStore = defineStore('research', {
             return breadcrumbOfStep[this.step];
         },
         sendTopPostMessage(action: string, value: any) {
-            console.log('send post message', action, value)
             window.top!.postMessage(
                 {
                     context: 'explorer',
@@ -110,7 +111,7 @@ export const useResearchStore = defineStore('research', {
 
             if (this.step === 3) {
                 this.sendTopPostMessage('setAnswer', {...this.dataOfResearch})
-                // this.sendTopPostMessage('close', true);
+                this.sendTopPostMessage('close', true);
             }
 
             if (!this.isValidStep) return;

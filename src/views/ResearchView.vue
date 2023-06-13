@@ -10,8 +10,8 @@ const { currentStep } = storeToRefs(useResearchStore());
 window.addEventListener("message", function(event: any) {
 
     if (event.data.context === 'research') {
-        setDataResearch(event?.data?.action, event?.data?.value);
         console.log('Received from parent:', event.data);
+        setDataResearch(event?.data?.action, event?.data?.value);
         return;
     }
 });
