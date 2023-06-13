@@ -37,7 +37,6 @@ const textButton = computed( () => {
 </template>
 <style>
     .research-buttons {
-        position: absolute;
         box-sizing: border-box;
         width: 100%;
         display: flex;

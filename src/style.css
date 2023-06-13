@@ -350,7 +350,25 @@ p, .label-selection {
 .section-detail > div > p {
   margin-left: 1rem;
 }
+
+.checkbox-container-question {
+  width: 100%;
+  flex-direction: column;
+  font-weight: 500 !important;
+  gap: 2rem;
+}
+
+.checkbox-container-question > div{
+  margin-top: 1rem;
+}
 @media only screen and (min-width: 992px) {
+.checkbox-container-question {
+  flex-direction: row;
+}
+
+  .research-buttons {
+    position: absolute;
+  }
 
   label {
     font-size: 1rem;

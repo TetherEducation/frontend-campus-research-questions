@@ -10,7 +10,7 @@ export const useResearchStore = defineStore('research', {
     state: () => ({
         isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
-        stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number, 
+        stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
         userLocation: defaultLocation as ResearchLocation,
         listOfCampus: [],
         dataOfResearch: {} as any,
@@ -30,10 +30,10 @@ export const useResearchStore = defineStore('research', {
         getAnswerCampusAround: (state) => state.answerCampusAround,
         getAnswerCampusPaymentAndPerformance: (state) => state.answerCampusPaymentAndPerformance,
         sizeOfSteps: () => {
-            return  {
+            return {
                 [StepOFResearch.EnrollmentSection as number]: Object.keys(StepOfEnrollmentSection).length,
                 [StepOFResearch.CampusAround as number]: Object.keys(StepOfCampusAround).length,
-                [StepOFResearch.PerformanceAndPayment as number]: Object.keys(StepOfPerformanceAndPayment).length ,
+                [StepOFResearch.PerformanceAndPayment as number]: Object.keys(StepOfPerformanceAndPayment).length,
             }
         },
         getTreatment: (state) => state.treatment,
@@ -66,7 +66,7 @@ export const useResearchStore = defineStore('research', {
         getBreadcrumb() {
             const breadcrumEnrollmentSection = () => {
                 const isFirstStep = this.stepChild === 0;
-                const label = i18n.global.t('enrollment_section.title', isFirstStep ? 2 : 1 );
+                const label = i18n.global.t('enrollment_section.title', isFirstStep ? 2 : 1);
 
                 return isFirstStep ? label : `${label} ${this.stepChild}`;
             }
@@ -94,23 +94,29 @@ export const useResearchStore = defineStore('research', {
 
             return breadcrumbOfStep[this.step];
         },
+        sendTopPostMessage(action: string, value: any) {
+            console.log('send post message', action, value)
+            window.top!.postMessage(
+                {
+                    context: 'explorer',
+                    action,
+                    value,
+                }, '*');
+        },
         nextStep() {
             if (this.step === 1 && this.stepChild === 1 || this.step === 2 && (this.stepChild === 1 || this.stepChild === 3)) {
                 this.isValidStep = true;
             }
 
             if (this.step === 3) {
-                window.top!.postMessage(
-                                {
-                                    context: 'explorer',
-                                    action: 'close',
-                                    value: true,
-                                }, '*');
-                            }
-            if(!this.isValidStep) return;
+                this.sendTopPostMessage('setAnswer', {...this.dataOfResearch})
+                // this.sendTopPostMessage('close', true);
+            }
+
+            if (!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
-            
+
             if (isNextStep) {
                 this.stepChild = 0;
                 this.step++;
@@ -135,14 +141,14 @@ export const useResearchStore = defineStore('research', {
             this.isValidStep = false;
         },
         previousStep() {
-            if (this.stepChild === 0 ) {
+            if (this.stepChild === 0) {
                 this.step = this.step - 1;
                 this.stepChild = this.sizeOfSteps[this.step] / 2 - 1;
                 this.router.push({ name: StepOFResearch[this.step] });
             } else {
                 this.stepChild = this.stepChild - 1;
             }
-            
+
         },
         setAnswerCampusAround(answer: number) {
             this.answerCampusAround = answer;

@@ -3,7 +3,7 @@ import { useResearchStore } from '../stores/research';
 import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
 
-const { dataOfResearch, currentStep } = storeToRefs(useResearchStore());
+const { dataOfResearch, currentStep, treatment } = storeToRefs(useResearchStore());
 
 const restOfAnswer = computed( () => {
     return currentStep.value === 2 ? dataOfResearch?.value.num_estab_correct2 - +dataOfResearch?.value?.num_estab_answer2: dataOfResearch?.value.num_estab_correct1 - +dataOfResearch?.value?.num_estab_answer1
@@ -44,9 +44,9 @@ const text = () => {
 }
 </script>
 <template>
-    <h1 class="mt-3">{{ text()?.title }}</h1>
+    <h1 class="mt-3">{{ treatment === 1 ? 'Centros Educativos' : text()?.title }}</h1>
     <p class="mt-8">{{ text()?.description }}</p>
-    <section class="section-of-anwsers mt-10">
+    <section v-if="treatment !== 1" class="section-of-anwsers mt-10">
         <div>
             Tu respuesta <span :class="classOfAnswer">{{ dataOfResearch?.num_estab_answer1 }}</span>
         </div>
