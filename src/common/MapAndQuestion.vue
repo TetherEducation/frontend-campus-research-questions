@@ -34,7 +34,7 @@ const styleCircle = {
 </script>
 <template>
     <section class="map-and-question">
-        <div class="g-map">
+        <div class="g-map" style="position: relative;">
             <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.2"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">

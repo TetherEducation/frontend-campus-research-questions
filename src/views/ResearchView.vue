@@ -3,7 +3,7 @@ import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
-const { nextStep, setDataResearch  } = useResearchStore();
+const { nextStep, setDataResearch, sendTopPostMessage  } = useResearchStore();
 
 const { currentStep } = storeToRefs(useResearchStore());
 
@@ -16,6 +16,7 @@ window.addEventListener("message", function(event: any) {
     }
 });
 
+sendTopPostMessage('initData', '');
 
 const textButton = computed( () => {
     return currentStep.value === 3 ? 'Ir a Explorar' : 'Continuar'
@@ -50,5 +51,10 @@ const textButton = computed( () => {
     .btn-go {
         background-color: white !important;
         color: var(--primary-color) !important;
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 2rem;
+        right: 0;
+        margin-right: 3rem;
     }
 </style>

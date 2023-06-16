@@ -15,5 +15,5 @@
 </script>
 <template>
     <MapAndQuestion v-if="currentStepChild === StepOfCampusAround.QuestionCampusAround" :config="mapAndQuestion" />
-    <ResultsOfQuestion v-else />
+    <ResultsOfQuestion v-if="currentStepChild === StepOfCampusAround.AnswerCampusAround" />
 </template>

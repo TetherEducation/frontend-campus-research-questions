@@ -17,10 +17,10 @@ const styleCircle = {
     fillColor: 'rgba(255, 255, 255, 0.1);',
     fillOpacity: 0.2,
 }
-const { userLocation, dataOfResearch  } = useResearchStore();
+const { userLocation, dataOfResearch } = useResearchStore();
 
 const showFilters = computed(() => {
-    return treatment.value === 1;
+    return treatment.value === 3;
 })
 
 const getSrcIframeExplorer = () => {
@@ -30,28 +30,34 @@ const getSrcIframeExplorer = () => {
 };
 </script>
 <template>
-    <div class="go-to-explorer">
-        <!-- label -->
-        <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu ubicación</span>
-        <!-- results -->
-        <section v-if="treatment !== 1" class="go-to-explorer__information mt-3">
-            <div>
-                <p class="mt-4 ml-3">{{ dataOfResearch.num_estab_correct1 }}</p>
-                <span class="information mt-2 ml-3">centros</span>
-                <span class="information ml-3">educativos</span>
-                <img src="../assets/rectangule-purple.svg" alt="">
-            </div>
-            <div class="second-information">
-                <p class="mt-4 ml-3">{{ dataOfResearch.num_estab_correct2 }}</p>
-                <span class="information mt-2 ml-3">de bajo costo y</span>
-                <span class="information ml-3">alto desempeño</span>
-                <img class="mt-2 mr-3" src="../assets/rectangule-blue.svg" alt="">
-            </div>
-        </section>
-    </div>
-    <!-- Explorer map -->
-    <section v-if="treatment === 1">
-        <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.2"
+    <div class="w-full d-flex flex-column">
+        <div class="go-to-explorer">
+            <!-- label -->
+            <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu
+                ubicación</span>
+            <!-- results -->
+            <section v-if="treatment !== 1" class="go-to-explorer__information mt-3">
+                <div style="position: relative;">
+                    <p class="mt-4 ml-3 d-flex">{{ dataOfResearch.num_estab_correct1 }}
+                        <img v-if="treatment === 3" src="../assets/schoolfilter.svg" alt="">
+                    </p>
+                    <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">centros</span>
+                    <span class="information ml-3">educativos</span>
+                    <img src="../assets/rectangule-purple.svg" alt="">
+                </div>
+                <div class="second-information">
+                    <p class="mt-5 ml-3">{{ dataOfResearch.num_estab_correct2 }}
+                        <img v-if="treatment === 3" src="../assets/filters.svg" alt="">
+                    </p>
+                    <span class="information mt-2 ml-3">de bajo costo y</span>
+                    <span class="information ml-3">alto desempeño</span>
+                    <img class="mt-2 mr-3" src="../assets/rectangule-blue.svg" alt="" height="95">
+                </div>
+            </section>
+        </div>
+        <!-- Explorer map -->
+        <section style="height: auto;" v-if="treatment === 1">
+            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.2"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />
@@ -59,16 +65,17 @@ const getSrcIframeExplorer = () => {
                     <img src="../assets/marker-user.svg" />
                 </CustomMarker>
             </GoogleMap>
-    </section>
-    <section v-else>
+        </section>
+        <section v-else>
             <iframe :src="getSrcIframeExplorer()"></iframe>
         </section>
+    </div>
 </template>
 <style scoped>
 .go-to-explorer {
     margin-top: 1.5rem;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
     color: #5627FF;
@@ -84,6 +91,7 @@ const getSrcIframeExplorer = () => {
     flex-direction: row;
     align-items: flex-end;
     position: relative;
+    margin-bottom: -0.5rem;
 }
 
 
