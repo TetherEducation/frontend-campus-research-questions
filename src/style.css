@@ -386,11 +386,12 @@ p, .label-selection {
 
   .g-map {
     width: 50%;
+    height: calc(100vh - 250px);
   }
 
   .g-map-container {
-    width: 50%;
-    height: calc(100% - 250px);
+    width: 100%;
+    height: calc(100vh - 250px);
     position: absolute;
     border-radius: 0.62rem;
     -webkit-border-radius: 0.62rem;
@@ -407,7 +408,8 @@ p, .label-selection {
   .question {
     width: 50%;
     box-sizing: border-box;
-    min-height: 350px;
+    min-height: 450px;
+    height: 100%;
     padding-left: 2rem;
     text-align: center;
     align-items: center;

@@ -68,7 +68,7 @@ export const useResearchStore = defineStore('research', {
         getBreadcrumb() {
             const breadcrumEnrollmentSection = () => {
                 const isFirstStep = this.stepChild === 0;
-                const label = i18n.global.t('enrollment_section.title', isFirstStep ? 2 : 1);
+                const label = isFirstStep ? 'Preguntas' : 'Pregunta';
 
                 return isFirstStep ? label : `${label} ${this.stepChild}`;
             }

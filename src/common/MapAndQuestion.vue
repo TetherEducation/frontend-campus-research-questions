@@ -76,7 +76,7 @@ const styleCircle = {
             
         </div>
         <div class="question">
-        <p>
+        <p class="mt-3">
             {{ config.question }}
         </p>
         <label for="answer" class="mt-8">{{ config.description }}</label>
