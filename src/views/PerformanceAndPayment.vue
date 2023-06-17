@@ -4,7 +4,7 @@ import { useResearchStore } from '../stores/research';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
 
-const { currentStepChild, dataOfResearch } = storeToRefs(useResearchStore());
+const { currentStepChild, dataOfResearch, currentStep } = storeToRefs(useResearchStore());
 const mapAndQuestion = ref<MapAndQuestionInterface>({
     question: `De los ${dataOfResearch.value.num_estab_correct1} centros educativos que hay a 2km de tu ubicación:`,
     description: '¿Cuantos crees que son de bajo costo y de alto desempeño?',
@@ -188,5 +188,5 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
     </div>
 </section>
 
-<MapAndQuestion v-if="currentStepChild === 2" :config="mapAndQuestion" :showIcon="true" />
+<MapAndQuestion v-if="currentStepChild === 2 && (currentStep === 1 || currentStep === 2)" :config="mapAndQuestion" :showIcon="true" />
 <ResultsOfQuestion v-if="currentStepChild === 3" /></template>

@@ -21,7 +21,6 @@ sendTopPostMessage('initData', '');
 const textButton = computed( () => {
     return currentStep.value === 3 ? 'Ir a Explorar' : 'Continuar'
 });
-// window.top!.postMessage({context: 'explorer', action: 'close'}, '*');
 
 </script>
 <template>

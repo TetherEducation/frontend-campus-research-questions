@@ -7,7 +7,7 @@ import { StepOfEnrollmentSection } from '@/enums/stepOfResearch.enum';
 import { ref, watch } from 'vue'
 import { ActionDataOfResearch } from '@/enums/actionDataOfResearch.enum';
 
-const { currentStepChild, getListOfCampus } = storeToRefs(useResearchStore());
+const { currentStepChild, getListOfCampus, currentStep } = storeToRefs(useResearchStore());
 const { setAnswersResearch } = useResearchStore();
 const nameSchool = ref<string>('')
 const listOfSchools = ref<string[]>([]);
@@ -57,7 +57,7 @@ const setAnswer = (answer: number | string | boolean) => {
   });
 }
 
-const setAnswerCheckbox =() => {
+const setAnswerCheckbox = () => {
   setAnswersResearch({
     key: 'knows_school_not_sure',
     value: selectCheckbox.value
@@ -79,31 +79,34 @@ const changeValue = (value: any) => {
 }
 </script>
 <template>
-  <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment" />
-  <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection ||
-    currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
+  <template v-if="currentStep === 0">
+    <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment" />
+    <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection ||
+      currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
-    <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in enrollmentSection.options"
-      :key="String(option)">
-      <label class="container label-selection"> {{ option }}
-        <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
-        <span class="checkmark"></span>
-      </label>
+      <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in enrollmentSection.options"
+        :key="String(option)">
+        <label class="container label-selection"> {{ option }}
+          <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key)">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+    </template>
+
+    <div class="d-flex mt-8 checkbox-container-question"
+      v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
+      <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
+        hide-details></v-autocomplete>
+      <div class="">
+        <label class="container-checkbox">No estoy seguro del nombre del centro educativo.
+          <input type="checkbox" v-model="selectCheckbox" @change="setAnswerCheckbox()">
+          <span class="checkmark-checkbox"></span>
+        </label>
+      </div>
+
     </div>
-
   </template>
-
-  <div class="d-flex mt-8 checkbox-container-question" v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
-    <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
-      hide-details></v-autocomplete>
-    <div class="">
-      <label class="container-checkbox">No estoy seguro del nombre del centro educativo.
-        <input type="checkbox" v-model="selectCheckbox" @change="setAnswerCheckbox()">
-        <span class="checkmark-checkbox"></span>
-      </label>
-    </div>
-
-  </div>
 </template>
 <style scoped>
 /* Customize the label (the container) */
@@ -118,7 +121,7 @@ const changeValue = (value: any) => {
   -ms-user-select: none;
   user-select: none;
   font-weight: 400 !important;
-  border-radius: 10px ;
+  border-radius: 10px;
 }
 
 /* Hide the browser's default checkbox */
