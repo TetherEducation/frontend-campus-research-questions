@@ -10,51 +10,6 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
     description: '¿Cuantos crees que son de bajo costo y de alto desempeño?',
 });
 
-// const text = () => {
-//     const rest = +campusesAround.value.length - +dataOfResearch?.value?.num_estab_answer1;
-//     if (rest === 0 ) {
-//         classOfAnswer.value = 'good-answer'
-//         return {
-//             title: 'Respuesta correcta',
-//             description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${campusesAround.value.length}`,
-//         }
-//     }
-
-//     if (Math.sign(rest) === -1) {
-//         classOfAnswer.value = 'bad-answer'
-//         return {
-//             title: 'Te pasaste',
-//             description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
-//         }
-//     }
-
-//     if(rest < 3) {
-//         return {
-//             title: 'Estuviste muy cerca',
-//             description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
-//         }
-//     }
-
-//     return {
-//         title: 'Estuviste muy lejos',
-//         description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${campusesAround.value.length}.`,
-//     }
-
-// }
-
-// const closeIframe = () => {
-//     if (currentStepChild.value === 1 && currentStep.value === 2) {
-
-//         window.top!.postMessage(
-//             {
-//                 context: 'explorer',
-//                 action: 'close',
-//                 value: true,
-//             }, '*');
-//     }
-
-//     return '';
-// }
 </script>
 <template>
     <h1 v-if="currentStepChild < 2" class="mt-3"> Información importante</h1>

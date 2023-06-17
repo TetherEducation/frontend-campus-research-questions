@@ -13,9 +13,17 @@ export const useResearchStore = defineStore('research', {
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
         userLocation: defaultLocation as ResearchLocation,
         listOfCampus: [],
-        dataOfResearch: {} as any,
+        dataOfResearch: {
+            num_estab_answer1: null,
+            num_estab_correct1: null,
+            num_estab_answer2: null,
+            num_estab_correct2: null,
+            plans_to_enroll: null,
+            knows_school: null,
+            school: null,
+            knows_school_not_sure: false,  
+        } as any,
         campusesAround: campuses,
-        // campusesAround: [],
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
         treatment: 0,
@@ -38,6 +46,7 @@ export const useResearchStore = defineStore('research', {
         },
         getTreatment: (state) => state.treatment,
         getListOfCampus: (state) => state.listOfCampus,
+        getDataOfResearch: (state) => state.dataOfResearch,
     },
     actions: {
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
@@ -96,12 +105,12 @@ export const useResearchStore = defineStore('research', {
 
             return breadcrumbOfStep[this.step];
         },
-        sendTopPostMessage(action: string, value: any) {
+        sendTopPostMessage(action: string, value: any, isDataOfResearch = false) {
             window.top!.postMessage(
                 {
                     context: 'explorer',
                     action,
-                    value,
+                    value: isDataOfResearch ? {...this.getDataOfResearch} : value,
                 }, '*');
         },
         nextStep() {
@@ -110,7 +119,7 @@ export const useResearchStore = defineStore('research', {
             }
 
             if (this.step === 3) {
-                this.sendTopPostMessage('setAnswer', {...this.dataOfResearch})
+                this.sendTopPostMessage('setAnswer', '', true);
                 this.sendTopPostMessage('close', true);
             }
 
@@ -126,14 +135,14 @@ export const useResearchStore = defineStore('research', {
                 return;
             }
 
-            if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 2) {
+            if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 3) {
                 this.router.push({ name: StepOFResearch[1] });
                 this.stepChild = 0;
                 this.step = 1;
                 return;
             }
 
-            if (this.stepChild === 2 && this.step === 0 && this.dataOfResearch?.knows_school !== 0) {
+            if (this.stepChild === 2 && this.step === 0 && this.dataOfResearch?.knows_school !== 1) {
                 this.router.push({ name: StepOFResearch[1] });
                 this.stepChild = 0;
                 this.step = 1;
