@@ -361,6 +361,22 @@ p, .label-selection {
 .checkbox-container-question > div{
   margin-top: 1rem;
 }
+
+.v-field {
+  border-radius: 16px !important;
+}
+
+.v-field__outline {
+  opacity: 0 !important;
+}
+
+.v-field.v-field--focused .v-field__outline, .v-input.v-input--error .v-field__outline {
+  opacity: 0 !important;
+}
+
+.font-700 {
+  font-weight: 700 !important;
+}
 @media only screen and (min-width: 992px) {
 .checkbox-container-question {
   flex-direction: row;

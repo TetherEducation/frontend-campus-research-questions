@@ -24,9 +24,9 @@ watch(search, async (newSearch) => {
 })
 const enrollmentSection = computed(() => {
   const questions: any = {
-    [StepOfEnrollmentSection.DescriptionEnrollmentSection]: {
-      question: i18n.global.t('enrollment_section.description'),
-    },
+    // [StepOfEnrollmentSection.DescriptionEnrollmentSection]: {
+    //   question: i18n.global.t('enrollment_section.description', { questions: 'preguntas'}),
+    // },
     [StepOfEnrollmentSection.FirstQuestionEnrollmentSection]: {
       question: i18n.global.t('enrollment_section.question_1.title'),
       options: i18n.global.t('enrollment_section.question_1.options').split('%space%'),
@@ -50,7 +50,7 @@ const setAnswer = (answer: number | string | boolean) => {
     [StepOfEnrollmentSection.SecondQuestionEnrollmentSection]: 'knows_school',
     [StepOfEnrollmentSection.ThirdQuestionEnrollmentSection]: 'school',
   }
-  
+
   setAnswersResearch({
     key: keysAnswer[currentStepChild.value],
     value: answer,
@@ -80,7 +80,11 @@ const changeValue = (value: any) => {
 </script>
 <template>
   <template v-if="currentStep === 0">
-    <i18n-t :keypath="enrollmentSection.question" tag="p" class="description-enrollment" />
+    <i18n-t v-if="currentStepChild > 0" :keypath="enrollmentSection.question" tag="p" class="description-enrollment font-700" />
+    <p class="description-enrollment" v-else>
+      Antes de comenzar, nos gustaría hacerte un par de <b>preguntas</b> para entender mejor tu situación y mejorar las
+      recomendaciones que te ofreceremos, adaptadas a tus necesidades específicas.
+    </p>
     <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection ||
       currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
 
@@ -96,9 +100,10 @@ const changeValue = (value: any) => {
 
     <div class="d-flex mt-8 checkbox-container-question"
       v-if="currentStepChild === StepOfEnrollmentSection.ThirdQuestionEnrollmentSection">
-      <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
-        hide-details></v-autocomplete>
-      <div class="">
+      <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools"
+        hide-no-data placeholder="Nombre centro educativo" solo flat
+        background-color="#EBEBEB" class="autocomplete" />
+      <div class="checkbox_label">
         <label class="container-checkbox">No estoy seguro del nombre del centro educativo.
           <input type="checkbox" v-model="selectCheckbox" @change="setAnswerCheckbox()">
           <span class="checkmark-checkbox"></span>
@@ -109,6 +114,10 @@ const changeValue = (value: any) => {
   </template>
 </template>
 <style scoped>
+.checkbox_label {
+  max-width: 400px;
+}
+
 /* Customize the label (the container) */
 .container-checkbox {
   display: block;
@@ -122,6 +131,7 @@ const changeValue = (value: any) => {
   user-select: none;
   font-weight: 400 !important;
   border-radius: 10px;
+  vertical-align: baseline !important;
 }
 
 /* Hide the browser's default checkbox */
@@ -240,9 +250,5 @@ const changeValue = (value: any) => {
   height: 8px;
   border-radius: 50%;
   background: white;
-}
-
-.description-enrollment {
-  font-weight: 500 !important;
 }
 </style>

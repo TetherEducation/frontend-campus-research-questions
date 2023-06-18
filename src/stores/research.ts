@@ -152,6 +152,11 @@ export const useResearchStore = defineStore('research', {
             this.isValidStep = false;
         },
         previousStep() {
+            if (this.step === 0 && this.stepChild === 0) {
+                this.sendTopPostMessage('backStep', '')
+                return;
+            }
+
             if (this.stepChild === 0) {
                 this.step = this.step - 1;
                 this.stepChild = this.sizeOfSteps[this.step] / 2 - 1;
