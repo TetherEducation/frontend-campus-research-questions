@@ -54,7 +54,7 @@ export const useResearchStore = defineStore('research', {
                 this.treatment = data.treatment;
                 this.userLocation = data.currentLocation;
                 this.dataOfResearch.num_estab_correct1 = data.campusesAround.total;
-                this.dataOfResearch.num_estab_correct2 = data.campusesAround.payment + data.campusesAround.performance || 0;
+                this.dataOfResearch.num_estab_correct2 = data.campusesAround.performanceAndPayment || 0;
             };
             const setListOfCampus = () => {
                 this.listOfCampus = data;
