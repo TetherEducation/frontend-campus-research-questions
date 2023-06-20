@@ -21,7 +21,7 @@ export const useResearchStore = defineStore('research', {
             plans_to_enroll: null,
             knows_school: null,
             school: null,
-            knows_school_not_sure: false,  
+            knows_school_not_sure: false,
         } as any,
         campusesAround: campuses,
         answerCampusAround: null || 0,
@@ -110,10 +110,11 @@ export const useResearchStore = defineStore('research', {
                 {
                     context: 'explorer',
                     action,
-                    value: isDataOfResearch ? {...this.getDataOfResearch} : value,
+                    value: isDataOfResearch ? { ...this.getDataOfResearch } : value,
                 }, '*');
         },
         nextStep() {
+            this.sendMixpanel();
             if (this.step === 1 && this.stepChild === 1 || this.step === 2 && (this.stepChild === 1 || this.stepChild === 3)) {
                 this.isValidStep = true;
             }
@@ -150,6 +151,94 @@ export const useResearchStore = defineStore('research', {
             }
             this.stepChild++;
             this.isValidStep = false;
+        },
+        sendMixpanel() {
+            let mixpanel = {
+                track: '',
+                data: {}
+            }
+
+            if (this.currentStep === 0) {
+                const enrollmentSectionMixpanel: any = {
+                    0: {
+                        track: 'click_LocationResearch_Question_0',
+                        data: {}
+                    },
+                    1: {
+                        track: 'click_LocationResearch_Question_1_continue',
+                        data: {
+                            plans_to_enroll: this.dataOfResearch.plans_to_enroll
+                        }
+                    },
+                    2: {
+                        track: 'click_LocationResearch_Question_2_continue',
+                        data: {
+                            knows_school: this.dataOfResearch.knows_school
+                        }
+                    },
+                    3: {
+                        track: 'click_LocationResearch_Question_3_continue',
+                        data: {
+                            school: this.dataOfResearch.school,
+                            knows_school: this.dataOfResearch.knows_school,
+                        }
+                    },
+
+                }
+                mixpanel = { ...enrollmentSectionMixpanel[this.currentStepChild] };
+            } else if (this.currentStep === 1) {
+                const campusAroundMixpanel: any = {
+                    0: {
+                        track: 'click_LocationResearch_1_continue',
+                        data: {
+                            num_estab_correct1: this.dataOfResearch.num_estab_correct1,
+                            num_estab_answer1: this.dataOfResearch.num_estab_answer1
+                        }
+                    },
+                    1: {
+                        track: 'click_LocationResearch_2_continue',
+                        data: {
+                            treatment: this.dataOfResearch.treatment
+                        }
+                    },
+                }
+                mixpanel = { ...campusAroundMixpanel[this.currentStepChild] };
+            } else if (this.currentStep === 2) {
+                const performanceAndPaymentMixpanel: any = {
+                    0: {
+                        track: 'click_LocationResearch_3_continue',
+                        data: {
+                            num_estab_correct2: this.dataOfResearch.num_estab_correct2,
+                            num_estab_answer2: this.dataOfResearch.num_estab_answer2
+                        }
+                    },
+                    1: {
+                        track: 'click_LocationResearch_4_continue',
+                        data: {}
+                    },
+                    2: {
+                        track: 'click_LocationResearch_5_continue',
+                        data: {
+                            treatment: this.dataOfResearch.treatment
+                        }
+                    },
+                }
+                mixpanel = { ...performanceAndPaymentMixpanel[this.currentStepChild] };
+            } else if (this.currentStep === 3) {
+                const goToExplorerMixpanel: any = {
+                    0: {
+                        track: 'click_LocationResearch_6_continue',
+                        data: {
+                            treatment: this.dataOfResearch.treatment
+                        }
+                    },
+                }
+                mixpanel = { ...goToExplorerMixpanel[this.currentStepChild] };
+            }
+
+
+
+            this.sendTopPostMessage('setTrackMixPanel', { ...mixpanel });
         },
         previousStep() {
             if (this.step === 0 && this.stepChild === 0) {
