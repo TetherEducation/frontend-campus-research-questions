@@ -28,7 +28,7 @@ const styleCircle = {
     strokeColor: 'rgba(255, 255, 255, 0.2)',
     strokeOpacity: 0.7,
     strokeWeight: 2,
-    fillColor: 'rgba(255, 255, 255, 0.1);',
+    fillColor: 'rgba(255, 255, 255, 0.1)',
     fillOpacity: 0.2,
 }
 </script>

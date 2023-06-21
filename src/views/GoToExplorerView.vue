@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 import { mapStyle } from '../assets/map/mapStyle';
 
 
-const { centerLocation, treatment } = storeToRefs(useResearchStore());
+const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
 
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
@@ -30,7 +30,7 @@ const getSrcIframeExplorer = () => {
 };
 </script>
 <template>
-    <div class="w-full d-flex flex-column">
+    <div v-if="currentStep === 3" class="w-full d-flex flex-column">
         <div class="go-to-explorer">
             <!-- label -->
             <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu

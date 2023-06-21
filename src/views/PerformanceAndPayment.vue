@@ -144,7 +144,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
             </div>
         </section>
 
-        <MapAndQuestion v-if="currentStepChild === 2 && (currentStep === 1 || currentStep === 2)" :config="mapAndQuestion"
+        <MapAndQuestion v-if="currentStepChild === 2" :config="mapAndQuestion"
             :showIcon="true" />
         <ResultsOfQuestion v-if="currentStepChild === 3" />
     </template>

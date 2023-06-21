@@ -18,7 +18,7 @@ const results = computed(() => {
 })
 
 const isCorrect = computed(() => {
-    return results.value.answer === results.value.correctAnswer
+    return Number(results.value.answer) === Number(results.value.correctAnswer);
 })
 
 const labelCorrect = () => {
