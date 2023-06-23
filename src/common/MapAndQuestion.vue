@@ -10,6 +10,21 @@ const { centerLocation } = storeToRefs(useResearchStore());
 const { setAnswersResearch, currentStepChild, treatment, dataOfResearch, currentStep } = useResearchStore();
 
 const getAnswer = (event: any) => {
+    if (Math.sign(event?.target.value) === -1) {
+        event.target.value = null;
+        return;
+    }
+
+    if (Number.isNaN(Number(event?.target.value))) {
+        event.target.value = null;
+        return;
+    }
+
+    if (treatment > 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_correct1) {
+        event.target.value = null;
+        return;
+    }
+
     if (currentStepChild === 0) {
         setAnswersResearch({
             key: 'num_estab_answer1',
@@ -22,6 +37,8 @@ const getAnswer = (event: any) => {
         });
     }
 }
+
+// const getValue
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
     radius: 2000,
