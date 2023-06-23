@@ -7,7 +7,7 @@ import { mapStyle } from '../assets/map/mapStyle';
 defineProps<{ config: MapAndQuestionInterface, showIcon: false }>();
 
 const { centerLocation } = storeToRefs(useResearchStore());
-const { setAnswersResearch, currentStepChild, treatment, dataOfResearch } = useResearchStore();
+const { setAnswersResearch, currentStepChild, treatment, dataOfResearch, currentStep } = useResearchStore();
 
 const getAnswer = (event: any) => {
     if (currentStepChild === 0) {
@@ -115,14 +115,15 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p v-if="treatment > 1" class="mt-3">
+            <p v-if="treatment > 1 || currentStep === 1" class="mt-3">
                 {{ config.question }}
             </p>
             <label for="answer" class="mt-8">{{ config.description }}</label>
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
                     placeholder="XXX" />
-                    <span v-if="treatment > 1" class="text-between-answer ml-3">de {{ dataOfResearch?.num_estab_correct1 }}</span>
+                <span v-if="treatment > 1 && currentStep === 2" class="text-between-answer ml-3">de {{ dataOfResearch?.num_estab_correct1
+                }}</span>
             </div>
         </div>
     </section>
