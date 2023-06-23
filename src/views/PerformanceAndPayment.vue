@@ -13,20 +13,21 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
 </script>
 <template>
     <template v-if="currentStep === 2">
-        <h1 v-if="currentStepChild < 2" class="mt-3"> Información importante</h1>
         <template v-if="currentStepChild === 0">
-            <p class="mt-8">
-                Los establecimientos educacionales se dividen en distintos niveles. Te invitamos a revisarlos:
+            <h1 class="mt-4"> Costos de Mensualidad</h1>
+            <p class="mt-5">
+                Los establecimientos educacionales se <b>dividen en distintos niveles.</b> Te invitamos a revisarlos:
             </p>
-
+            
             <h4 class="ml-2 mt-8">
                 Nivel según costo
             </h4>
         </template>
-
+        
         <template v-if="currentStepChild === 1">
-            <p class="mt-8">
-                Los establecimientos educacionales se dividen en distintos niveles. Te invitamos a revisarlos:
+            <h1 class="mt-4"> Desempeño Académico</h1>
+            <p class="mt-5">
+                Los establecimientos educativos <b>se dividen en distintos niveles</b> según los promedios de los resultados de las <b>pruebas nacionales de lenguaje y matemáticas.</b> Te invitamos a revisarlos:
             </p>
 
             <h4 class="ml-2 mt-8">
@@ -142,7 +143,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1 - RD$1,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 4% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El 28% de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <!-- middle high -->
@@ -163,7 +164,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1,500 - RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 5% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El 36% de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -186,7 +187,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Más de RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 5% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El 36% de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -202,9 +203,8 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
 </template>
 <style scoped>
 .info {
-    ;
     font-weight: 400;
-    font-size: 11px;
+    font-size: 13.2px;
     line-height: 16px;
     color: #AEAEAE;
     text-align: left !important;

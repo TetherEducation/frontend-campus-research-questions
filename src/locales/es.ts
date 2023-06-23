@@ -12,8 +12,8 @@ export const es = {
         "questions": "preguntas",
         "question_1": {
             "breadcrumb": "Pregunta 1",
-            "title": "¿Estás pensando en matricular al estudiante en un nuevo centro educativo para el año académico 2023/2024 o el siguiente?",
-            "options": "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo para el <b>año académico 2023/2024</b> %space% <b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo, pero para el año <b>año escolar 2023/2024</b> %space% <b>No,</b> no planeo <b>mantener al estudiante</b> en el mismo centro educativo",
+            "title": "¿Estás pensando en matricular al estudiante en un nuevo centro educativo?",
+            "options": "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo para <b>septiembre del 2023</b> %space% <b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo, pero para <b>septiembre del 2024</b> %space% <b>No,</b> planeo <b>mantener al estudiante</b> en el mismo centro educativo.",
         },
         "question_2": {
             "breadcrumb": "Pregunta 2",
@@ -40,7 +40,7 @@ export const es = {
             "description_good": "y efectivamente",
             "description": ({ named, linked }: any) => {
                 const value = named('isGoodAnswer') ? `${linked('campusAround.result.description_good')}` : `${linked('campusAround.result.description_bad')}`;
-                let label = `Creiste que habían ${named('answer')} centros educativos a 2km de tu ubicación, typeDescription hay ${named('value')}`
+                let label = `Creíste que había ${named('answer')} centros educativos a 2km de tu ubicación, typeDescription hay ${named('value')}`
                 return label.replace("typeDescription", value);
                 
             },

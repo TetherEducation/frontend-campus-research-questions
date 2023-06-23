@@ -39,7 +39,7 @@ const text = () => {
         classOfAnswer.value = 'good-answer'
         return {
             title: 'Respuesta correcta',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${dataOfResearch?.value.num_estab_correct1}`,
+            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${dataOfResearch?.value.num_estab_correct1}`,
         }
     }
 
@@ -47,14 +47,14 @@ const text = () => {
         classOfAnswer.value = 'bad-answer'
         return {
             title: 'Te pasaste',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
         }
     }
 
     if(rest < 3) {
         return {
             title: 'Estuviste muy cerca',
-            description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
         }
     }
 
@@ -62,7 +62,7 @@ const text = () => {
     return {
         
         title: 'Estuviste muy lejos',
-        description: `Creiste que habían ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+        description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
     }
     
 }
@@ -70,7 +70,7 @@ const text = () => {
 <template>
     <h1 class="mt-3">{{ treatment === 1 ? 'Centros Educativos' : text()?.title }}</h1>
     <p class="mt-5">
-        Creiste que habían <b>{{ results.answer }} </b> centros educativos {{ modifyLabel  }}
+        Creíste que había <b>{{ results.answer }} </b> centros educativos {{ modifyLabel  }}
         <template v-if="treatment !== 1">
             {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
         </template>

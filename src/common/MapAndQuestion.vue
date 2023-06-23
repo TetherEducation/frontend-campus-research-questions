@@ -15,7 +15,17 @@ const getAnswer = (event: any) => {
         return;
     }
 
+    console.log('event?.target.value', event?.target.value)
+    if(event?.target.value === '') {
+        event.target.value = null;
+        return;
+    }
     if (Number.isNaN(Number(event?.target.value))) {
+        event.target.value = null;
+        return;
+    }
+
+    if(treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
         event.target.value = null;
         return;
     }
@@ -46,13 +56,13 @@ const styleCircle = {
     strokeOpacity: 0.7,
     strokeWeight: 2,
     fillColor: 'rgba(255, 255, 255, 0.1)',
-    fillOpacity: 0.2,
+    fillOpacity: 0.9,
 }
 </script>
 <template>
     <section class="map-and-question">
         <div class="g-map" style="position: relative;">
-            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.2"
+            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="15"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />

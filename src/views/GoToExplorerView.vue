@@ -14,8 +14,8 @@ const styleCircle = {
     strokeColor: 'rgba(255, 255, 255, 0.2)',
     strokeOpacity: 0.7,
     strokeWeight: 2,
-    fillColor: 'rgba(255, 255, 255, 0.1);',
-    fillOpacity: 0.2,
+    fillColor: 'rgba(255, 255, 255, 0.1)',
+    fillOpacity: 0.9,
 }
 const { userLocation, dataOfResearch } = useResearchStore();
 
@@ -57,7 +57,7 @@ const getSrcIframeExplorer = () => {
         </div>
         <!-- Explorer map -->
         <section style="height: auto;" v-if="treatment === 1">
-            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.2"
+            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="15"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />
