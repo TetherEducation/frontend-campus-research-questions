@@ -12,13 +12,13 @@ export const es = {
         "questions": "preguntas",
         "question_1": {
             "breadcrumb": "Pregunta 1",
-            "title": "¿Estás pensando en matricular a su hijo/a en un nuevo centro educativo para el año académico 2023/2024 o el siguiente?",
-            "options": "Sí, planeo matricular a mi hijo/a en un nuevo centro para el próximo año escolar %space% Sí, planeo matricular a mi hijo/a en un nuevo centro para el año escolar subsiguiente %space% No, no tengo planes de matricular a mi hijo/a en otro centro",
+            "title": "¿Estás pensando en matricular al estudiante en un nuevo centro educativo para el año académico 2023/2024 o el siguiente?",
+            "options": "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo para el <b>año académico 2023/2024</b> %space% <b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo, pero para el año <b>año escolar 2023/2024</b> %space% <b>No,</b> no planeo <b>mantener al estudiante</b> en el mismo centro educativo",
         },
         "question_2": {
             "breadcrumb": "Pregunta 2",
-            "title": "¿Ya sabes a qué centro educativo vas a matricular a su hijo/a?",
-            "options": "Sí, estoy seguro/a del centro al que asistirá %space% Sí, tengo una idea, pero no estoy completamente seguro/a del centro al que asistirá %space% No, aún no he decidido y no sé a qué centro asistirá",
+            "title": "¿Ya sabes a qué centro educativo vas a matricular al estudiante?",
+            "options": "<b>Sí, estoy seguro/a</b> del centro al que asistirá %space% <b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> del centro al que asistirá %space% <b>No, aún no he decidido</b> y no sé a qué centro asistirá",
         },
         "question_3": {
             "breadcrumb": "Pregunta 3",

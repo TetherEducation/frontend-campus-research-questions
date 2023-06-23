@@ -90,7 +90,8 @@ const changeValue = (value: any) => {
 
       <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in enrollmentSection.options"
         :key="String(option)">
-        <label class="container label-selection"> {{ option }}
+        <label class="container label-selection">
+          <span v-html="option" />
           <input type="radio" :for="String(option)" name="radio" @change="setAnswer(key + 1)">
           <span class="checkmark"></span>
         </label>
