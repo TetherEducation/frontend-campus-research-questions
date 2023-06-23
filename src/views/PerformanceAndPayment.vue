@@ -204,7 +204,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
 <style scoped>
 .info {
     font-weight: 400;
-    font-size: 13.2px;
+    font-size: 14px;
     line-height: 16px;
     color: #AEAEAE;
     text-align: left !important;
