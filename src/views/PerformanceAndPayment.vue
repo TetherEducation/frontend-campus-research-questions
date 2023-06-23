@@ -54,7 +54,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Satisfactorio</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 21% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>21%</b>&nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -70,7 +70,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Aceptable alto</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 18% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>18%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -86,7 +86,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Aceptable bajo</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 21% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>21%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -102,7 +102,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Elemental</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                        El 40% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                        El &nbsp; <b>40%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                     </span>
             </div>
             <span v-if="currentStepChild === 1" class="text-left info mt-5">
@@ -126,7 +126,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Gratuito</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 86% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>86%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <!-- low -->
@@ -143,7 +143,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1 - RD$1,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 28% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>28%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <!-- middle high -->
@@ -164,7 +164,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1,500 - RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 36% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -187,7 +187,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Más de RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El 36% de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
