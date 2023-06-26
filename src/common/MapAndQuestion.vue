@@ -142,9 +142,7 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p v-if="treatment > 1 || currentStep === 1" class="mt-3">
-                {{ config.question }}
-            </p>
+            <p class="mt-3" v-html="config.question" />
             <label for="answer" class="mt-8">{{ config.description }}</label>
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"

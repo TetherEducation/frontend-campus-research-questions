@@ -4,9 +4,9 @@ import { useResearchStore } from '../stores/research';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
 
-const { currentStepChild, dataOfResearch, currentStep } = storeToRefs(useResearchStore());
+const { currentStepChild, dataOfResearch, currentStep, treatment } = storeToRefs(useResearchStore());
 const mapAndQuestion = ref<MapAndQuestionInterface>({
-    question: `De los ${dataOfResearch.value.num_estab_correct1} centros educativos que hay a 2km de tu ubicación:`,
+    question: `De los <b>${ treatment.value === 1 ? '' : dataOfResearch.value.num_estab_correct1} centros educativos de primaria </b> que hay a 2km de tu ubicación:`,
     description: '¿Cuantos crees que son de bajo costo y de alto desempeño?',
 });
 
@@ -126,7 +126,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Gratuito</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>86%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>86%</b> &nbsp; de los centros educativos de primaria en RD son públicos y gratuitos.
                 </span>
             </div>
             <!-- low -->
@@ -143,7 +143,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1 - RD$1,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>28%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>28%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
                 </span>
             </div>
             <!-- middle high -->
@@ -164,7 +164,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1,500 - RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -187,7 +187,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Más de RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -208,8 +208,6 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
     line-height: 16px;
     color: #AEAEAE;
     text-align: left !important;
-    display: flex;
-    justify-content: flex-start;
     width: 100%;
 }
 </style>
