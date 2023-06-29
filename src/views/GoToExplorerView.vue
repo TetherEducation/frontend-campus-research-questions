@@ -11,10 +11,10 @@ const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore(
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
     radius: 2000,
-    strokeColor: 'rgba(255, 255, 255, 0.2)',
+    strokeColor: 'rgba(255, 255, 255, 0.9)',
     strokeOpacity: 0.7,
     strokeWeight: 2,
-    fillColor: 'rgba(255, 255, 255, 0.1)',
+    fillColor: 'rgba(255, 255, 255, 0.3)',
     fillOpacity: 0.9,
 }
 const { userLocation, dataOfResearch } = useResearchStore();

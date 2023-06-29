@@ -7,7 +7,7 @@ import { ref } from 'vue'
 const { currentStepChild, dataOfResearch, currentStep, treatment } = storeToRefs(useResearchStore());
 const mapAndQuestion = ref<MapAndQuestionInterface>({
     question: `De los <b>${ treatment.value === 1 ? '' : dataOfResearch.value.num_estab_correct1} centros educativos de primaria </b> que hay a 2km de tu ubicación:`,
-    description: '¿Cuantos crees que son de bajo costo y de alto desempeño?',
+    description: '¿Cuantos crees que son de <b>bajo costo</b> y de <b>alto desempeño?</b>',
 });
 
 </script>
@@ -54,7 +54,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Satisfactorio</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>21%</b>&nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El <b>21%</b> de los <b>centros educativos de primaria</b> en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -70,7 +70,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Aceptable alto</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>18%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El <b>18%</b> de los <b>centros educativos de primaria</b> en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -86,7 +86,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Aceptable bajo</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>21%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                    El <b>21%</b> de los <b>centros educativos de primaria</b> en RD se encuentran en esta categoría.
                 </span>
             </div>
             <div class="d-flex flex-column">
@@ -102,11 +102,11 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Elemental</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                        El &nbsp; <b>40%</b> &nbsp; de los centros educativos de primaria en RD se encuentran en esta categoría.
+                        El <b>40%</b> de los <b>centros educativos de primaria</b> en RD se encuentran en esta categoría.
                     </span>
             </div>
             <span v-if="currentStepChild === 1" class="text-left info mt-5">
-                El &nbsp; <b>18%</b>&nbsp; de los centros educativos de primaria en República Dominicana no cuentan con
+                El <b>18%</b> de los <b>centros educativos de primaria</b> en República Dominicana no cuentan con
                 información relacionada al desempeño académico.
             </span>
         </section>
@@ -126,7 +126,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Gratuito</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>86%</b> &nbsp; de los centros educativos de primaria en RD son públicos y gratuitos.
+                    El <b>70%</b> de los <b>centros educativos de primaria</b> en RD son <b>públicos y gratuitos.</b>
                 </span>
             </div>
             <!-- low -->
@@ -143,7 +143,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">RD$1 - RD$1,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>28%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
+                    El <b>30%</b> de los <b>centros educativos privados de primaria</b> en RD se encuentran en esta categoría.
                 </span>
             </div>
             <!-- middle high -->
@@ -159,12 +159,10 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                             d="M23.2461 24.8059C23.0836 24.8059 22.9461 24.7496 22.8336 24.6371C22.7211 24.5246 22.6648 24.3809 22.6648 24.2059V23.2121C22.0523 23.1121 21.5336 22.8965 21.1086 22.5652C20.6836 22.234 20.3523 21.8184 20.1148 21.3184C20.0398 21.1684 20.0398 21.0121 20.1148 20.8496C20.1898 20.6871 20.3086 20.5684 20.4711 20.4934C20.6086 20.4309 20.7555 20.434 20.9117 20.5027C21.068 20.5715 21.1898 20.6809 21.2773 20.8309C21.5023 21.2434 21.793 21.5527 22.1492 21.759C22.5055 21.9652 22.9086 22.0684 23.3586 22.0684C23.9586 22.0684 24.4461 21.9215 24.8211 21.6277C25.1961 21.334 25.3836 20.9371 25.3836 20.4371C25.3836 19.8996 25.2086 19.4809 24.8586 19.1809C24.5086 18.8809 23.8648 18.5809 22.9273 18.2809C22.0273 17.9934 21.3555 17.609 20.9117 17.1277C20.468 16.6465 20.2461 16.0434 20.2461 15.3184C20.2461 14.6434 20.4617 14.0684 20.893 13.5934C21.3242 13.1184 21.9148 12.8434 22.6648 12.7684V11.7934C22.6648 11.6184 22.7211 11.4746 22.8336 11.3621C22.9461 11.2496 23.0836 11.1934 23.2461 11.1934C23.4211 11.1934 23.5648 11.2496 23.6773 11.3621C23.7898 11.4746 23.8461 11.6184 23.8461 11.7934V12.7684C24.2836 12.8309 24.6836 12.9684 25.0461 13.1809C25.4086 13.3934 25.7148 13.6746 25.9648 14.0246C26.0523 14.1621 26.068 14.309 26.0117 14.4652C25.9555 14.6215 25.8461 14.7309 25.6836 14.7934C25.5336 14.8684 25.3805 14.8777 25.2242 14.8215C25.068 14.7652 24.9273 14.6684 24.8023 14.5309C24.6398 14.3184 24.4305 14.159 24.1742 14.0527C23.918 13.9465 23.6211 13.8934 23.2836 13.8934C22.7211 13.8934 22.2773 14.0184 21.9523 14.2684C21.6273 14.5184 21.4648 14.8621 21.4648 15.2996C21.4648 15.7496 21.643 16.1184 21.9992 16.4059C22.3555 16.6934 23.0461 16.9934 24.0711 17.3059C24.9336 17.5809 25.5711 17.9684 25.9836 18.4684C26.3961 18.9684 26.6023 19.5996 26.6023 20.3621C26.6023 21.1621 26.368 21.8059 25.8992 22.2934C25.4305 22.7809 24.7461 23.0934 23.8461 23.2309V24.2059C23.8461 24.3809 23.7898 24.5246 23.6773 24.6371C23.5648 24.7496 23.4211 24.8059 23.2461 24.8059Z"
                             fill="white" />
                     </svg>
-
-
                     <p class="ml-5">RD$1,500 - RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
+                    El <b>38%</b> de los <b>centros educativos privados de primaria</b> en RD se encuentran en esta categoría.
                 </span>
 
             </div>
@@ -187,13 +185,12 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                     <p class="ml-5">Más de RD$3,500</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">
-                    El &nbsp; <b>36%</b> &nbsp; de los centros educativos privados de primaria en RD se encuentran en esta categoría.
+                    El <b>32%</b> de los <b>centros educativos privados de primaria</b> en RD se encuentran en esta categoría.
                 </span>
 
             </div>
             <span class="text-left info mt-5">
-                El &nbsp; <b>18%</b>&nbsp; de los centros educativos de primaria en República Dominicana no cuentan con
-                información relacionada a los costos mensuales.
+                El <b>18%</b> de los <b>centros educativos privados de primaria</b> en República Dominicana no cuentan con información relacionada a los costos mensuales.
             </span>
         </section>
 
@@ -203,10 +200,12 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
 </template>
 <style scoped>
 .info {
-    font-weight: 400;
     font-size: 14px;
+    font-family: 'Inter';
+    color: #737373; 
+    font-style: normal;
     line-height: 16px;
-    color: #AEAEAE;
+    font-weight: 400;
     text-align: left !important;
     width: 100%;
 }
