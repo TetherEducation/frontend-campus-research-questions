@@ -142,7 +142,7 @@ const styleCircle = {
         </div>
         <div class="question">
             <p class="mt-3" v-html="config.question" />
-            <p for="answer" class="mt-8" v-html="config.description" />
+            <h2 for="answer" class="mt-8 fix-size" v-html="config.description" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
                     placeholder="XXX" />

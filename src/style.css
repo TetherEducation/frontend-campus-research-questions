@@ -146,6 +146,12 @@ h1 {
   line-height: 2rem;
 }
 
+h2 {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: 500;
+}
+
 label{
   font-weight: 600;
   font-size: 0.9rem;
