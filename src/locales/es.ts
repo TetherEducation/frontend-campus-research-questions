@@ -29,8 +29,8 @@ export const es = {
     "campus_around": {
         "title": "Explora tu radio",
         "question": {
-            "title": "A 2 km de tu ubicación pueden haber muchos establecimientos educativos.",
-            "description": "¿Cuantos crees que son?"
+            "title": "A 2 km de tu ubicación pueden haber muchos <b>establecimientos educativos de primaria.</b>",
+            "description": "<b>¿Cuantos crees que son?</b>"
         },
         "result": {
             "bad": "Estuviste muy lejos",

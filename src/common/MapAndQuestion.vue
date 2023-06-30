@@ -15,8 +15,7 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    console.log('event?.target.value', event?.target.value)
-    if(event?.target.value === '') {
+    if(event?.target.value === '' || event?.target?.value === null) {
         event.target.value = null;
         return;
     }
@@ -52,10 +51,10 @@ const getAnswer = (event: any) => {
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
     radius: 2000,
-    strokeColor: 'rgba(255, 255, 255, 0.2)',
+    strokeColor: 'rgba(255, 255, 255, 0.9)',
     strokeOpacity: 0.7,
     strokeWeight: 2,
-    fillColor: 'rgba(255, 255, 255, 0.1)',
+    fillColor: 'rgba(255, 255, 255, 0.3)',
     fillOpacity: 0.9,
 }
 </script>
@@ -142,10 +141,8 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p v-if="treatment > 1 || currentStep === 1" class="mt-3">
-                {{ config.question }}
-            </p>
-            <label for="answer" class="mt-8">{{ config.description }}</label>
+            <p class="mt-3" v-html="config.question" />
+            <h2 for="answer" class="mt-8 fix-size" v-html="config.description" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
                     placeholder="XXX" />

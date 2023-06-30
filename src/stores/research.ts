@@ -127,7 +127,7 @@ export const useResearchStore = defineStore('research', {
             if (!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
-
+            
             if (isNextStep) {
                 const newStep = this.step + 1;
                 this.router.push({ name: StepOFResearch[newStep] });
@@ -135,11 +135,12 @@ export const useResearchStore = defineStore('research', {
                 this.step++;
                 return;
             }
-
+            
             if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 3) {
                 this.router.push({ name: StepOFResearch[1] });
                 this.stepChild = 0;
                 this.step = 1;
+                this.isValidStep = false;
                 return;
             }
 
