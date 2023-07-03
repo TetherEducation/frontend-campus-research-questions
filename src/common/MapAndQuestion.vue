@@ -7,9 +7,11 @@ import { mapStyle } from '../assets/map/mapStyle';
 defineProps<{ config: MapAndQuestionInterface, showIcon: false }>();
 
 const { centerLocation } = storeToRefs(useResearchStore());
-const { setAnswersResearch, currentStepChild, treatment, dataOfResearch, currentStep } = useResearchStore();
+const { setAnswersResearch, setIsValidStep, currentStepChild, treatment, dataOfResearch, currentStep } = useResearchStore();
+setIsValidStep(false);
 
 const getAnswer = (event: any) => {
+    setIsValidStep(false);
     if (Math.sign(event?.target.value) === -1) {
         event.target.value = null;
         return;
