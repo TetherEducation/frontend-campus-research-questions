@@ -82,8 +82,7 @@ const changeValue = (value: any) => {
   <template v-if="currentStep === 0">
     <i18n-t v-if="currentStepChild > 0" :keypath="enrollmentSection.question" tag="p" class="description-enrollment font-700" />
     <p class="description-enrollment" v-else>
-      Antes de comenzar, nos gustaría hacerte un par de <b>preguntas</b> para entender mejor tu situación y mejorar las
-      recomendaciones que te ofreceremos, adaptadas a tus necesidades específicas.
+      Antes de comenzar, nos gustaría hacerte un par de <b>preguntas.</b>
     </p>
     <template v-if="currentStepChild === StepOfEnrollmentSection.FirstQuestionEnrollmentSection ||
       currentStepChild === StepOfEnrollmentSection.SecondQuestionEnrollmentSection">
