@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useResearchStore } from '@/stores/research';
-import { Tenant } from "@/enums/tenant.enum";
+// import { useResearchStore } from '@/stores/research';
+// import { Tenant } from "@/enums/tenant.enum";
 
-const researchStore = useResearchStore();
-const labels = [
-    
-]
+// const researchStore = useResearchStore();
+// const labels = [
+
+// ]
 </script>
 <template>
     
-     <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in $t('firstquestion.results')"
+     <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, _key) in $t('firstquestion.results')"
         :key="String(option)">
         <label class="container label-selection">
           <span v-html="option" />
