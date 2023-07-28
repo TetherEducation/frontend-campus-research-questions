@@ -18,6 +18,7 @@ const routes: RouteRecordRaw[] = [
                     tenant: tenant as any,
                     totalCampusesAround: +value,
                     totalCampusesAroundPaymentAndPerformance: +value - 1,
+                    treatment: +treatment,
                 }
                 store.setResearchConfiguration(researchConfiguration);
             }
