@@ -23,7 +23,7 @@ const textButton = computed( () => {
 
 </script>
 <template>
-    <Navbar />
+    <NavbarLegacy />
     <main class="px-8">
        <router-view></router-view>
     </main>

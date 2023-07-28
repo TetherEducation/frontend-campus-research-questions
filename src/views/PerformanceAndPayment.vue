@@ -7,6 +7,7 @@ import { ref } from 'vue'
 const { currentStepChild, dataOfResearch, currentStep, treatment } = storeToRefs(useResearchStore());
 const mapAndQuestion = ref<MapAndQuestionInterface>({
     question: `De los <b>${ treatment.value === 1 ? '' : dataOfResearch.value.num_estab_correct1} centros educativos de primaria </b> que hay a 2km de tu ubicación:`,
+    // cambiar para chile ¿Cuántos crees que son de bajo costo y de alto o medio - alto desempeño?
     description: '¿Cuantos crees que son de <b>bajo costo</b> y de <b>alto desempeño?</b>',
 });
 
@@ -66,7 +67,7 @@ const mapAndQuestion = ref<MapAndQuestionInterface>({
                             d="M18.7664 11.9848L18.7664 25.2191C18.7664 25.4379 18.6971 25.6165 18.5586 25.7551C18.4201 25.8936 18.2414 25.9629 18.0227 25.9629C17.8039 25.9629 17.6253 25.8936 17.4867 25.7551C17.3482 25.6165 17.2789 25.4379 17.2789 25.2191L17.2789 11.9629L15.4852 13.7566C15.3539 13.8879 15.1898 13.9535 14.993 13.9535C14.7961 13.9535 14.6174 13.8806 14.457 13.7348C14.3112 13.5889 14.2383 13.4139 14.2383 13.2098C14.2383 13.0056 14.3112 12.8306 14.457 12.6848L17.4977 9.64414C17.5852 9.57122 17.669 9.51653 17.7492 9.48008C17.8294 9.44362 17.9206 9.42539 18.0227 9.42539C18.1247 9.42539 18.2159 9.44362 18.2961 9.48008C18.3763 9.51653 18.4602 9.57122 18.5477 9.64414L21.5883 12.6848C21.7487 12.8452 21.8253 13.0202 21.818 13.2098C21.8107 13.3993 21.7341 13.5743 21.5883 13.7348C21.4424 13.8806 21.2638 13.9535 21.0523 13.9535C20.8409 13.9535 20.6695 13.8879 20.5383 13.7566L18.7664 11.9848Z"
                             fill="white" />
                     </svg>
-
+                    <!-- cambiarlo para chile -->
                     <p class="ml-5">Aceptable alto</p>
                 </div>
                 <span class="text-left info mt-2 mb-4">

@@ -1,13 +1,21 @@
 import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerformanceAndPayment } from "@/enums/stepOfResearch.enum";
 import { defaultLocation } from "@/mocks/defaultLocation";
-import { ResearchLocation } from "@/interfaces/research.interface";
+import { ResearchLocation, ResearchConfiguration } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
 import { i18n } from "../i18n";
 import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
 import { campuses } from "@/mocks/campuses";
+import { ResearchStep } from "@/enums/researchStep.enum";
+import { Tenant } from "@/enums/tenant.enum";
+
 
 export const useResearchStore = defineStore('research', {
     state: () => ({
+        loading: true,
+        researchConfiguration: <ResearchConfiguration>{},
+        treatment: null,
+        researchStep: <ResearchStep>{},
+        // posibility deprecated
         isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
@@ -26,9 +34,9 @@ export const useResearchStore = defineStore('research', {
         campusesAround: campuses,
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
-        treatment: 0,
     }),
     getters: {
+        // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
         campuses: (state) => state.campusesAround,
@@ -49,6 +57,31 @@ export const useResearchStore = defineStore('research', {
         getDataOfResearch: (state) => state.dataOfResearch,
     },
     actions: {
+        initResearch() {
+            this.setLoading(true);
+            window.top!.postMessage({ 
+                    context: 'explorer',
+                    action: 'initData',
+                }, '*');
+            
+            
+            this.setLoading(false);
+        },
+        setLoading(loading: boolean) {
+            this.loading = loading;
+        },
+        setResearchConfiguration(configuration: ResearchConfiguration) {
+            const isTenantCl = configuration.tenant === Tenant.CL;
+            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ this.researchConfiguration.tenant:", configuration.tenant, Tenant.CL)
+            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
+            this.researchConfiguration = configuration;
+            this.researchStep = isTenantCl ? ResearchStep.secondQuestion : ResearchStep.welcome;
+            this.setLoading(false)
+        },
+        setResearchStep(step: ResearchStep) {
+            this.researchStep = step;
+        },
+        // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
             const setTreatment = () => {
                 this.treatment = data.treatment;
@@ -127,7 +160,7 @@ export const useResearchStore = defineStore('research', {
             if (!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
-            
+
             if (isNextStep) {
                 const newStep = this.step + 1;
                 this.router.push({ name: StepOFResearch[newStep] });
@@ -135,7 +168,7 @@ export const useResearchStore = defineStore('research', {
                 this.step++;
                 return;
             }
-            
+
             if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 3) {
                 this.router.push({ name: StepOFResearch[1] });
                 this.stepChild = 0;

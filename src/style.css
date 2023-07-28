@@ -11,6 +11,7 @@
   --tertiary-color-light: #737373;
   --custom-padding: 1rem;
   /* configuration default */
+  box-sizing: border-box;
   background-color: var(--secondary-color-light);
   color: var(--primary-color) !important;
   /* color-scheme: light dark; */
@@ -26,15 +27,20 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html,
-body {
+html, body{
   margin: 0;
   padding: 0;
-  box-sizing: border-box !important;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 main {
-  padding: var(--custom-padding);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -49,7 +55,7 @@ button {
   color: var(--primary-color-light) !important;
 }
 
-nav {
+/* nav {
   padding: var(--custom-padding);
   background: var(--primary-color-light);
   position: relative;
@@ -96,7 +102,7 @@ progress[value]::-moz-progress-bar {
 
 progress[value]::-moz-progress-value {
   background: var(--secondary-color);
-}
+} */
 
 input.answer-of-question {
   width: 12.5rem;
