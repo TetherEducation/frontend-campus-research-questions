@@ -24,7 +24,7 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    if(treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
+    if (treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
         event.target.value = null;
         return;
     }

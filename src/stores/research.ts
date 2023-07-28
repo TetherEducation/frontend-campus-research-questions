@@ -13,7 +13,7 @@ export const useResearchStore = defineStore('research', {
     state: () => ({
         loading: true,
         researchConfiguration: <ResearchConfiguration>{},
-        treatment: null,
+        treatment: 0,
         researchStep: <ResearchStep>{},
         // posibility deprecated
         isValidStep: true,
