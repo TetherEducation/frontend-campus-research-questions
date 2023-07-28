@@ -35,6 +35,7 @@ export interface ResearchAnswerChile {
 
 export interface ResearchConfiguration {
     tenant: Tenant,
+    treatment: number,
     totalCampusesAround: number,
     totalCampusesAroundPaymentAndPerformance: number,
 }

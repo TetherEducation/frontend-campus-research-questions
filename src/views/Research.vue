@@ -10,19 +10,20 @@ watch(
     (value) => {
         const locale: any = `es-${value?.tenant?.toUpperCase()}`
         i18n.global.locale.value = locale;
-        console.log("🚀 ~ file: Research.vue:13 ~ le:", locale)
     },
     { immediate: true }
 )
-// window.addEventListener("message", function(event: any) {
 
-//     if (event.data.context === 'research') {
-//         setDataResearch(event?.data?.action, event?.data?.value);
-//         return;
-//     }
-// });
+window.addEventListener("message", function(event: any) {
 
-// sendTopPostMessage('initData', '');
+    if (event.data.context === 'research') {
+        // console.log('event?.data?.value', event?.data?.value)
+        researchStore.setDataResearch(event?.data?.action, event?.data?.value);
+        return;
+    }
+});
+
+researchStore.sendTopPostMessage('initData', '');
 
 </script>
 <template>

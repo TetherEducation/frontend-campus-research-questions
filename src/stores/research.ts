@@ -71,30 +71,32 @@ export const useResearchStore = defineStore('research', {
             this.loading = loading;
         },
         setResearchConfiguration(configuration: ResearchConfiguration) {
-            const isTenantCl = configuration.tenant === Tenant.CL;
-            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ this.researchConfiguration.tenant:", configuration.tenant, Tenant.CL)
-            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
+            const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
+            // console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
+            // console.log('configuration', configuration)
             this.researchConfiguration = configuration;
+            // console.log("🚀 ~ file: research.ts:77 ~ setResearchConfiguration ~ researchConfiguration:", this.researchConfiguration)
             this.researchStep = isTenantCl ? ResearchStep.secondQuestion : ResearchStep.welcome;
-            this.setLoading(false)
+            // console.log(this.researchStep)
+            this.setLoading(true)
         },
         setResearchStep(step: ResearchStep) {
             this.researchStep = step;
         },
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
-            const setTreatment = () => {
-                this.treatment = data.treatment;
-                this.userLocation = data.currentLocation;
-                this.dataOfResearch.num_estab_correct1 = data.campusesAround.total;
-                this.dataOfResearch.num_estab_correct2 = data.campusesAround.performanceAndPayment || 0;
+            const setInitialData = () => {
+                this.setResearchConfiguration(data);
             };
+
+            console.log('data', data)
+
             const setListOfCampus = () => {
                 this.listOfCampus = data;
             };
 
             const actions = {
-                [ActionDataOfResearch.setTreatment as string]: () => setTreatment(),
+                [ActionDataOfResearch.setInitialData as string]: () => setInitialData(),
                 [ActionDataOfResearch.getListOfCampus as string]: () => setListOfCampus(),
             }
 

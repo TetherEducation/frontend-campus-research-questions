@@ -1,4 +1,4 @@
 export enum Tenant {
-    DO = 'do',
-    CL = 'cl'
+    DO = 'DO',
+    CL = 'CL'
 }
