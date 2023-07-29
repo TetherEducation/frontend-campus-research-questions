@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ResearchStep } from '@/enums/researchStep.enum';
-import { useResearchStore } from '@/stores/research';
+// import { ResearchStep } from '@/enums/researchStep.enum';
+// import { useResearchStore } from '@/stores/research';
 import { ref } from 'vue';
 
 const firstQuestionResult = ref<number>(0);
-const researchStore = useResearchStore();
+// const researchStore = useResearchStore();
 
 const setResult = (result: number) => {
     firstQuestionResult.value = result;
