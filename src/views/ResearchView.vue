@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
-import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
+// import { computed } from 'vue';
+// import { storeToRefs } from 'pinia';
 import NextButton from '@/common/components/NextButton.vue';
 
 const { nextStep, setDataResearch, sendTopPostMessage  } = useResearchStore();
 
-const { currentStep } = storeToRefs(useResearchStore());
+// const { currentStep } = storeToRefs(useResearchStore());
 
 window.addEventListener("message", function(event: any) {
 

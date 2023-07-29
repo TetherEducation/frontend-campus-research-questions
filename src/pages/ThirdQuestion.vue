@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import RadioButtonQuestion from '@/common/components/RadioButtonQuestion.vue';
 import { ActionDataOfResearch } from '@/enums/actionDataOfResearch.enum';
-import { ResearchStep } from '@/enums/researchStep.enum';
+// import { ResearchStep } from '@/enums/researchStep.enum';
 import { useResearchStore } from '@/stores/research';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
