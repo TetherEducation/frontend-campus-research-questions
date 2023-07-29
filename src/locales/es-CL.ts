@@ -16,10 +16,25 @@ export const es_CL: any = {
         }
     },
     "secondquestion": {
-        "breadcrumb": "Pregunta 1"
+        "breadcrumb": "Pregunta 2",
+        "question": "¿Ya sabes a cuántos establecimientos estás considerando postular?",
+        "results": {
+            1: "Si",
+            2: "No",
+            3: "",
+        },  
+        "to_how_many": "¿A cuántos?",
     },
     "thirdquestion": {
-        "breadcrumb": "Pregunta 2"
+        "breadcrumb": "Pregunta 2",
+        "question": "Ya sabes cuál será tu primera preferencia?",
+        "results": {
+            1: "Si",
+            2: "No",
+            3: "",
+        },
+        "how_name_school": "¿Cuál es el nombre del establecimiento?",
+        
     },
     // "": {
     //     "breadcrumb": "bread"

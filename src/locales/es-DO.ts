@@ -16,10 +16,18 @@ export const es_DO = {
         }
     },
     "secondquestion": {
-        "breadcrumb": "Pregunta 2"
+        "breadcrumb": "Pregunta 2",
+        "question": "¿Ya sabes a qué centro educativo vas a matricular al estudiante?",
+        "results": {
+            1: "<b>Sí, estoy seguro/a</b> del centro al que asistirá",
+            2: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> del centro al que asistirá",
+            3: "<b>No, aún no he decidido</b> y no sé a qué centro asistirá",
+        }
     },
     "thirdquestion": {
-        "breadcrumb": "Pregunta 3"
+        "breadcrumb": "Pregunta 3",
+        "question": "¿Cuál es el nombre del centro educativo al que asistirá?",
+        "not_sure": "No estoy seguro del nombre del centro educativo.",
     },
 
 
