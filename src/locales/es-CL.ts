@@ -26,7 +26,7 @@ export const es_CL: any = {
         "to_how_many": "¿A cuántos?",
     },
     "thirdquestion": {
-        "breadcrumb": "Pregunta 2",
+        "breadcrumb": "Pregunta 3",
         "question": "Ya sabes cuál será tu primera preferencia?",
         "results": {
             1: "Si",
