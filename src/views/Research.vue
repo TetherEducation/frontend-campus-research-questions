@@ -15,9 +15,8 @@ watch(
 )
 
 window.addEventListener("message", function(event: any) {
-
     if (event.data.context === 'research') {
-        // console.log('event?.data?.value', event?.data?.value)
+        console.log('Data of explorer', event?.data?.value)
         researchStore.setDataResearch(event?.data?.action, event?.data?.value);
         return;
     }

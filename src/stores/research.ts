@@ -1,6 +1,6 @@
 import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerformanceAndPayment } from "@/enums/stepOfResearch.enum";
 import { defaultLocation } from "@/mocks/defaultLocation";
-import { ResearchLocation, ResearchConfiguration } from "@/interfaces/research.interface";
+import { ResearchLocation, ResearchConfiguration, ResearchAnswerCL, ResearchAnswerDO } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
 import { useI18n } from 'vue-i18n'
 import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
@@ -73,16 +73,44 @@ export const useResearchStore = defineStore('research', {
         },
         setResearchConfiguration(configuration: ResearchConfiguration) {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
-            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
-            // console.log('configuration', configuration)
             this.researchConfiguration = configuration;
-            // console.log("🚀 ~ file: research.ts:77 ~ setResearchConfiguration ~ researchConfiguration:", this.researchConfiguration)
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
-            // console.log(this.researchStep)
+            this.setInterface();
             this.setLoading(false)
+        },
+        setInterface() {
+            const interfaceDO: ResearchAnswerDO = {
+                num_estab_answer1: null,
+                num_estab_correct1: null,
+                num_estab_answer2: null,
+                num_estab_correct2: null,
+                plans_to_enroll: null,
+                knows_school: null,
+                school: null,
+                knows_school_not_sure: false,
+            }
+
+            const interfaceCL: ResearchAnswerCL = {
+                num_estab_answer1: null,
+                num_estab_correct1: null,
+                num_estab_answer2: null,
+                num_estab_correct2: null,
+                school: null,
+                comuna: null,
+                question_1: null,
+                question_2: null,
+                question_3: null,
+            }
+
+            this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
         },
         setResearchStep(step: ResearchStep) {
             this.researchStep = step;
+        },
+        setAnswer(answer: any, key: string) {
+            let modifyInterface: any = this.researchConfiguration.interface;
+            modifyInterface[key] = answer;
+            this.researchConfiguration.interface = modifyInterface;
         },
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
@@ -90,7 +118,7 @@ export const useResearchStore = defineStore('research', {
                 this.setResearchConfiguration(data);
             };
 
-            console.log('data', data)
+            console.log('Initital data', data)
 
             const setListOfCampus = () => {
                 this.listOfCampus = data;

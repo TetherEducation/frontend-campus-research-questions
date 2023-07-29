@@ -7,26 +7,37 @@ const { t } = useI18n();
 
 const researchStore = useResearchStore();
 
-const results = () => {
+defineProps<{ changestyle: false }>();
+const question: any = () => {
   const keyOfi18n = researchStore.researchStep.toLocaleLowerCase();
-  
-  return [
-    t(`${keyOfi18n}.results.1`),
-    t(`${keyOfi18n}.results.2`),
-    t(`${keyOfi18n}.results.3`),
-  ]
+
+  return {
+    title: t(`${keyOfi18n}.question`),
+    results: [
+      t(`${keyOfi18n}.results.1`),
+      t(`${keyOfi18n}.results.2`),
+      t(`${keyOfi18n}.results.3`),
+    ].filter((result: string) => result)
+  }
 }
 
 </script>
 <template>
-     <div class="d-flex align-items-center ml-1 mt-8" v-for="(option, key) in results()"
-        :key="String(option)">
-        <label class="container label-selection">
-          <span v-html="option" />
-          <input type="radio" :for="String(option)" name="radio" @click="$emit('selectionResult', key+1 )">
-          <span class="checkmark"></span>
-        </label>
+  <h1 v-html="question().title" />
+  <section class="d-flex" :class="changestyle ? 'flex-row': 'flex-column'">
+    <div v-for="(option, key) in question().results" :key="String(option)" class="d-flex align-items-center ml-1 mt-8">
+      <label v-if="!changestyle" class="container label-selection">
+        <span v-html="option" />
+        <input type="radio" :for="String(option)" name="radio" @click="$emit('selectionResult', key + 1)">
+        <span class="checkmark"></span>
+      </label>
+      <div v-else class="radio-toolbar mr-2 mt-5">
+        <input type="radio" :id="String(option)" :for="String(option)" name="radio"
+          @click="$emit('selectionResult', option)">
+        <label class="text-center" :for="String(option)">{{ option }}</label>
       </div>
+    </div>
+  </section>
 </template>
 <style scoped>
 .checkbox_label {
@@ -112,5 +123,35 @@ const results = () => {
   height: 8px;
   border-radius: 50%;
   background: white;
+}
+
+.radio-toolbar {
+  width: 100%;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+  display: inline-block;
+  width: 100%;
+  min-width: 150px;
+  background-color: white;
+  padding: 10px 20px;
+  font-family: sans-serif, Arial;
+  font-size: 14px;
+  border: 0px;
+  border-radius: 8px;
+}
+
+.radio-toolbar input[type="radio"]:checked+label {
+  background-color: var(--secondary-color);
+  color: white;
+  border: 16px;
 }
 </style>

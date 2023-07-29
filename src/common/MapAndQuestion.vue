@@ -145,7 +145,7 @@ const styleCircle = {
             <h2 for="answer" class="mt-8 fix-size" v-html="config.description" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
-                    placeholder="XXX" />
+                    placeholder="" />
                 <span v-if="treatment > 1 && currentStep === 2" class="text-between-answer ml-3">de {{ dataOfResearch?.num_estab_correct1
                 }}</span>
             </div>

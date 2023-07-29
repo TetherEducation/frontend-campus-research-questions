@@ -124,6 +124,33 @@ input.answer-of-question {
   color: var(--secondary-color);
 }
 
+input.answer-of-question-default {
+  width: 100%;
+  max-width: 350px;
+  height: 2.6rem !important;
+  background: #EBEBEB;
+  border-radius: 0.875rem;
+  -webkit-border-radius: 0.875rem;
+  -moz-border-radius: 0.875rem;
+  -ms-border-radius: 0.875rem;
+  -o-border-radius: 0.875rem;
+  outline: none;
+  border: none;
+  text-align: left;
+  padding: 0 1rem;
+  letter-spacing: 0.0025em;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: var(--secondary-color);
+  border-radius: 8px !important;
+}
+
+input.answer-of-question-default::placeholder {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 input.answer-of-question::placeholder {
   text-align: center;
   letter-spacing: 0.0025em;
@@ -424,8 +451,7 @@ p, .label-selection {
 
 @media only screen and (min-width: 1100px) and (min-height: 685px) {
   .container-question__button {
-    display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .pl-custom {
