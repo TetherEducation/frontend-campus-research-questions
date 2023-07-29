@@ -36,6 +36,7 @@ export const useResearchStore = defineStore('research', {
         answerCampusPaymentAndPerformance: null || 0,
     }),
     getters: {
+        isTenantCl: (state) => state.researchConfiguration.tenant.toUpperCase() === Tenant.CL,
         // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
@@ -72,13 +73,13 @@ export const useResearchStore = defineStore('research', {
         },
         setResearchConfiguration(configuration: ResearchConfiguration) {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
-            // console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
+            console.log("🚀 ~ file: research.ts:75 ~ setResearchConfiguration ~ isTenantCl:", isTenantCl)
             // console.log('configuration', configuration)
             this.researchConfiguration = configuration;
             // console.log("🚀 ~ file: research.ts:77 ~ setResearchConfiguration ~ researchConfiguration:", this.researchConfiguration)
-            this.researchStep = isTenantCl ? ResearchStep.secondQuestion : ResearchStep.welcome;
+            this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
             // console.log(this.researchStep)
-            this.setLoading(true)
+            this.setLoading(false)
         },
         setResearchStep(step: ResearchStep) {
             this.researchStep = step;

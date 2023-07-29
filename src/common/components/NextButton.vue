@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useResearchStore } from '@/stores/research';
-import { Tenant } from "@/enums/tenant.enum";
 
 const researchStore = useResearchStore();
 
@@ -10,11 +9,11 @@ const researchStore = useResearchStore();
     type="button"
     @click="$emit('click')"
     class="next-button-research"
-    :class="{ 'next-button-research-cl': researchStore.researchConfiguration.tenant === Tenant.CL }"
+    :class="{ 'next-button-research-cl': researchStore.isTenantCl }"
     >
     {{ $t('actions.next') }}
     <svg
-    v-if="researchStore.researchConfiguration.tenant === Tenant.CL"
+      v-if="researchStore.isTenantCl"
       class="ml-4"
       xmlns="http://www.w3.org/2000/svg"
       width="24"

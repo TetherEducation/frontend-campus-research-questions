@@ -2,9 +2,6 @@
 import { useResearchStore } from '@/stores/research';
 import { computed } from 'vue';
 import { i18n } from "../../i18n";
-import { Tenant } from '@/enums/tenant.enum';
-import { ResearchStep } from '@/enums/researchStep.enum';
-
 
 const researchStore = useResearchStore();
 
@@ -12,20 +9,14 @@ const breadcrumb = computed(() => {
     return i18n.global.t(`${researchStore.researchStep.toLowerCase()}.breadcrumb`);
 })
 
-const showBackButton = computed(() => {
-    if (Tenant.CL === researchStore.researchConfiguration?.tenant) {
-        return researchStore.researchStep === ResearchStep.firstQuestion;
-    }
-    return researchStore.researchStep !== ResearchStep.welcome;
-})
-
 </script>
 <template>
     <nav>        
-        <button v-if="showBackButton" type="button" @click="$router.back()" class="mr-4">
+        <button type="button" @click="$router.back()" class="mr-4">
             <img src="@/assets/arrow-left.svg" alt="arrow left" width="24">
         </button>
-        <img src="@/assets/explorer.svg" alt="explorer" width="30">
+        <img v-if="researchStore.isTenantCl" src="@/assets/sae.svg" alt="explorer" width="60">
+        <img v-else src="@/assets/explorer.svg" alt="explorer" width="30">
         <h1 class="mt-4">{{ breadcrumb }}</h1>
         <progress id="file" max="100" value="100" class="mx-1 progress"></progress>
     </nav>

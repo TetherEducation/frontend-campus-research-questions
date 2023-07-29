@@ -411,7 +411,23 @@ p, .label-selection {
   padding-left: 20px !important;
 }
 
+.container-question {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-question__button {
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (min-width: 1100px) and (min-height: 685px) {
+  .container-question__button {
+    display: flex;
+    justify-content: center;
+  }
+
   .pl-custom {
     padding-left: 64px !important;
 }

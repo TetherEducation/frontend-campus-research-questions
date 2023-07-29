@@ -9,11 +9,11 @@ export const es_DO = {
     "firstquestion": {
         "breadcrumb": "Pregunta 1",
         "question": "¿Estás pensando en matricular al estudiante en un nuevo centro educativo?",
-        "results": [
-            "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo para <b>septiembre del 2023</b>",
-            "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo, pero para <b>septiembre del 2024</b>",
-            "<b>No,</b> planeo <b>mantener al estudiante</b> en el mismo centro educativo.",
-        ]
+        "results": {
+            1: "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo para <b>septiembre del 2023</b>",
+            2: "<b>Sí,</b> planeo matricular al estudiante en un nuevo centro educativo, pero para <b>septiembre del 2024</b>",
+            3: "<b>No,</b> planeo <b>mantener al estudiante</b> en el mismo centro educativo.",
+        }
     },
     "secondquestion": {
         "breadcrumb": "Pregunta 2"

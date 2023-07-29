@@ -1,19 +1,37 @@
 <script setup lang="ts">
 import { ResearchStep } from '@/enums/researchStep.enum';
 import { useResearchStore } from '@/stores/research';
+import { ref } from 'vue';
 
+const firstQuestionResult = ref<number>(0);
 const researchStore = useResearchStore();
 
+const setResult = (result: number) => {
+    firstQuestionResult.value = result;
+}
+
+const nextStep = () => {
+    return firstQuestionResult.value === 0 ? null : setNexStep()
+}
+
+const setNexStep = () => {
+    return;
+    // if (researchStore.isTenantCl) {
+    //     researchStore.setResearchStep(ResearchStep.secondQuestion)
+    //     return;
+    // }
+
+    // const step = firstQuestionResult.value === 3 ? ResearchStep.questionCampusAround : ResearchStep.secondQuestion;
+    // researchStore.setResearchStep(step)
+}
 </script>
 <template>
-    <section class="">
+    <section class="container-question">
         <div>
-            <RadioButtonQuestion />
+            <RadioButtonQuestion @selectionResult="setResult($event)" />
         </div>
-        <div>
-            <NextButton @click="researchStore.setResearchStep(ResearchStep.secondQuestion)" />
+        <div class="container-question__button">
+            <NextButton @click="nextStep()" />
         </div>
     </section>
 </template>
-<style scoped>
-</style>
