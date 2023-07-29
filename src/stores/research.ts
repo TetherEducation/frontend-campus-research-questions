@@ -2,7 +2,7 @@ import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerf
 import { defaultLocation } from "@/mocks/defaultLocation";
 import { ResearchLocation, ResearchConfiguration } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
-import { i18n } from "../i18n";
+import { useI18n } from 'vue-i18n'
 import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
 import { campuses } from "@/mocks/campuses";
 import { ResearchStep } from "@/enums/researchStep.enum";
@@ -127,17 +127,19 @@ export const useResearchStore = defineStore('research', {
             }
 
             function breadcrumCampusAround() {
-                return i18n.global.t('campus_around.title');
+                const { t } = useI18n();
+                return t('campus_around.title');
             }
 
             function breadcrumPerformanceAndPayment() {
-                return i18n.global.t('performance_and_payment.title');
+                const { t } = useI18n();
+                return t('performance_and_payment.title');
             }
 
             function breadcrumGoToExplorer() {
-                return i18n.global.t('go_to_explorer.title');
+                const { t } = useI18n();
+                return t('go_to_explorer.title');
             }
-
 
             return breadcrumbOfStep[this.step];
         },

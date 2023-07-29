@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useResearchStore } from '@/stores/research';
 import { computed } from 'vue';
-import { i18n } from "../../i18n";
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n();
 const researchStore = useResearchStore();
 
 const breadcrumb = computed(() => {
-    return i18n.global.t(`${researchStore.researchStep.toLowerCase()}.breadcrumb`);
+    return t(`${researchStore.researchStep.toLowerCase()}.breadcrumb`);
 })
 
 </script>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { i18n } from '@/i18n';
 import { useResearchStore } from '@/stores/research';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n();
 // import { Tenant } from "@/enums/tenant.enum";
 
 const researchStore = useResearchStore();
@@ -9,9 +11,9 @@ const results = () => {
   const keyOfi18n = researchStore.researchStep.toLocaleLowerCase();
   
   return [
-    i18n.global.t(`${keyOfi18n}.results.1`),
-    i18n.global.t(`${keyOfi18n}.results.2`),
-    i18n.global.t(`${keyOfi18n}.results.3`),
+    t(`${keyOfi18n}.results.1`),
+    t(`${keyOfi18n}.results.2`),
+    t(`${keyOfi18n}.results.3`),
   ]
 }
 

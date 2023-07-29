@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { i18n } from "../i18n";
 import { computed } from 'vue'
 import { useResearchStore } from '../stores/research';
 import { StepOfEnrollmentSection } from '@/enums/stepOfResearch.enum';
 import { ref, watch } from 'vue'
 import { ActionDataOfResearch } from '@/enums/actionDataOfResearch.enum';
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n();
 const { currentStepChild, getListOfCampus, currentStep } = storeToRefs(useResearchStore());
 const { setAnswersResearch } = useResearchStore();
 const nameSchool = ref<string>('')
@@ -28,16 +29,16 @@ const enrollmentSection = computed(() => {
     //   question: i18n.global.t('enrollment_section.description', { questions: 'preguntas'}),
     // },
     [StepOfEnrollmentSection.FirstQuestionEnrollmentSection]: {
-      question: i18n.global.t('enrollment_section.question_1.title'),
-      options: i18n.global.t('enrollment_section.question_1.options').split('%space%'),
+      question: t('enrollment_section.question_1.title'),
+      options: t('enrollment_section.question_1.options').split('%space%'),
     },
     [StepOfEnrollmentSection.SecondQuestionEnrollmentSection]: {
-      question: i18n.global.t('enrollment_section.question_2.title'),
-      options: i18n.global.t('enrollment_section.question_2.options').split('%space%'),
+      question: t('enrollment_section.question_2.title'),
+      options: t('enrollment_section.question_2.options').split('%space%'),
     },
     [StepOfEnrollmentSection.ThirdQuestionEnrollmentSection]: {
-      question: i18n.global.t('enrollment_section.question_3.title'),
-      options: i18n.global.t('enrollment_section.question_3.not_sure'),
+      question: t('enrollment_section.question_3.title'),
+      options: t('enrollment_section.question_3.not_sure'),
     },
   }
 
