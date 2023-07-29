@@ -7,7 +7,7 @@ const { t } = useI18n();
 
 const researchStore = useResearchStore();
 
-defineProps<{ changestyle: false }>();
+defineProps<{ changestyle: boolean }>();
 const question: any = () => {
   const keyOfi18n = researchStore.researchStep.toLocaleLowerCase();
 

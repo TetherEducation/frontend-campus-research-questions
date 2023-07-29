@@ -87,7 +87,7 @@ const setResultRadioButton = (result: string) => {
 
             </div>
             <div v-else>
-                <RadioButtonQuestion @selectionResult="setResultRadioButton($event)" :changestyle="true" />
+                <RadioButtonQuestion @selectionResult="setResultRadioButton($event)" :changestyle="researchStore.isTenantCl" />
                 <template v-if="showInputSection">
                     <h5 v-t="'thirdquestion.how_name_school'" class="mt-12"/>
                     <div class="mt-4 d-flex flex-row flex-wrap gap-5">
