@@ -30,7 +30,7 @@ const getSrcIframeExplorer = () => {
     const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
 
     const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER
-    const url = new URL(urlRoot);
+    const url = new URL('/research_iframe', urlRoot);
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
     url.searchParams.append('radius', '2');
