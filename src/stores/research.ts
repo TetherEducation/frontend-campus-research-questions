@@ -1,5 +1,4 @@
 import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerformanceAndPayment } from "@/enums/stepOfResearch.enum";
-import { defaultLocation } from "@/mocks/defaultLocation";
 import { ResearchLocation, ResearchConfiguration, ResearchAnswerCL, ResearchAnswerDO } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
 import { useI18n } from 'vue-i18n'
@@ -19,7 +18,6 @@ export const useResearchStore = defineStore('research', {
         isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
-        userLocation: defaultLocation as ResearchLocation,
         listOfCampus: [],
         dataOfResearch: {
             num_estab_answer1: null,
@@ -43,7 +41,7 @@ export const useResearchStore = defineStore('research', {
         campuses: (state) => state.campusesAround,
         totalCampusesAround: (): number => 4,
         totalCampusesPaymentAndPerformance: (): number => 4,
-        centerLocation: (state): ResearchLocation => state.userLocation,
+        centerLocation: (state): ResearchLocation => state.researchConfiguration.location,
         getAnswerCampusAround: (state) => state.answerCampusAround,
         getAnswerCampusPaymentAndPerformance: (state) => state.answerCampusPaymentAndPerformance,
         sizeOfSteps: () => {
@@ -60,12 +58,12 @@ export const useResearchStore = defineStore('research', {
     actions: {
         initResearch() {
             this.setLoading(true);
-            window.top!.postMessage({ 
+            window.top!.postMessage({
                     context: 'explorer',
                     action: 'initData',
                 }, '*');
-            
-            
+
+
             this.setLoading(false);
         },
         setLoading(loading: boolean) {
@@ -115,7 +113,7 @@ export const useResearchStore = defineStore('research', {
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
             const setInitialData = () => {
-                this.setResearchConfiguration(data);
+                this.setResearchConfiguration(data as ResearchConfiguration);
             };
 
             console.log('Initital data', data)

@@ -18,7 +18,7 @@ export interface ResearchAnswerDO {
     num_estab_correct2: number | null,
     plans_to_enroll: boolean | null,
     knows_school: boolean | null,
-    school: string | null, 
+    school: string | null,
     knows_school_not_sure: boolean | null,
 }
 
@@ -38,6 +38,9 @@ export interface ResearchConfiguration {
     tenant: Tenant,
     treatment: number,
     totalCampusesAround: number,
+    location: ResearchLocation,
+    grades: number[] | null,
+    hasPriority: boolean | null,
     totalCampusesAroundPaymentAndPerformance: number,
     interface?: ResearchAnswerCL | ResearchAnswerDO,
 }

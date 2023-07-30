@@ -17,16 +17,27 @@ const styleCircle = {
     fillColor: 'rgba(255, 255, 255, 0.3)',
     fillOpacity: 0.9,
 }
-const { userLocation, dataOfResearch } = useResearchStore();
+const { dataOfResearch, researchConfiguration } = useResearchStore();
 
 const showFilters = computed(() => {
     return treatment.value === 3;
 })
 
 const getSrcIframeExplorer = () => {
-    const url: string = import.meta.env.VITE_IFRAME_EXPLORER
-    let newUrl = url.replace('location', `lat=${userLocation.lat}&lng=${userLocation.lng}`);
-    return newUrl.replace('filters', `filters=${showFilters.value}`)
+    const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
+
+    const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER
+    const url = new URL(urlRoot);
+    url.searchParams.append('lat', location.lat.toString());
+    url.searchParams.append('lng', location.lng.toString());
+    url.searchParams.append('radius', '2');
+    url.searchParams.append('z', '15.4');
+    url.searchParams.append('filters', `${showFilters.value}`);
+    for (const grade of (grades || [])) {
+        url.searchParams.append('grade', grade.toString());
+    }
+    url.searchParams.append('force_scholarships', `${applyScholarships}`);
+    return url.toString();
 };
 </script>
 <template>
