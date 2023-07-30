@@ -1,4 +1,5 @@
 import { ResearchConfiguration } from '@/interfaces/research.interface';
+import { defaultLocation } from '@/mocks/defaultLocation';
 import { useResearchStore } from '@/stores/research';
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
@@ -9,16 +10,19 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/Research.vue'),
         beforeEnter: (to, _from, next) => {
             // The code below checks the query string for the treatment, value, and tenant parameters.
-            // If the parameters exist, it uses the value parameter to set the totalCampusesAround and 
+            // If the parameters exist, it uses the value parameter to set the totalCampusesAround and
             // totalCampusesAroundPaymentAndPerformance properties of the researchConfiguration object.
-            const { treatment, value, tenant } = to.query;
+            const { treatment, value, tenant, grades, hasPriority: hasPriority } = to.query;
             if (treatment && value && tenant) {
                 const store = useResearchStore();
                 const researchConfiguration: ResearchConfiguration = {
                     tenant: tenant as any,
+                    grades: grades?.toString().split(',').map((grade: string) => +grade) || null,
+                    hasPriority: !!hasPriority,
                     totalCampusesAround: +value,
                     totalCampusesAroundPaymentAndPerformance: +value - 1,
                     treatment: +treatment,
+                    location: defaultLocation,
                 }
                 store.setResearchConfiguration(researchConfiguration);
             }
