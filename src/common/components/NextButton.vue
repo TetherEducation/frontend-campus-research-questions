@@ -7,7 +7,7 @@ const researchStore = useResearchStore();
 <template>
     <button
     type="button"
-    @click="$emit('click')"
+    @click="$emit('clickNextButton')"
     class="next-button-research"
     :class="{ 'next-button-research-cl': researchStore.isTenantCl }"
     >

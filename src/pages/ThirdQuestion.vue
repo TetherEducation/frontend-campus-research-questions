@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import RadioButtonQuestion from '@/common/components/RadioButtonQuestion.vue';
 import { ActionDataOfResearch } from '@/enums/actionDataOfResearch.enum';
-// import { ResearchStep } from '@/enums/researchStep.enum';
+import { ResearchStep } from '@/enums/researchStep.enum';
 import { useResearchStore } from '@/stores/research';
 import { ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
 
 const researchStore = useResearchStore();
-const router = useRouter();
 const showInputSection = ref<boolean>(false);
 
 const payloadSecondQuestion: any = {
@@ -56,7 +54,7 @@ const setNexStep = () => {
     researchStore.setAnswer(payloadSecondQuestion.school, 'school')
     researchStore.setAnswer(payloadSecondQuestion.comuna, 'comuna')
 
-    router.push({ name: 'CampusAround' })
+    researchStore.setResearchStep(ResearchStep.questionCampusAround)
 
 }
 const setResultRadioButton = (result: string) => {
@@ -127,7 +125,7 @@ const setResultRadioButton = (result: string) => {
     user-select: none;
     font-weight: 400 !important;
     border-radius: 10px;
-    vertical-align: baseline !important;
+    /* vertical-align: baseline !important; */
 }
 
 /* Hide the browser's default checkbox */

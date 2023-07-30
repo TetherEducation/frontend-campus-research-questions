@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
-
-import { storeToRefs } from 'pinia';
 import { mapStyle } from '../assets/map/mapStyle';
+import NextButton from '@/common/components/NextButton.vue';
 
 
-const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
+// const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
+const researchStore = useResearchStore();
 
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
@@ -17,12 +17,15 @@ const styleCircle = {
     fillColor: 'rgba(255, 255, 255, 0.3)',
     fillOpacity: 0.9,
 }
-const { dataOfResearch, researchConfiguration } = useResearchStore();
+const { researchConfiguration } = useResearchStore();
 
 const showFilters = computed(() => {
     return treatment.value === 3;
 })
 
+const treatment = computed(() => {
+    return researchStore.researchConfiguration.treatment;
+})
 const getSrcIframeExplorer = () => {
     const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
 
@@ -39,9 +42,15 @@ const getSrcIframeExplorer = () => {
     url.searchParams.append('force_scholarships', `${applyScholarships}`);
     return url.toString();
 };
+
+const nextStep = () => {
+    researchStore.sendTopPostMessage('setAnswer', '', true);
+    researchStore.sendTopPostMessage('close', true);
+}
+
 </script>
 <template>
-    <div v-if="currentStep === 3" class="w-full d-flex flex-column">
+    <div class="w-full d-flex flex-column">
         <div class="go-to-explorer">
             <!-- label -->
             <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu
@@ -49,7 +58,7 @@ const getSrcIframeExplorer = () => {
             <!-- results -->
             <section v-if="treatment !== 1" class="go-to-explorer__information mt-3">
                 <div style="position: relative;">
-                    <p class="mt-4 ml-3 d-flex">{{ dataOfResearch.num_estab_correct1 }}
+                    <p class="mt-4 ml-3 d-flex">{{ researchStore.researchConfiguration.totalCampusesAround }}
                         <img v-if="treatment === 3" src="../assets/schoolfilter.svg" alt="">
                     </p>
                     <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">centros</span>
@@ -57,7 +66,7 @@ const getSrcIframeExplorer = () => {
                     <img src="../assets/rectangule-purple.svg" alt="">
                 </div>
                 <div class="second-information">
-                    <p class="mt-5 ml-3">{{ dataOfResearch.num_estab_correct2 }}
+                    <p class="mt-5 ml-3">{{ researchStore.researchConfiguration.totalCampusesAroundPaymentAndPerformance }}
                         <img v-if="treatment === 3" src="../assets/filters.svg" alt="">
                     </p>
                     <span class="information mt-2 ml-3">de bajo costo y</span>
@@ -68,11 +77,11 @@ const getSrcIframeExplorer = () => {
         </div>
         <!-- Explorer map -->
         <section style="height: auto;" v-if="treatment === 1">
-            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="15"
+            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="researchStore.centerLocation" :zoom="15"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
-                <Circle :options="{ center: centerLocation, ...styleCircle }" />
-                <CustomMarker :options="{ position: centerLocation }">
+                <Circle :options="{ center: researchStore.centerLocation, ...styleCircle }" />
+                <CustomMarker :options="{ position: researchStore.centerLocation }">
                     <img src="../assets/marker-user.svg" />
                 </CustomMarker>
             </GoogleMap>
@@ -80,6 +89,8 @@ const getSrcIframeExplorer = () => {
         <section v-else>
             <iframe :src="getSrcIframeExplorer()"></iframe>
         </section>
+
+        <NextButton @click="nextStep()" />
     </div>
 </template>
 <style scoped>

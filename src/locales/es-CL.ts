@@ -34,7 +34,71 @@ export const es_CL: any = {
             3: "",
         },
         "how_name_school": "¿Cuál es el nombre del establecimiento?",
-        
+    },
+    "questioncampusaround": {
+        "breadcrumb": "Explora tu radio",
+        "description": "A 2 km de tu ubicación de preferencia pueden haber muchos <b>establecimientos de tu grado de interés.</b>",
+        "question": "¿Cuantos crees que son?"
+    },
+    "answercampusaround": {
+        "breadcrumb": "Explora tu radio",
+    },
+    "informationpayment": {
+        "breadcrumb": "Explora tu radio",
+        "title": "Costos de Mensualidad",
+        "description": "Los establecimientos educativos se pueden <b>agrupar en diferentes categorías</b> según su costo:",
+        "subtitle": "Nivel según costo",
+        "footer": "El <b>1.3%</b> de los establecimientos que ofrecen media en Chile no cuentan con información relacionada a los costos mensuales.",
+        "free": {
+            "title": "Gratuito",
+            "description": "El <b>66%</b> de los establecimientos en Chile que ofrecen media son <b>gratuitos.</b>",
+        },
+        "low": {
+            "title": "CLP $1 - $50,000",
+            "description": "El <b>6%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
+        },
+        "medium": {
+            "title": "CLP $50,001 - $100,000",
+            "description": "El <b>10%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
+        },
+        "high": {
+            "title": "Más de CLP $100,000",
+            "description": "El <b>16%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
+        },
+    },
+    "informationperformance": {
+        "breadcrumb": "Explora tu radio",
+        "title": "Desempeño Académico",
+        "description":"Los establecimientos educativos se <b>agrupan en distintos niveles</b> según la <b>Agencia de Calidad de la Educación del MINEDUC.</b> Te invitamos a revisarlos:",
+        "subtitle": "Nivel según desempeño",
+        "footer": "El <b>3%</b> de los establecimientos en Chile no cuentan con información relacionada al desempeño académico",
+        "free": {
+            "title": "Alto",
+            "description": "El <b>13%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "low": {
+            "title": "Medio",
+            "description": "El <b>57%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "medium": {
+            "title": "Medio - Bajo",
+            "description": "El <b>24%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "high": {
+            "title": "Insuficiente",
+            "description": "El <b>6%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+    },
+    "questionperformanceandpayment":{
+            "breadcrumb": "Explora tu radio",
+            "description": "De los <b>{total} establecimientos</b> con tu grado de interés a 2km de tu ubicación de preferencia:",
+            "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
+    },
+    "answerperformanceandpayment": {
+        "breadcrumb": "Explora tu radio",
+    },
+    "gotoexplorer": {
+        "breadcrumb": "Explora tu radio",
     },
     // "": {
     //     "breadcrumb": "bread"

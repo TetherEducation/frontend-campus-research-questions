@@ -1,13 +1,42 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { MapAndQuestionInterface } from '../interfaces/mapAndQuestion.interface';
-import { useResearchStore } from '../stores/research';
-import { mapStyle } from '../assets/map/mapStyle';
+// import { MapAndQuestionInterface } from '../interfaces/mapAndQuestion.interface';
+import { useResearchStore } from '@/stores/research';
+import { mapStyle } from '@/assets/map/mapStyle';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n'
+import { ResearchStep } from '@/enums/researchStep.enum';
 
-defineProps<{ config: MapAndQuestionInterface, showIcon: false }>();
 
+const { t } = useI18n();
+const researchStore = useResearchStore();
 const { centerLocation } = storeToRefs(useResearchStore());
-const { setAnswersResearch, currentStepChild, treatment, dataOfResearch, currentStep } = useResearchStore();
+const { setAnswersResearch, currentStepChild } = useResearchStore();
+
+const textQuestion = computed(() => {
+    console.log(researchStore.researchStep.toLowerCase())
+    return t(`${researchStore.researchStep.toLowerCase()}.question`)
+})
+
+const isPerformanceAndpayment = computed(() => {
+    return researchStore.researchStep === ResearchStep.questionPerformanceAndPayment;
+})
+
+const textDescription = computed(() => {
+    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
+    { total: researchStore.researchConfiguration.totalCampusesAround })
+})
+
+let answer: number;
+
+const nextStep = () => {
+    if (answer) {
+        const key = researchStore.researchStep === 'QuestionCampusAround' ? 'num_estab_answer1' : 'num_estab_answer2';
+        researchStore.setAnswer(answer, key)
+        const step = isPerformanceAndpayment.value ? ResearchStep.answerPerformanceAndPayment : ResearchStep.answerCampusAround;
+        researchStore.setResearchStep(step)
+    }
+}
 
 const getAnswer = (event: any) => {
     if (Math.sign(event?.target.value) === -1) {
@@ -15,7 +44,7 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    if(event?.target.value === '' || event?.target?.value === null) {
+    if (event?.target.value === '' || event?.target?.value === null) {
         event.target.value = null;
         return;
     }
@@ -24,15 +53,16 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    if (treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
-        event.target.value = null;
-        return;
-    }
+    answer = Number(event?.target.value);
+    // if (treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
+    //     event.target.value = null;
+    //     return;
+    // }
 
-    if (treatment > 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_correct1) {
-        event.target.value = null;
-        return;
-    }
+    // if (treatment > 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_correct1) {
+    //     event.target.value = null;
+    //     return;
+    // }
 
     if (currentStepChild === 0) {
         setAnswersResearch({
@@ -66,10 +96,10 @@ const styleCircle = {
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />
                 <CustomMarker :options="{ position: centerLocation }">
-                    <img src="../assets/marker-user.svg" />
+                    <img src="@/assets/marker-user.svg" />
                 </CustomMarker>
 
-                <svg v-if="showIcon"
+                <svg v-if="isPerformanceAndpayment"
                     style="position: absolute; z-index: 100; bottom: 0; width: 100%; margin: auto; margin-bottom: 2rem;"
                     width="247" height="70" viewBox="0 0 232 76" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect opacity="0.8" width="108" height="76" rx="16" fill="white" />
@@ -106,49 +136,20 @@ const styleCircle = {
                         fill="#1E0C61" />
                 </svg>
 
-                <svg v-if="false"
-                    style="position: absolute; z-index: 100; bottom: 0; width: 100%; margin: auto; margin-bottom: 2rem;"
-                    width="232" height="56" viewBox="0 0 232 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect opacity="0.8" width="108" height="56" rx="16" fill="white" />
-                    <circle cx="32" cy="28" r="18" fill="white" fill-opacity="0.6" />
-                    <circle cx="32" cy="28" r="16.5" fill="#20D1BF" />
-                    <path
-                        d="M32.0195 34.8059C31.857 34.8059 31.7195 34.7496 31.607 34.6371C31.4945 34.5246 31.4383 34.3809 31.4383 34.2059V33.2121C30.8258 33.1121 30.307 32.8965 29.882 32.5652C29.457 32.234 29.1258 31.8184 28.8883 31.3184C28.8133 31.1684 28.8133 31.0121 28.8883 30.8496C28.9633 30.6871 29.082 30.5684 29.2445 30.4934C29.382 30.4309 29.5289 30.434 29.6852 30.5027C29.8414 30.5715 29.9633 30.6809 30.0508 30.8309C30.2758 31.2434 30.5664 31.5527 30.9227 31.759C31.2789 31.9652 31.682 32.0684 32.132 32.0684C32.732 32.0684 33.2195 31.9215 33.5945 31.6277C33.9695 31.334 34.157 30.9371 34.157 30.4371C34.157 29.8996 33.982 29.4809 33.632 29.1809C33.282 28.8809 32.6383 28.5809 31.7008 28.2809C30.8008 27.9934 30.1289 27.609 29.6852 27.1277C29.2414 26.6465 29.0195 26.0434 29.0195 25.3184C29.0195 24.6434 29.2352 24.0684 29.6664 23.5934C30.0977 23.1184 30.6883 22.8434 31.4383 22.7684V21.7934C31.4383 21.6184 31.4945 21.4746 31.607 21.3621C31.7195 21.2496 31.857 21.1934 32.0195 21.1934C32.1945 21.1934 32.3383 21.2496 32.4508 21.3621C32.5633 21.4746 32.6195 21.6184 32.6195 21.7934V22.7684C33.057 22.8309 33.457 22.9684 33.8195 23.1809C34.182 23.3934 34.4883 23.6746 34.7383 24.0246C34.8258 24.1621 34.8414 24.309 34.7852 24.4652C34.7289 24.6215 34.6195 24.7309 34.457 24.7934C34.307 24.8684 34.1539 24.8777 33.9977 24.8215C33.8414 24.7652 33.7008 24.6684 33.5758 24.5309C33.4133 24.3184 33.2039 24.159 32.9477 24.0527C32.6914 23.9465 32.3945 23.8934 32.057 23.8934C31.4945 23.8934 31.0508 24.0184 30.7258 24.2684C30.4008 24.5184 30.2383 24.8621 30.2383 25.2996C30.2383 25.7496 30.4164 26.1184 30.7727 26.4059C31.1289 26.6934 31.8195 26.9934 32.8445 27.3059C33.707 27.5809 34.3445 27.9684 34.757 28.4684C35.1695 28.9684 35.3758 29.5996 35.3758 30.3621C35.3758 31.1621 35.1414 31.8059 34.6727 32.2934C34.2039 32.7809 33.5195 33.0934 32.6195 33.2309V34.2059C32.6195 34.3809 32.5633 34.5246 32.4508 34.6371C32.3383 34.7496 32.1945 34.8059 32.0195 34.8059Z"
-                        fill="white" />
-                    <path d="M29 35.5L35 20.5" stroke="white" stroke-width="0.8" stroke-linecap="round" />
-                    <circle cx="76" cy="28" r="18" fill="white" fill-opacity="0.6" />
-                    <circle cx="76" cy="28" r="16.5" fill="#44B8EB" />
-                    <path
-                        d="M76.0195 34.8059C75.857 34.8059 75.7195 34.7496 75.607 34.6371C75.4945 34.5246 75.4383 34.3809 75.4383 34.2059V33.2121C74.8258 33.1121 74.307 32.8965 73.882 32.5652C73.457 32.234 73.1258 31.8184 72.8883 31.3184C72.8133 31.1684 72.8133 31.0121 72.8883 30.8496C72.9633 30.6871 73.082 30.5684 73.2445 30.4934C73.382 30.4309 73.5289 30.434 73.6852 30.5027C73.8414 30.5715 73.9633 30.6809 74.0508 30.8309C74.2758 31.2434 74.5664 31.5527 74.9227 31.759C75.2789 31.9652 75.682 32.0684 76.132 32.0684C76.732 32.0684 77.2195 31.9215 77.5945 31.6277C77.9695 31.334 78.157 30.9371 78.157 30.4371C78.157 29.8996 77.982 29.4809 77.632 29.1809C77.282 28.8809 76.6383 28.5809 75.7008 28.2809C74.8008 27.9934 74.1289 27.609 73.6852 27.1277C73.2414 26.6465 73.0195 26.0434 73.0195 25.3184C73.0195 24.6434 73.2352 24.0684 73.6664 23.5934C74.0977 23.1184 74.6883 22.8434 75.4383 22.7684V21.7934C75.4383 21.6184 75.4945 21.4746 75.607 21.3621C75.7195 21.2496 75.857 21.1934 76.0195 21.1934C76.1945 21.1934 76.3383 21.2496 76.4508 21.3621C76.5633 21.4746 76.6195 21.6184 76.6195 21.7934V22.7684C77.057 22.8309 77.457 22.9684 77.8195 23.1809C78.182 23.3934 78.4883 23.6746 78.7383 24.0246C78.8258 24.1621 78.8414 24.309 78.7852 24.4652C78.7289 24.6215 78.6195 24.7309 78.457 24.7934C78.307 24.8684 78.1539 24.8777 77.9977 24.8215C77.8414 24.7652 77.7008 24.6684 77.5758 24.5309C77.4133 24.3184 77.2039 24.159 76.9477 24.0527C76.6914 23.9465 76.3945 23.8934 76.057 23.8934C75.4945 23.8934 75.0508 24.0184 74.7258 24.2684C74.4008 24.5184 74.2383 24.8621 74.2383 25.2996C74.2383 25.7496 74.4164 26.1184 74.7727 26.4059C75.1289 26.6934 75.8195 26.9934 76.8445 27.3059C77.707 27.5809 78.3445 27.9684 78.757 28.4684C79.1695 28.9684 79.3758 29.5996 79.3758 30.3621C79.3758 31.1621 79.1414 31.8059 78.6727 32.2934C78.2039 32.7809 77.5195 33.0934 76.6195 33.2309V34.2059C76.6195 34.3809 76.5633 34.5246 76.4508 34.6371C76.3383 34.7496 76.1945 34.8059 76.0195 34.8059Z"
-                        fill="white" />
-                    <rect opacity="0.8" x="124" width="108" height="56" rx="16" fill="white" />
-                    <circle cx="156" cy="28" r="18" fill="white" fill-opacity="0.6" />
-                    <circle cx="156" cy="28" r="16.5" fill="#20D1BF" />
-                    <path
-                        d="M150.766 21.9848L150.766 35.2191C150.766 35.4379 150.697 35.6165 150.559 35.7551C150.42 35.8936 150.241 35.9629 150.023 35.9629C149.804 35.9629 149.625 35.8936 149.487 35.7551C149.348 35.6165 149.279 35.4379 149.279 35.2191L149.279 21.9629L147.485 23.7566C147.354 23.8879 147.19 23.9535 146.993 23.9535C146.796 23.9535 146.617 23.8806 146.457 23.7348C146.311 23.5889 146.238 23.4139 146.238 23.2098C146.238 23.0056 146.311 22.8306 146.457 22.6848L149.498 19.6441C149.585 19.5712 149.669 19.5165 149.749 19.4801C149.829 19.4436 149.921 19.4254 150.023 19.4254C150.125 19.4254 150.216 19.4436 150.296 19.4801C150.376 19.5165 150.46 19.5712 150.548 19.6441L153.588 22.6848C153.749 22.8452 153.825 23.0202 153.818 23.2098C153.811 23.3993 153.734 23.5743 153.588 23.7348C153.442 23.8806 153.264 23.9535 153.052 23.9535C152.841 23.9535 152.67 23.8879 152.538 23.7566L150.766 21.9848Z"
-                        fill="white" />
-                    <path
-                        d="M162.766 21.9848L162.766 35.2191C162.766 35.4379 162.697 35.6165 162.559 35.7551C162.42 35.8936 162.241 35.9629 162.023 35.9629C161.804 35.9629 161.625 35.8936 161.487 35.7551C161.348 35.6165 161.279 35.4379 161.279 35.2191L161.279 21.9629L159.485 23.7566C159.354 23.8879 159.19 23.9535 158.993 23.9535C158.796 23.9535 158.617 23.8806 158.457 23.7348C158.311 23.5889 158.238 23.4139 158.238 23.2098C158.238 23.0056 158.311 22.8306 158.457 22.6848L161.498 19.6441C161.585 19.5712 161.669 19.5165 161.749 19.4801C161.829 19.4436 161.921 19.4254 162.023 19.4254C162.125 19.4254 162.216 19.4436 162.296 19.4801C162.376 19.5165 162.46 19.5712 162.548 19.6441L165.588 22.6848C165.749 22.8452 165.825 23.0202 165.818 23.2098C165.811 23.3993 165.734 23.5743 165.588 23.7348C165.442 23.8806 165.264 23.9535 165.052 23.9535C164.841 23.9535 164.67 23.8879 164.538 23.7566L162.766 21.9848Z"
-                        fill="white" />
-                    <circle cx="200" cy="28" r="18" fill="white" fill-opacity="0.6" />
-                    <circle cx="200" cy="28" r="16.5" fill="#44B8EB" />
-                    <path
-                        d="M200.766 21.9848L200.766 35.2191C200.766 35.4379 200.697 35.6165 200.559 35.7551C200.42 35.8936 200.241 35.9629 200.023 35.9629C199.804 35.9629 199.625 35.8936 199.487 35.7551C199.348 35.6165 199.279 35.4379 199.279 35.2191L199.279 21.9629L197.485 23.7566C197.354 23.8879 197.19 23.9535 196.993 23.9535C196.796 23.9535 196.617 23.8806 196.457 23.7348C196.311 23.5889 196.238 23.4139 196.238 23.2098C196.238 23.0056 196.311 22.8306 196.457 22.6848L199.498 19.6441C199.585 19.5712 199.669 19.5165 199.749 19.4801C199.829 19.4436 199.921 19.4254 200.023 19.4254C200.125 19.4254 200.216 19.4436 200.296 19.4801C200.376 19.5165 200.46 19.5712 200.548 19.6441L203.588 22.6848C203.749 22.8452 203.825 23.0202 203.818 23.2098C203.811 23.3993 203.734 23.5743 203.588 23.7348C203.442 23.8806 203.264 23.9535 203.052 23.9535C202.841 23.9535 202.67 23.8879 202.538 23.7566L200.766 21.9848Z"
-                        fill="white" />
-                </svg>
-
             </GoogleMap>
 
         </div>
         <div class="question">
-            <p class="mt-3" v-html="config.question" />
-            <h2 for="answer" class="mt-8 fix-size" v-html="config.description" />
+            <p class="mt-3" v-html="textDescription" />
+            <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
                     placeholder="" />
-                <span v-if="treatment > 1 && currentStep === 2" class="text-between-answer ml-3">de {{ dataOfResearch?.num_estab_correct1
+                <span v-if="researchStore.researchConfiguration.treatment > 1 && isPerformanceAndpayment" class="text-between-answer ml-3">de {{
+                    researchStore.researchConfiguration.interface?.num_estab_correct1
                 }}</span>
             </div>
+            <NextButton class="mt-10" @click="nextStep()" />
         </div>
     </section>
 </template>

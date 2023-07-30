@@ -53,7 +53,7 @@ export const useResearchStore = defineStore('research', {
         },
         getTreatment: (state) => state.treatment,
         getListOfCampus: (state) => state.listOfCampus,
-        getDataOfResearch: (state) => state.dataOfResearch,
+        getDataOfResearch: (state) => state.researchConfiguration.interface,
     },
     actions: {
         initResearch() {
@@ -73,7 +73,10 @@ export const useResearchStore = defineStore('research', {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
             this.researchConfiguration = configuration;
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
+            // this.researchStep = ResearchStep.questionPerformanceAndPayment;
             this.setInterface();
+            this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
+            this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
             this.setLoading(false)
         },
         setInterface() {
@@ -104,6 +107,7 @@ export const useResearchStore = defineStore('research', {
         },
         setResearchStep(step: ResearchStep) {
             this.researchStep = step;
+            this.sendTopPostMessage('setAnswer', '', true);
         },
         setAnswer(answer: any, key: string) {
             let modifyInterface: any = this.researchConfiguration.interface;
