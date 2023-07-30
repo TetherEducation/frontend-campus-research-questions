@@ -14,13 +14,20 @@ const payloadSecondQuestion: any = {
     school: null
 }
 
+const search = ref<string>('');
 const nameSchool = ref<string>('')
 const listOfSchools = ref<string[]>([]);
-const search = ref<string>('');
+const nameComuna = ref<string>('')
+const listOfComunas = ref<string[]>([]);
+const searchComuna = ref<string>('');
 const isNotSure = ref<boolean>(false);
 
 watch(search, async (newSearch) => {
     changeValue(newSearch)
+})
+
+watch(searchComuna, async (newSearch) => {
+    changeValueComuna(newSearch)
 })
 
 const changeValue = (value: any) => {
@@ -37,8 +44,26 @@ const changeValue = (value: any) => {
         }, '*');
 }
 
+const changeValueComuna = (value: any) => {
+    const data = researchStore.getListOfComuna || [];
+    if (data?.length > 0 && listOfComunas.value.length === 0) {
+        listOfComunas.value = data
+    }
+
+    window.top!.postMessage(
+        {
+            context: 'explorer',
+            action: ActionDataOfResearch.setNameOfComuna,
+            value,
+        }, '*');
+}
+
 const nextStep = () => {
     if (researchStore.isTenantCl) {
+        if(payloadSecondQuestion.question_3 === 1) {
+            payloadSecondQuestion.school = nameSchool.value;
+            payloadSecondQuestion.comuna = nameComuna.value;
+        }
         return setNexStep()
     }
 
@@ -90,9 +115,10 @@ const setResultRadioButton = (result: number) => {
                     <h5 v-t="'thirdquestion.how_name_school'" class="mt-12"/>
                     <div class="mt-4 d-flex flex-row flex-wrap gap-5">
                         <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
-                            placeholder="Comuna" solo flat background-color="#EBEBEB" class="autocomplete autocomplete-input" />
-                        <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
-                            placeholder="Establecimiento" solo flat background-color="#EBEBEB" class="autocomplete-input" />
+                            placeholder="Establecimiento" solo flat background-color="#EBEBEB" class="autocomplete autocomplete-input" />
+                        <v-autocomplete v-model="nameComuna" v-model:search="searchComuna" :items="listOfComunas"  item-title="name"
+        item-value="id" hide-no-data
+                            placeholder="Comuna" solo flat background-color="#EBEBEB" class="autocomplete-input" />
                     </div>
                 </template>
             </div>

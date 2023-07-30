@@ -19,6 +19,7 @@ export const useResearchStore = defineStore('research', {
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
         listOfCampus: [],
+        listOfComuna: [],
         dataOfResearch: {
             num_estab_answer1: null,
             num_estab_correct1: null,
@@ -53,6 +54,7 @@ export const useResearchStore = defineStore('research', {
         },
         getTreatment: (state) => state.treatment,
         getListOfCampus: (state) => state.listOfCampus,
+        getListOfComuna: (state) => state.listOfComuna,
         getDataOfResearch: (state) => state.researchConfiguration.interface,
     },
     actions: {
@@ -120,7 +122,9 @@ export const useResearchStore = defineStore('research', {
                 this.setResearchConfiguration(data as ResearchConfiguration);
             };
 
-            console.log('Initital data', data)
+            const setListOfComuna = () => {
+                this.listOfComuna = data;
+            };
 
             const setListOfCampus = () => {
                 this.listOfCampus = data;
@@ -129,6 +133,7 @@ export const useResearchStore = defineStore('research', {
             const actions = {
                 [ActionDataOfResearch.setInitialData as string]: () => setInitialData(),
                 [ActionDataOfResearch.getListOfCampus as string]: () => setListOfCampus(),
+                [ActionDataOfResearch.getListOfComuna as string]: () => setListOfComuna(),
             }
 
             actions[actionDataOfResearch]();

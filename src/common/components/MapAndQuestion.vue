@@ -14,7 +14,6 @@ const { centerLocation } = storeToRefs(useResearchStore());
 const { setAnswersResearch, currentStepChild } = useResearchStore();
 
 const textQuestion = computed(() => {
-    console.log(researchStore.researchStep.toLowerCase())
     return t(`${researchStore.researchStep.toLowerCase()}.question`)
 })
 

@@ -13,8 +13,8 @@ const payloadSecondQuestion: any = {
     num_estab_post: null
 }
 
-const setResultRadioButton = (result: number | string) => {
-    const key = typeof result === 'string' ? 'question_2' : 'knows_school';
+const setResultRadioButton = (result: number) => {
+    const key = researchStore.isTenantCl ? 'question_2' : 'knows_school';
     payloadSecondQuestion[key] = result;
 
     showInputSection.value = result === 1;
