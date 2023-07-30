@@ -17,7 +17,7 @@ const setResultRadioButton = (result: number | string) => {
     const key = typeof result === 'string' ? 'question_2' : 'knows_school';
     payloadSecondQuestion[key] = result;
 
-    showInputSection.value = result === 'Si';
+    showInputSection.value = result === 1;
     !showInputSection && payloadSecondQuestion.num_estab_post === null;
 }
 

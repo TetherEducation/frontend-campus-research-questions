@@ -57,10 +57,10 @@ const setNexStep = () => {
     researchStore.setResearchStep(ResearchStep.questionCampusAround)
 
 }
-const setResultRadioButton = (result: string) => {
+const setResultRadioButton = (result: number) => {
     payloadSecondQuestion.question_3 = result;
 
-    showInputSection.value = result === 'Si';
+    showInputSection.value = result === 1;
 
     if(!showInputSection.value) {
         payloadSecondQuestion.school = null;
