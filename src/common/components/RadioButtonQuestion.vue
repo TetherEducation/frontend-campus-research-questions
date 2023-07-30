@@ -33,7 +33,7 @@ const question: any = () => {
       </label>
       <div v-else class="radio-toolbar mr-2 mt-5">
         <input type="radio" :id="String(option)" :for="String(option)" name="radio"
-          @click="$emit('selectionResult', option)">
+          @click="$emit('selectionResult', key + 1)">
         <label class="text-center" :for="String(option)">{{ option }}</label>
       </div>
     </div>

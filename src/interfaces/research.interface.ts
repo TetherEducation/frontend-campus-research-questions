@@ -29,9 +29,9 @@ export interface ResearchAnswerCL {
     num_estab_correct2: number | null,
     comuna: string | null,
     school: string | null,
-    question_1: string | null,
-    question_2: string | null,
-    question_3: string | null,
+    question_1: number | null,
+    question_2: number | null,
+    question_3: number | null,
 }
 
 export interface ResearchConfiguration {
