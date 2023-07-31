@@ -2,6 +2,7 @@
 import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
 import { mapStyle } from '../assets/map/mapStyle';
+import { Tenant } from "@/enums/tenant.enum";
 import NextButton from '@/common/components/NextButton.vue';
 
 
@@ -29,8 +30,30 @@ const treatment = computed(() => {
 const getSrcIframeExplorer = () => {
     const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
 
-    const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER
-    const url = new URL(urlRoot);
+    // FIXME: Hardcoded for now
+
+    const urlTenantStringsMapping = {
+        [Tenant.CL]: {
+            primary: 'chile',
+            secondary: 'chile',
+        },
+        [Tenant.DO]: {
+            primary: 'rd',
+            secondary: 'dominicana',
+        },
+    }
+
+    const urlTenant = urlTenantStringsMapping[researchConfiguration.tenant.toUpperCase() as Tenant];
+
+    const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER_TEMPLATE_URL
+    .replaceAll(
+        '{primaryTenant}',
+        urlTenant.primary,
+    ).replaceAll(
+        '{secondaryTenant}',
+        urlTenant.secondary,
+    );
+    const url = new URL('/research_iframe', urlRoot);
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
     url.searchParams.append('radius', '2');
