@@ -57,7 +57,7 @@ const getSrcIframeExplorer = () => {
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
     url.searchParams.append('radius', '2');
-    url.searchParams.append('z', '15.4');
+    url.searchParams.append('z', '15');
     url.searchParams.append('filters', `${showFilters.value}`);
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
@@ -107,6 +107,11 @@ const nextStep = () => {
                 <CustomMarker :options="{ position: researchStore.centerLocation }">
                     <img src="../assets/marker-user.svg" />
                 </CustomMarker>
+
+                <div>
+                    <span>Puedes informarte más sobre los establecimientos en</span>
+                    <a href="www.sistemadeadmisionescolar.cl" target="_blank" class="">www.sistemadeadmisionescolar.cl</a>
+                </div>
             </GoogleMap>
         </section>
         <section v-else>

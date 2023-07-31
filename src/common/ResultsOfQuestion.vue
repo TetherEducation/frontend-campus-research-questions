@@ -47,7 +47,7 @@ const isCorrect = computed(() => {
 
 const labelCorrect = () => {
     { { isCorrect.value } }
-    return isCorrect.value ? 'y efectivamente hay' : ' , pero en realidad hay'
+    return isCorrect.value ? ', y efectivamente hay' : ', pero en realidad hay'
 }
 
 const modifyLabel = computed(() => {

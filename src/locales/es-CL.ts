@@ -54,15 +54,15 @@ export const es_CL: any = {
             "description": "El <b>66%</b> de los establecimientos en Chile que ofrecen media son <b>gratuitos.</b>",
         },
         "low": {
-            "title": "CLP $1 - $50,000",
+            "title": "CLP $1 - $50.000",
             "description": "El <b>6%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
         },
         "medium": {
-            "title": "CLP $50,001 - $100,000",
+            "title": "CLP $50.001 - $100.000",
             "description": "El <b>10%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
         },
         "high": {
-            "title": "Más de CLP $100,000",
+            "title": "Más de CLP $100.000",
             "description": "El <b>16%</b> de los establecimientos en Chile que ofrecen media se encuentran en esta categoría.",
         },
     },

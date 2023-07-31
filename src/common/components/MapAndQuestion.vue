@@ -105,7 +105,7 @@ const styleCircle = {
 <template>
     <section class="map-and-question">
         <div class="g-map" style="position: relative;">
-            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="15"
+            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="14.8"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />
@@ -156,7 +156,7 @@ const styleCircle = {
         <div class="question">
             <p v-if="isPerformanceAndpayment" class="mt-3">
                 De los <b>{{ labelTotal }} establecimientos</b>
-                con tu grado de interés a 2km de tu ubicación de preferencia:
+                con tu grado de interés a 2 km de tu ubicación de preferencia:
             </p>
             <p v-else class="mt-3" v-html="textDescription()" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
