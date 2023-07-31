@@ -26,7 +26,7 @@ const textDescription = computed(() => {
     { total: researchStore.researchConfiguration.totalCampusesAround })
 })
 
-let answer: number;
+let answer: number | null;
 
 const nextStep = () => {
     if (answer) {
@@ -39,18 +39,22 @@ const nextStep = () => {
 
 const getAnswer = (event: any) => {
     if (Math.sign(event?.target.value) === -1) {
+        answer = null;
         event.target.value = null;
         return;
     }
 
     if (event?.target.value === '' || event?.target?.value === null) {
+        answer = null;
         event.target.value = null;
         return;
     }
     if (Number.isNaN(Number(event?.target.value))) {
         event.target.value = null;
+        answer = null;
         return;
     }
+
 
     answer = Number(event?.target.value);
     // if (treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
