@@ -77,7 +77,7 @@ const nextStep = () => {
         <div class="go-to-explorer">
             <!-- label -->
             <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu
-                ubicación</span>
+                ubicación de preferencia.</span>
             <!-- results -->
             <section v-if="treatment !== 1" class="go-to-explorer__information mt-3">
                 <div style="position: relative;">

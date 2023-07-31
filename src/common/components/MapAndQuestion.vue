@@ -11,7 +11,6 @@ import { ResearchStep } from '@/enums/researchStep.enum';
 const { t } = useI18n();
 const researchStore = useResearchStore();
 const { centerLocation } = storeToRefs(useResearchStore());
-const { setAnswersResearch, currentStepChild } = useResearchStore();
 
 const textQuestion = computed(() => {
     return t(`${researchStore.researchStep.toLowerCase()}.question`)
@@ -29,7 +28,7 @@ const textDescription = () => {
 let answer: number | null;
 
 const nextStep = () => {
-    if (answer) {
+    if (answer || answer === 0) {
         const key = researchStore.researchStep === 'QuestionCampusAround' ? 'num_estab_answer1' : 'num_estab_answer2';
         researchStore.setAnswer(answer, key)
         const step = isPerformanceAndpayment.value ? ResearchStep.answerPerformanceAndPayment : ResearchStep.answerCampusAround;
@@ -38,6 +37,10 @@ const nextStep = () => {
 }
 
 const getAnswer = (event: any) => {
+    if(event?.target.value === '0') {
+        answer = Number(event?.target.value);
+        return;
+    }
     if (Math.sign(event?.target.value) === -1) {
         answer = null;
         event.target.value = null;
@@ -72,17 +75,17 @@ const getAnswer = (event: any) => {
     //     return;
     // }
 
-    if (currentStepChild === 0) {
-        setAnswersResearch({
-            key: 'num_estab_answer1',
-            value: event?.target.value,
-        });
-    } else {
-        setAnswersResearch({
-            key: 'num_estab_answer2',
-            value: event?.target.value,
-        });
-    }
+    // if (currentStepChild === 0) {
+    //     setAnswersResearch({
+    //         key: 'num_estab_answer1',
+    //         value: event?.target.value,
+    //     });
+    // } else {
+    //     setAnswersResearch({
+    //         key: 'num_estab_answer2',
+    //         value: event?.target.value,
+    //     });
+    // }
 }
 
 // const getValue
