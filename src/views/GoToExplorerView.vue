@@ -90,10 +90,17 @@ const nextStep = () => {
             <iframe :src="getSrcIframeExplorer()"></iframe>
         </section>
 
-        <NextButton @click="nextStep()" />
+        <NextButton @click="nextStep()" class="next-step" />
     </div>
 </template>
 <style scoped>
+
+.next-step {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+}
 .go-to-explorer {
     margin-top: 1.5rem;
     width: 100%;
