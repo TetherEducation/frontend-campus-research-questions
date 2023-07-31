@@ -21,10 +21,12 @@ const isPerformanceAndpayment = computed(() => {
     return researchStore.researchStep === ResearchStep.questionPerformanceAndPayment;
 })
 
-// const textDescription = () => {
-//     return t(`${researchStore.researchStep.toLowerCase()}.description`, 
-//     { total: researchStore.researchConfiguration.totalCampusesAround })
-// }
+const textDescription = () => {
+    const label =  t(`${researchStore.researchStep.toLowerCase()}.description`, 
+    { total: researchStore.researchConfiguration.totalCampusesAround })
+
+    return label;
+}
 
 let answer: number | null;
 
@@ -148,8 +150,7 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p class="mt-3" v-html="$t(`${researchStore.researchStep.toLowerCase()}.description`, 
-    { total: researchStore.researchConfiguration.totalCampusesAround })" />
+            <p class="mt-3" v-html="textDescription()" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
