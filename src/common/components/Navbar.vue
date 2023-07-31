@@ -18,7 +18,7 @@ const breadcrumb = computed(() => {
         </button>
         <img v-if="researchStore.isTenantCl" src="@/assets/sae.svg" alt="explorer" width="60">
         <img v-else src="@/assets/explorer.svg" alt="explorer" width="30">
-        <h1 class="mt-4">{{ breadcrumb }}</h1>
+        <h1 class="mt-5">{{ breadcrumb }}</h1>
         <progress id="file" max="100" value="100" class="mx-1 progress"></progress>
     </nav>
 </template>
@@ -26,19 +26,21 @@ const breadcrumb = computed(() => {
 nav {
     background: var(--primary-color-light);
     position: relative;
-    height: 8.7rem;
+    height: 7rem;
     box-sizing: border-box;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.09);
     padding: 1.5rem 2rem 0;
-
-    /* margin-top: -1.5rem; */
 }
 
+h1 {
+    margin-bottom: -0.5rem;
+}
 nav > img {
     top: 0;
     right: 0;
     margin: 1.5rem;
     position: absolute;
+    width: 40px;
 }
 
 nav > button {
@@ -72,5 +74,16 @@ progress[value]::-moz-progress-bar {
 
 progress[value]::-moz-progress-value {
     background: var(--secondary-color);
+}
+
+@media only screen and (min-width: 1100px) {
+    nav {
+        padding: 1.5rem 4rem 0;
+
+    }
+    
+    nav > img {
+        width: 70px;
+    }
 }
 </style>

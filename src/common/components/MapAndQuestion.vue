@@ -68,27 +68,6 @@ const getAnswer = (event: any) => {
     }
 
     answer = Number(event?.target.value);
-    // if (treatment === 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_answer1) {
-    //     event.target.value = null;
-    //     return;
-    // }
-
-    // if (treatment > 1 && currentStep === 2 && Number(event?.target.value) > dataOfResearch?.num_estab_correct1) {
-    //     event.target.value = null;
-    //     return;
-    // }
-
-    // if (currentStepChild === 0) {
-    //     setAnswersResearch({
-    //         key: 'num_estab_answer1',
-    //         value: event?.target.value,
-    //     });
-    // } else {
-    //     setAnswersResearch({
-    //         key: 'num_estab_answer2',
-    //         value: event?.target.value,
-    //     });
-    // }
 }
 
 // const getValue
@@ -161,13 +140,13 @@ const styleCircle = {
             <p v-else class="mt-3" v-html="textDescription()" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
-                <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
+                <input @input="getAnswer($event)" name="answer" id="answer" class="answer-of-question" type="number"
                     placeholder="" />
                 <span v-if="researchStore.researchConfiguration.treatment > 1 && isPerformanceAndpayment" class="text-between-answer ml-3">de {{
                     researchStore.researchConfiguration.interface?.num_estab_correct1
                 }}</span>
             </div>
-            <NextButton class="mt-10" @click="nextStep()" />
+            <NextButton class="mt-10 mb-4 question-button" @click="nextStep()" />
         </div>
     </section>
 </template>

@@ -35,7 +35,16 @@ researchStore.sendTopPostMessage('initData', '');
 .container {
     width: 100%;
     height: calc(100% - 8.7rem);
-    padding: 2rem;
+    padding: 1.5rem 2rem;
 }
 
+main {
+    /* padding-bottom: 2rem;
+    background-color: red; */
+}
+@media only screen and (min-width: 1100px) {
+    .container {
+        padding: 2rem 5rem;
+    }
+}
 </style>

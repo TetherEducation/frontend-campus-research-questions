@@ -3,8 +3,6 @@ import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
 import { mapStyle } from '../assets/map/mapStyle';
 import { Tenant } from "@/enums/tenant.enum";
-import NextButton from '@/common/components/NextButton.vue';
-
 
 // const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
 const researchStore = useResearchStore();
@@ -46,13 +44,13 @@ const getSrcIframeExplorer = () => {
     const urlTenant = urlTenantStringsMapping[researchConfiguration.tenant.toUpperCase() as Tenant];
 
     const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER_TEMPLATE_URL
-    .replaceAll(
-        '{primaryTenant}',
-        urlTenant.primary,
-    ).replaceAll(
-        '{secondaryTenant}',
-        urlTenant.secondary,
-    );
+        .replaceAll(
+            '{primaryTenant}',
+            urlTenant.primary,
+        ).replaceAll(
+            '{secondaryTenant}',
+            urlTenant.secondary,
+        );
     const url = new URL('/research_iframe', urlRoot);
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
@@ -114,21 +112,70 @@ const nextStep = () => {
                 </div>
             </GoogleMap>
         </section>
-        <section v-else>
+        <section class="map-iframe" v-else>
             <iframe :src="getSrcIframeExplorer()"></iframe>
         </section>
 
-        <NextButton @click="nextStep()" class="next-step" />
+        <div class="next-step">
+            <button @click="nextStep()">
+                Ir a Explorar
+            </button>
+            <span class="nex-step__disclaimer">
+                Puedes Informarte más sobre los establecimientos en <a
+                    href="www.sistemadeadmisionescolar.cl" target="_blank">www.sistemadeadmisionescolar.cl</a>
+            </span>
+        </div>
+
     </div>
 </template>
 <style scoped>
-
+.map-iframe{
+    margin-left: -0rem;
+}
 .next-step {
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 1rem;
+    padding-left: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
+
+.nex-step__disclaimer, a {
+    color: white !important;
+    font-family: Inter;
+    font-size: 11px;
+    line-height: 16px;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+    margin-top: 0.5rem;
+}
+
+.next-step>button {
+    border-radius: 30px;
+    background-color: white;
+    box-shadow: -4px 4px 10px 0px rgba(128, 128, 128, 0.10);
+    max-width: 360px;
+    width: 100%;
+    height: 48px;
+    flex-shrink: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: 0.32px;
+    color: #1E0C61 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 290px;
+}
+
 .go-to-explorer {
     margin-top: 1.5rem;
     width: 100%;
@@ -194,7 +241,7 @@ p {
 }
 
 iframe {
-    margin-left: -1.7rem;
+    margin-left: -2rem;
     position: absolute !important;
     display: block;
     border: none;

@@ -24,14 +24,14 @@ const question: any = () => {
 </script>
 <template>
   <h1 v-html="question().title" />
-  <section class="d-flex" :class="changestyle ? 'flex-row': 'flex-column'">
+  <section class="d-flex" :class="changestyle ? 'flex-row mt-5 flex-wrap': 'flex-column'">
     <div v-for="(option, key) in question().results" :key="String(option)" class="d-flex align-items-center ml-1 mt-8">
       <label v-if="!changestyle" class="container label-selection">
         <span v-html="option" />
         <input type="radio" :for="String(option)" name="radio" @click="$emit('selectionResult', key + 1)">
         <span class="checkmark"></span>
       </label>
-      <div v-else class="radio-toolbar mr-2 mt-5">
+      <div v-else class="radio-toolbar mr-2">
         <input type="radio" :id="String(option)" :for="String(option)" name="radio"
           @click="$emit('selectionResult', key + 1)">
         <label class="text-center" :for="String(option)">{{ option }}</label>
@@ -127,7 +127,7 @@ const question: any = () => {
 
 .radio-toolbar {
   width: 100%;
-  min-width: 150px;
+  max-width: 150px;
   cursor: pointer;
 }
 
@@ -140,7 +140,7 @@ const question: any = () => {
 .radio-toolbar label {
   display: inline-block;
   width: 100%;
-  min-width: 150px;
+  min-width: 130px;
   background-color: white;
   padding: 10px 20px;
   font-family: sans-serif, Arial;
