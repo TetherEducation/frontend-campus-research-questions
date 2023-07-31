@@ -22,10 +22,8 @@ const isPerformanceAndpayment = computed(() => {
 })
 
 const textDescription = () => {
-    const label =  t(`${researchStore.researchStep.toLowerCase()}.description`, 
+    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
     { total: researchStore.researchConfiguration.totalCampusesAround })
-
-    return label;
 }
 
 let answer: number | null;
@@ -150,7 +148,10 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p class="mt-3" v-html="textDescription()" />
+            <p class="mt-3">
+                De los <b>{{ researchStore.researchConfiguration.interface?.num_estab_correct1 }} establecimientos</b>
+                con tu grado de interés a 2km de tu ubicación de preferencia:
+            </p>
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
