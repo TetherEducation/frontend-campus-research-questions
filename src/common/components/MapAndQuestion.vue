@@ -21,10 +21,10 @@ const isPerformanceAndpayment = computed(() => {
     return researchStore.researchStep === ResearchStep.questionPerformanceAndPayment;
 })
 
-const textDescription = () => {
-    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
-    { total: researchStore.researchConfiguration.totalCampusesAround })
-}
+// const textDescription = () => {
+//     return t(`${researchStore.researchStep.toLowerCase()}.description`, 
+//     { total: researchStore.researchConfiguration.totalCampusesAround })
+// }
 
 let answer: number | null;
 
@@ -55,7 +55,7 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    if (isPerformanceAndpayment && (Number(event?.target.value) > researchStore.researchConfiguration.totalCampusesAround)) {
+    if (isPerformanceAndpayment.value && (Number(event?.target.value) > researchStore.researchConfiguration.totalCampusesAround)) {
         event.target.value = null;
         answer = null;
         return;
@@ -148,7 +148,8 @@ const styleCircle = {
 
         </div>
         <div class="question">
-            <p class="mt-3" v-html="textDescription()" />
+            <p class="mt-3" v-html="$t(`${researchStore.researchStep.toLowerCase()}.description`, 
+    { total: researchStore.researchConfiguration.totalCampusesAround })" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="mt-10 answer-of-question" type="number"
