@@ -19,7 +19,7 @@ export const es_CL: any = {
         "breadcrumb": "Pregunta 2",
         "question": "¿Ya sabes a cuántos establecimientos postularás?",
         "results": {
-            1: "Si",
+            1: "Sí",
             2: "No",
             3: "",
         },  
@@ -29,7 +29,7 @@ export const es_CL: any = {
         "breadcrumb": "Pregunta 3",
         "question": "¿Ya sabes cuál será tu primera preferencia?",
         "results": {
-            1: "Si",
+            1: "Sí",
             2: "No",
             3: "",
         },
