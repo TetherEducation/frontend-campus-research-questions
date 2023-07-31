@@ -21,10 +21,10 @@ const isPerformanceAndpayment = computed(() => {
     return researchStore.researchStep === ResearchStep.questionPerformanceAndPayment;
 })
 
-const textDescription = () => {
-    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
-    { total: researchStore.researchConfiguration.totalCampusesAround })
-}
+// const textDescription = () => {
+//     return t(`${researchStore.researchStep.toLowerCase()}.description`, 
+//     { total: researchStore.researchConfiguration.totalCampusesAround })
+// }
 
 let answer: number | null;
 
