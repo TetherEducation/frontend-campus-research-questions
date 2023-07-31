@@ -76,7 +76,6 @@ export const useResearchStore = defineStore('research', {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
             this.researchConfiguration = configuration;
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
-            this.researchStep = ResearchStep.goToExplorer;
             this.setInterface();
             this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
             this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
