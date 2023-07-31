@@ -15,9 +15,9 @@ const payloadSecondQuestion: any = {
 }
 
 const search = ref<string>('');
-const nameSchool = ref<string>('')
+const nameSchool = ref<string>()
 const listOfSchools = ref<string[]>([]);
-const nameComuna = ref<string>('')
+const nameComuna = ref<string>()
 const listOfComunas = ref<string[]>([]);
 const searchComuna = ref<string>('');
 const isNotSure = ref<boolean>(false);
@@ -60,7 +60,7 @@ const changeValueComuna = (value: any) => {
 
 const nextStep = () => {
     if (researchStore.isTenantCl) {
-        if(payloadSecondQuestion.question_3 === 1) {
+        if (payloadSecondQuestion.question_3 === 1) {
             payloadSecondQuestion.school = nameSchool.value;
             payloadSecondQuestion.comuna = nameComuna.value;
         }
@@ -87,7 +87,7 @@ const setResultRadioButton = (result: number) => {
 
     showInputSection.value = result === 1;
 
-    if(!showInputSection.value) {
+    if (!showInputSection.value) {
         payloadSecondQuestion.school = null;
         payloadSecondQuestion.comuna = null;
     }
@@ -110,20 +110,22 @@ const setResultRadioButton = (result: number) => {
 
             </div>
             <div v-else>
-                <RadioButtonQuestion @selectionResult="setResultRadioButton($event)" :changestyle="researchStore.isTenantCl" />
+                <RadioButtonQuestion @selectionResult="setResultRadioButton($event)"
+                    :changestyle="researchStore.isTenantCl" />
                 <template v-if="showInputSection">
-                    <h5 v-t="'thirdquestion.how_name_school'" class="mt-12"/>
+                    <h5 v-t="'thirdquestion.how_name_school'" class="mt-12" />
                     <div class="mt-4 d-flex flex-row flex-wrap gap-5">
+                        <v-autocomplete v-model="nameComuna" v-model:search="searchComuna" :items="listOfComunas"
+                            item-title="name" item-value="id" hide-no-data placeholder="Comuna" solo flat persistent-placeholder
+                            background-color="#EBEBEB" class="autocomplete-input" />
                         <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
-                            placeholder="Establecimiento" solo flat background-color="#EBEBEB" class="autocomplete autocomplete-input" />
-                        <v-autocomplete v-model="nameComuna" v-model:search="searchComuna" :items="listOfComunas"  item-title="name"
-        item-value="id" hide-no-data
-                            placeholder="Comuna" solo flat background-color="#EBEBEB" class="autocomplete-input" />
+                            placeholder="Establecimiento" solo flat background-color="#EBEBEB"
+                            class="autocomplete autocomplete-input" />
                     </div>
                 </template>
             </div>
         </div>
-    <div class="container-question__button">
+        <div class="container-question__button">
             <NextButton @click="nextStep()" />
         </div>
     </section>
@@ -134,6 +136,7 @@ const setResultRadioButton = (result: number) => {
     width: 100%;
     max-width: 500px;
 }
+
 .checkbox_label {
     max-width: 400px;
 }

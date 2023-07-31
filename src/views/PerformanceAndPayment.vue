@@ -19,14 +19,23 @@ const step = computed(() => {
 const isPaymentStep = computed(() => {
     return researchStore.researchStep === ResearchStep.informationPayment;
 })
+
+const istTenantCl = computed(() => {
+    return researchStore.isTenantCl;
+})
+
 </script>
 <template>
-    <section class="container-question">
+    <section class="container-question justify-space-between">
         <div>
-            <h1 class="mt-4" v-html="$t(`${step}.title`)" />
-            <p class="mt-5" v-html="$t(`${step}.description`)" />
+            <div class="d-flex">
+                <div>
+                    <h1 class="mt-4" v-html="$t(`${step}.title`)" />
+                    <p class="mt-5" v-html="$t(`${step}.description`)" />
+                </div>
+                <img v-if="istTenantCl && !isPaymentStep" class="ml-10" src="@/assets/logo-footer-cl.svg" />
+            </div>
             <h4 class="ml-2 mt-8" v-html="$t(`${step}.subtitle`)" />
-
             <section class="section-detail pl-custom mt-5">
                 <!-- free -->
                 <div class="d-flex flex-column">
@@ -53,7 +62,7 @@ const isPaymentStep = computed(() => {
                         </svg>
                         <p class="ml-5" v-html="$t(`${step}.free.title`)" />
                     </div>
-                    <span class="text-left info mt-2 mb-4" v-html="$t(`${step}.free.description`)" />
+                    <span v-if="!istTenantCl" class="text-left info mt-2 mb-4" v-html="$t(`${step}.free.description`)" />
                 </div>
                 <!-- low -->
                 <div class="d-flex flex-column">
@@ -76,7 +85,7 @@ const isPaymentStep = computed(() => {
                         </svg>
                         <p class="ml-5" v-html="$t(`${step}.low.title`)" />
                     </div>
-                    <span class="text-left info mt-2 mb-4" v-html="$t(`${step}.low.description`)" />
+                    <span v-if="!istTenantCl" class="text-left info mt-2 mb-4" v-html="$t(`${step}.low.description`)" />
                 </div>
                 <!-- middle high -->
                 <div class="d-flex flex-column">
@@ -102,7 +111,7 @@ const isPaymentStep = computed(() => {
                         </svg>
                         <p class="ml-5" v-html="$t(`${step}.medium.title`)" />
                     </div>
-                    <span class="text-left info mt-2 mb-4" v-html="$t(`${step}.medium.description`)" />
+                    <span v-if="!istTenantCl" class="text-left info mt-2 mb-4" v-html="$t(`${step}.medium.description`)" />
 
                 </div>
                 <!-- high -->
@@ -132,10 +141,10 @@ const isPaymentStep = computed(() => {
                         </svg>
                         <p class="ml-5" v-html="$t(`${step}.high.title`)" />
                     </div>
-                    <span class="text-left info mt-2 mb-4" v-html="$t(`${step}.high.description`)" />
+                    <span v-if="!istTenantCl" class="text-left info mt-2 mb-4" v-html="$t(`${step}.high.description`)" />
 
                 </div>
-                <span class="text-left info mt-5" v-html="$t(`${step}.footer`)" />
+                <span v-if="!istTenantCl" class="text-left info mt-5" v-html="$t(`${step}.footer`)" />
             </section>
         </div>
         <div class="container-question__button">

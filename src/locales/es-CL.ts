@@ -8,16 +8,16 @@ export const es_CL: any = {
     },
     "firstquestion": {
         "breadcrumb": "Pregunta 1",
-        "question": "Has pensando en las postulaciones del SAE para el 2024",
+        "question": "¿Has pensando en las postulaciones del SAE para el 2024?",
         "results": {
-            1: "<b>Sí,estoy seguro/a</b> de los establecimientos a los que postularé",
+            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé",
             2: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> de los establecimientos a los que postularé",
             3: "<b>No, aún no he decidido</b>  y no sé a qué establecimientos postularé",
         }
     },
     "secondquestion": {
         "breadcrumb": "Pregunta 2",
-        "question": "¿Ya sabes a cuántos establecimientos estás considerando postular?",
+        "question": "¿Ya sabes a cuántos establecimientos postularás?",
         "results": {
             1: "Si",
             2: "No",
@@ -27,7 +27,7 @@ export const es_CL: any = {
     },
     "thirdquestion": {
         "breadcrumb": "Pregunta 3",
-        "question": "Ya sabes cuál será tu primera preferencia?",
+        "question": "¿Ya sabes cuál será tu primera preferencia?",
         "results": {
             1: "Si",
             2: "No",
@@ -36,15 +36,15 @@ export const es_CL: any = {
         "how_name_school": "¿Cuál es el nombre del establecimiento?",
     },
     "questioncampusaround": {
-        "breadcrumb": "Explora tu radio",
-        "description": "A 2 km de tu ubicación de preferencia pueden haber muchos <b>establecimientos de tu grado de interés.</b>",
+        "breadcrumb": "Explora tu zona de interés",
+        "description": "A <b>2 km de tu zona de interés</b> puede haber muchos establecimientos en el curso que estás buscando postular.",
         "question": "¿Cuantos crees que son?"
     },
     "answercampusaround": {
-        "breadcrumb": "Explora tu radio",
+        "breadcrumb": "Explora tu zona de interés",
     },
     "informationpayment": {
-        "breadcrumb": "Explora tu radio",
+        "breadcrumb": "Explora tu zona de interés",
         "title": "Costos de Mensualidad",
         "description": "Los establecimientos educativos se pueden <b>agrupar en diferentes categorías</b> según su costo:",
         "subtitle": "Nivel según costo",
@@ -67,7 +67,7 @@ export const es_CL: any = {
         },
     },
     "informationperformance": {
-        "breadcrumb": "Explora tu radio",
+        "breadcrumb": "Explora tu zona de interés",
         "title": "Desempeño Académico",
         "description":"Los establecimientos educativos se <b>agrupan en distintos niveles</b> según la <b>Agencia de Calidad de la Educación del MINEDUC.</b> Te invitamos a revisarlos:",
         "subtitle": "Nivel según desempeño",
@@ -90,12 +90,12 @@ export const es_CL: any = {
         },
     },
     "questionperformanceandpayment":{
-            "breadcrumb": "Explora tu radio",
-            "description": "De los <b>{total} establecimientos</b> con tu grado de interés a 2km de tu ubicación de preferencia:",
+            "breadcrumb": "Explora tu zona de interés",
+            "description": "De los <b>{total} establecimientos</b> ubicados a 2 km de tu preferencia, que imparten el grado al que deseas postular:",
             "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
     },
     "answerperformanceandpayment": {
-        "breadcrumb": "Explora tu radio",
+        "breadcrumb": "Explora tu zona de interés",
     },
     "gotoexplorer": {
         "breadcrumb": "Explora tu radio",

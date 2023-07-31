@@ -51,7 +51,9 @@ const labelCorrect = () => {
 }
 
 const modifyLabel = computed(() => {
-    return researchStore.researchStep === ResearchStep.answerCampusAround ? 'a 2km de tu ubicación' : 'de bajo costo y alto desempeño'
+    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el grado que estabas buscando postular'
+    return researchStore.researchStep === ResearchStep.answerCampusAround 
+        ? 'en el grado que estás buscando postular' : labelPayment
 })
 
 const classOfAnswer = ref<string>('')
@@ -62,7 +64,7 @@ const text = () => {
     if (rest === 0) {
         classOfAnswer.value = 'good-answer'
         return {
-            title: 'Respuesta correcta',
+            title: 'Es correcto',
             description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
@@ -70,22 +72,32 @@ const text = () => {
     if (Math.sign(rest) === -1) {
         classOfAnswer.value = 'bad-answer'
         return {
-            title: 'Te pasaste',
+            title: '',
             description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
-    if (rest < 3) {
+    if (rest <= 3) {
         return {
             title: 'Estuviste muy cerca',
             description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
+    if (rest > 3) {
+        classOfAnswer.value = 'bad-answer'
+        return {
+            title: 'Hay más de los que piensas',
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+        }
+    }
+
+    
+
     classOfAnswer.value = 'bad-answer'
     return {
 
-        title: 'Estuviste muy lejos',
+        title: '',
         description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
     }
 
@@ -97,7 +109,7 @@ const text = () => {
             <h1 class="mt-3">{{ researchStore.researchConfiguration.treatment === 1 ? 'Centros Educativos' : text()?.title
             }}</h1>
             <p class="mt-5">
-                Creíste que había <b>{{ results.answer }} </b> centros educativos {{ modifyLabel }}
+                Creíste que habían <b>{{ results.answer }} </b> establecimientos <span v-html="modifyLabel" />
                 <template v-if="researchStore.researchConfiguration.treatment !== 1">
                     {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
                 </template>
