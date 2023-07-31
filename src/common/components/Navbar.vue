@@ -13,7 +13,7 @@ const breadcrumb = computed(() => {
 </script>
 <template>
     <nav>        
-        <button type="button" @click="$router.back()" class="mr-4">
+        <button type="button" @click="researchStore.backStep()" class="mr-4">
             <img src="@/assets/arrow-left.svg" alt="arrow left" width="24">
         </button>
         <img v-if="researchStore.isTenantCl" src="@/assets/sae.svg" alt="explorer" width="60">

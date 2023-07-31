@@ -14,6 +14,7 @@ export const useResearchStore = defineStore('research', {
         researchConfiguration: <ResearchConfiguration>{},
         treatment: 0,
         researchStep: <ResearchStep>{},
+        historyStep: <any>[],
         // posibility deprecated
         isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
@@ -108,6 +109,7 @@ export const useResearchStore = defineStore('research', {
             this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
         },
         setResearchStep(step: ResearchStep) {
+            this.historyStep.push(this.researchStep);
             this.researchStep = step;
             this.sendTopPostMessage('setAnswer', '', true);
         },
@@ -115,6 +117,14 @@ export const useResearchStore = defineStore('research', {
             let modifyInterface: any = this.researchConfiguration.interface;
             modifyInterface[key] = answer;
             this.researchConfiguration.interface = modifyInterface;
+        },
+        backStep() {
+            if (this.historyStep.length === 0) {
+                this.sendTopPostMessage('close', true)
+                return;
+            };
+
+            this.researchStep = this.historyStep.pop();
         },
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
