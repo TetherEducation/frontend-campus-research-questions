@@ -51,9 +51,9 @@ const labelCorrect = () => {
 }
 
 const modifyLabel = computed(() => {
-    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el grado que estabas buscando postular'
+    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular'
     return researchStore.researchStep === ResearchStep.answerCampusAround 
-        ? 'en el grado que estás buscando postular' : labelPayment
+        ? 'en el curso que estás buscando postular' : labelPayment
 })
 
 const classOfAnswer = ref<string>('')
