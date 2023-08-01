@@ -82,8 +82,8 @@ const nextStep = () => {
                     <p class="mt-4 ml-3 d-flex">{{ researchStore.researchConfiguration.totalCampusesAround }}
                         <img v-if="treatment === 3" src="../assets/schoolfilter.svg" alt="">
                     </p>
-                    <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">centros</span>
-                    <span class="information ml-3">educativos</span>
+                    <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">establecimientos</span>
+                    <span class="information ml-3">educacionales</span>
                     <img src="../assets/rectangule-purple.svg" alt="">
                 </div>
                 <div class="second-information">
@@ -222,7 +222,7 @@ p {
 
 .information {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.0025em;
     color: #FFFFFF;
