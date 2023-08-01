@@ -97,25 +97,17 @@ const nextStep = () => {
             </section>
         </div>
         <!-- Explorer map -->
-        <section style="height: auto;" v-if="treatment === 1">
-            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="researchStore.centerLocation" :zoom="15"
+        <section class="map-iframe" >
+            <GoogleMap v-if="treatment === 1" class="g-map-container-1" :api-key="GMAP_API_KEY" :center="researchStore.centerLocation" :zoom="13.5"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: researchStore.centerLocation, ...styleCircle }" />
                 <CustomMarker :options="{ position: researchStore.centerLocation }">
                     <img src="../assets/marker-user.svg" />
                 </CustomMarker>
-
-                <div>
-                    <span>Puedes informarte más sobre los establecimientos en</span>
-                    <a href="https://www.sistemadeadmisionescolar.cl/" target="_blank" class="">www.sistemadeadmisionescolar.cl</a>
-                </div>
             </GoogleMap>
+            <iframe v-else :src="getSrcIframeExplorer()"></iframe>
         </section>
-        <section class="map-iframe" v-else>
-            <iframe :src="getSrcIframeExplorer()"></iframe>
-        </section>
-
         <div class="next-step">
             <button @click="nextStep()">
                 Ir a Explorar
