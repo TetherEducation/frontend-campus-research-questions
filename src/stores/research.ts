@@ -103,6 +103,7 @@ export const useResearchStore = defineStore('research', {
                 question_1: null,
                 question_2: null,
                 question_3: null,
+                num_estab_post: null,
             }
 
             this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
