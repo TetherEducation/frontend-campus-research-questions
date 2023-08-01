@@ -56,7 +56,7 @@ export const useResearchStore = defineStore('research', {
         getTreatment: (state) => state.treatment,
         getListOfCampus: (state) => state.listOfCampus,
         getListOfComuna: (state) => state.listOfComuna,
-        getDataOfResearch: (state) => state.researchConfiguration.interface,
+        getDataOfResearch: (state): any => state.researchConfiguration.interface,
     },
     actions: {
         initResearch() {
@@ -110,8 +110,71 @@ export const useResearchStore = defineStore('research', {
         },
         setResearchStep(step: ResearchStep) {
             this.historyStep.push(this.researchStep);
+            this.sendTrackMixpanel(step);
             this.researchStep = step;
             this.sendTopPostMessage('setAnswer', '', true);
+        },
+        sendTrackMixpanel(step: ResearchStep) {
+            const trackMixpanelResearchStep = {
+                [ResearchStep.firstQuestion as string]: {
+                    track: 'click_first_question',
+                    data: {
+                        question_1: this.getDataOfResearch.question_1,
+                    }
+                },
+                [ResearchStep.secondQuestion as string]: {
+                    track: 'click_second_question',
+                    data: {
+                        question_2: this.getDataOfResearch.question_2,
+                        num_estab_post: this.getDataOfResearch.num_estab_post,
+                    }
+                },
+                [ResearchStep.thirdQuestion as string]: {
+                    track: 'click_third_question',
+                    data: {
+                        question_3: this.getDataOfResearch.question_3,
+                        school: this.getDataOfResearch.school,
+                        comuna: this.getDataOfResearch.comuna,
+                    }
+                },
+                [ResearchStep.questionCampusAround as string]: {
+                    track: 'click_question_campus_around',
+                    data: {
+                        num_estab_answer1: this.getDataOfResearch.num_estab_answer1,
+                        num_estab_correct1: this.getDataOfResearch.num_estab_correct1,
+                    }
+                },
+                [ResearchStep.answerCampusAround as string]: {
+                    track: 'click_answer_campus_around',
+                    data: {}
+                },
+                [ResearchStep.informationPayment as string]: {
+                    track: 'click_information_payment',
+                    data: {}
+                },
+                [ResearchStep.informationPerformance as string]: {
+                    track: 'click_information_performance',
+                    data: {}
+                },
+                [ResearchStep.questionPerformanceAndPayment as string]: {
+                    track: 'click_question_performance_and_payment',
+                    data: {
+                        num_estab_answer2: this.getDataOfResearch.num_estab_answer2,
+                        num_estab_correct2: this.getDataOfResearch.num_estab_correct2,
+                    }
+                },
+                [ResearchStep.answerPerformanceAndPayment as string]: {
+                    track: 'click_answer_performance_and_payment',
+                    data: {}
+                },
+                [ResearchStep.goToExplorer as string]: {
+                    track: 'click_go_to_explorer',
+                    data: {}
+                },
+
+            }
+
+            this.sendTopPostMessage('setTrackMixPanel', { ...trackMixpanelResearchStep[step] });
         },
         setAnswer(answer: any, key: string) {
             let modifyInterface: any = this.researchConfiguration.interface;
