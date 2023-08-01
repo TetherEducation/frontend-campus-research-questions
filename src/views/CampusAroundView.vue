@@ -2,14 +2,15 @@
     import { storeToRefs } from 'pinia';
     import { useResearchStore } from '../stores/research';
     import { ref } from 'vue'
-    import { i18n } from "../i18n";
     import { MapAndQuestionInterface } from '../interfaces/mapAndQuestion.interface';
     import { StepOfCampusAround } from '@/enums/stepOfResearch.enum';
+    import { useI18n } from 'vue-i18n'
+    const { t } = useI18n();
     
     const { currentStepChild, currentStep  } = storeToRefs(useResearchStore());
     const mapAndQuestion = ref<MapAndQuestionInterface>({
-        question: i18n.global.t('campus_around.question.title'),
-        description: i18n.global.t('campus_around.question.description'),
+        question: t('campus_around.question.title'),
+        description: t('campus_around.question.description'),
     });
 
 </script>

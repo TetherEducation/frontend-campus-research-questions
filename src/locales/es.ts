@@ -30,7 +30,7 @@ export const es = {
         "title": "Explora tu radio",
         "question": {
             "title": "A 2 km de tu ubicación pueden haber muchos <b>establecimientos educativos de primaria.</b>",
-            "description": "<b>¿Cuantos crees que son?</b>"
+            "description": "<b>¿Cuántos crees que son?</b>"
         },
         "result": {
             "bad": "Estuviste muy lejos",

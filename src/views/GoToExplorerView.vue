@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
-
-import { storeToRefs } from 'pinia';
 import { mapStyle } from '../assets/map/mapStyle';
+import { Tenant } from "@/enums/tenant.enum";
 
-
-const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
+// const { centerLocation, treatment, currentStep } = storeToRefs(useResearchStore());
+const researchStore = useResearchStore();
 
 const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 const styleCircle = {
@@ -17,36 +16,78 @@ const styleCircle = {
     fillColor: 'rgba(255, 255, 255, 0.3)',
     fillOpacity: 0.9,
 }
-const { userLocation, dataOfResearch } = useResearchStore();
+const { researchConfiguration } = useResearchStore();
 
 const showFilters = computed(() => {
     return treatment.value === 3;
 })
 
+const treatment = computed(() => {
+    return researchStore.researchConfiguration.treatment;
+})
 const getSrcIframeExplorer = () => {
-    const url: string = import.meta.env.VITE_IFRAME_EXPLORER
-    let newUrl = url.replace('location', `lat=${userLocation.lat}&lng=${userLocation.lng}`);
-    return newUrl.replace('filters', `filters=${showFilters.value}`)
+    const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
+
+    // FIXME: Hardcoded for now
+
+    const urlTenantStringsMapping = {
+        [Tenant.CL]: {
+            primary: 'chile',
+            secondary: 'chile',
+        },
+        [Tenant.DO]: {
+            primary: 'rd',
+            secondary: 'dominicana',
+        },
+    }
+
+    const urlTenant = urlTenantStringsMapping[researchConfiguration.tenant.toUpperCase() as Tenant];
+
+    const urlRoot: string = import.meta.env.VITE_IFRAME_EXPLORER_TEMPLATE_URL
+        .replaceAll(
+            '{primaryTenant}',
+            urlTenant.primary,
+        ).replaceAll(
+            '{secondaryTenant}',
+            urlTenant.secondary,
+        );
+    const url = new URL('/research_iframe', urlRoot);
+    url.searchParams.append('lat', location.lat.toString());
+    url.searchParams.append('lng', location.lng.toString());
+    url.searchParams.append('radius', '2');
+    url.searchParams.append('z', '14.5');
+    url.searchParams.append('filters', `${showFilters.value}`);
+    for (const grade of (grades || [])) {
+        url.searchParams.append('grade', grade.toString());
+    }
+    url.searchParams.append('force_scholarships', `${applyScholarships}`);
+    return url.toString();
 };
+
+const nextStep = () => {
+    researchStore.sendTopPostMessage('setAnswer', '', true);
+    researchStore.sendTopPostMessage('close', true);
+}
+
 </script>
 <template>
-    <div v-if="currentStep === 3" class="w-full d-flex flex-column">
+    <div class="w-full d-flex flex-column">
         <div class="go-to-explorer">
             <!-- label -->
             <span class="ml-2 mb-2">En el explorador puedes encontrar todos los establecimientos cercanos a tu
-                ubicación</span>
+                ubicación de preferencia.</span>
             <!-- results -->
             <section v-if="treatment !== 1" class="go-to-explorer__information mt-3">
                 <div style="position: relative;">
-                    <p class="mt-4 ml-3 d-flex">{{ dataOfResearch.num_estab_correct1 }}
+                    <p class="mt-4 ml-3 d-flex">{{ researchStore.researchConfiguration.totalCampusesAround }}
                         <img v-if="treatment === 3" src="../assets/schoolfilter.svg" alt="">
                     </p>
-                    <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">centros</span>
-                    <span class="information ml-3">educativos</span>
+                    <span class="information ml-3" :class="treatment === 3 ? '' : 'mt-2'">establecimientos</span>
+                    <span class="information ml-3">educacionales</span>
                     <img src="../assets/rectangule-purple.svg" alt="">
                 </div>
                 <div class="second-information">
-                    <p class="mt-5 ml-3">{{ dataOfResearch.num_estab_correct2 }}
+                    <p class="mt-5 ml-3">{{ researchStore.researchConfiguration.totalCampusesAroundPaymentAndPerformance }}
                         <img v-if="treatment === 3" src="../assets/filters.svg" alt="">
                     </p>
                     <span class="information mt-2 ml-3">de bajo costo y</span>
@@ -56,22 +97,84 @@ const getSrcIframeExplorer = () => {
             </section>
         </div>
         <!-- Explorer map -->
-        <section style="height: auto;" v-if="treatment === 1">
-            <GoogleMap class="g-map-container-1" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="15"
+        <section class="map-iframe" >
+            <GoogleMap v-if="treatment === 1" class="g-map-container-1" :api-key="GMAP_API_KEY" :center="researchStore.centerLocation" :zoom="13.5"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
-                <Circle :options="{ center: centerLocation, ...styleCircle }" />
-                <CustomMarker :options="{ position: centerLocation }">
+                <Circle :options="{ center: researchStore.centerLocation, ...styleCircle }" />
+                <CustomMarker :options="{ position: researchStore.centerLocation }">
                     <img src="../assets/marker-user.svg" />
                 </CustomMarker>
             </GoogleMap>
+            <iframe v-else :src="getSrcIframeExplorer()"></iframe>
         </section>
-        <section v-else>
-            <iframe :src="getSrcIframeExplorer()"></iframe>
-        </section>
+        <div class="next-step">
+            <button @click="nextStep()">
+                Ir a Explorar
+            </button>
+            <span class="nex-step__disclaimer">
+                Puedes Informarte más sobre los establecimientos en 
+                <a href="https://www.sistemadeadmisionescolar.cl/" target="_blank">www.sistemadeadmisionescolar.cl</a>
+            </span>
+        </div>
+
     </div>
 </template>
 <style scoped>
+.map-iframe{
+    /* margin-left: -0rem; */
+    /* background-color: red; */
+    width: 100%;
+    min-height: 500px;
+    position: absolute;
+    margin-top: 10rem;
+    /* margin-left: -2rem; */
+    right: 0;
+}
+.next-step {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    padding-left: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.nex-step__disclaimer, a {
+    color: white !important;
+    font-family: Inter;
+    font-size: 11px;
+    line-height: 16px;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+    margin-top: 0.5rem;
+}
+
+.next-step>button {
+    border-radius: 30px;
+    background-color: white;
+    box-shadow: -4px 4px 10px 0px rgba(128, 128, 128, 0.10);
+    max-width: 360px;
+    width: 100%;
+    height: 48px;
+    flex-shrink: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: 0.32px;
+    color: #1E0C61 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 290px;
+}
+
 .go-to-explorer {
     margin-top: 1.5rem;
     width: 100%;
@@ -119,7 +222,7 @@ p {
 
 .information {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.0025em;
     color: #FFFFFF;
@@ -137,13 +240,13 @@ p {
 }
 
 iframe {
-    margin-left: -1.7rem;
-    position: absolute !important;
+    /* margin-left: -2rem; */
+    /* position: absolute !important; */
     display: block;
     border: none;
     max-height: 750px;
     height: 100vh !important;
-    width: 100vw !important;
+    width: 100% !important;
 }
 
 .g-map-container-1 {

@@ -1,19 +1,43 @@
 <script setup lang="ts">
 import { useResearchStore } from '../stores/research';
-import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
+import NextButton from './components/NextButton.vue';
+import { ResearchStep } from '@/enums/researchStep.enum';
 
-const { dataOfResearch, currentStep, treatment } = storeToRefs(useResearchStore());
 
-const restOfAnswer = computed( () => {
-    return currentStep.value === 2 ? dataOfResearch?.value.num_estab_correct2 - +dataOfResearch?.value?.num_estab_answer2: dataOfResearch?.value.num_estab_correct1 - +dataOfResearch?.value?.num_estab_answer1
+const researchStore = useResearchStore();
+
+const nextStep = () => {
+    const step = researchStore.researchStep === ResearchStep.answerCampusAround ? 
+    ResearchStep.informationPayment : ResearchStep.goToExplorer;
+    researchStore.setResearchStep(step)
+    
+    // if (!researchStore.isTenantCl) {
+    //     researchStore.setAnswer(payloadSecondQuestion.knows_school, 'knows_school')
+
+    // }
+    // researchStore.setAnswer(payloadSecondQuestion.question_3, 'question_3')
+    // researchStore.setAnswer(payloadSecondQuestion.school, 'school')
+    // researchStore.setAnswer(payloadSecondQuestion.comuna, 'comuna')
+
+    // researchStore.setResearchStep(ResearchStep.questionCampusAround)
+
+}
+const interfaceResearch = computed(() => {
+    return researchStore.researchConfiguration.interface;
+})
+
+const restOfAnswer = computed(() => {
+    return researchStore.researchStep === ResearchStep.answerCampusAround ?
+        interfaceResearch.value!.num_estab_correct1! - +interfaceResearch.value!.num_estab_answer1! : interfaceResearch.value!.num_estab_correct2! - +interfaceResearch.value!.num_estab_answer2!
+    // return currentStep.value === 2 ? dataOfResearch?.value.num_estab_correct2 - +dataOfResearch?.value?.num_estab_answer2 : interfaceResearch.value?.num_estab_correct1 - +interfaceResearch.value?.num_estab_answer1
 });
 
 const results = computed(() => {
-    const isCurrentStepTwo = currentStep.value === 2;
+    const isCampusAround = researchStore.researchStep === ResearchStep.answerCampusAround;
     return {
-        correctAnswer: isCurrentStepTwo ? dataOfResearch?.value?.num_estab_correct2 : dataOfResearch?.value?.num_estab_correct1,
-        answer: isCurrentStepTwo ? dataOfResearch?.value?.num_estab_answer2 : dataOfResearch?.value?.num_estab_answer1,
+        correctAnswer: isCampusAround ? interfaceResearch.value?.num_estab_correct1 : interfaceResearch.value?.num_estab_correct2,
+        answer: isCampusAround ? interfaceResearch.value?.num_estab_answer1 : interfaceResearch.value?.num_estab_answer2,
     }
 })
 
@@ -22,66 +46,87 @@ const isCorrect = computed(() => {
 })
 
 const labelCorrect = () => {
-    {{ isCorrect.value }}
-    return isCorrect.value ? 'y efectivamente hay' : ' , pero en realidad hay'
+    { { isCorrect.value } }
+    return isCorrect.value ? ', y efectivamente hay' : ', pero en realidad hay'
 }
 
-const modifyLabel = computed (() => {
-    return currentStep.value === 1 ? 'a 2km de tu ubicación' : 'de bajo costo y alto desempeño'
+const modifyLabel = computed(() => {
+    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular'
+    return researchStore.researchStep === ResearchStep.answerCampusAround 
+        ? 'en el curso que estás buscando postular' : labelPayment
 })
 
 const classOfAnswer = ref<string>('')
 
 const text = () => {
     const rest: any = restOfAnswer.value;
-    
-    if (rest === 0 ) {
+
+    if (rest === 0) {
         classOfAnswer.value = 'good-answer'
         return {
-            title: 'Respuesta correcta',
-            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${dataOfResearch?.value.num_estab_correct1}`,
+            title: 'Es correcto',
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
     if (Math.sign(rest) === -1) {
         classOfAnswer.value = 'bad-answer'
         return {
-            title: 'Te pasaste',
-            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+            title: '',
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
-    if(rest < 3) {
+    if (rest <= 3) {
         return {
             title: 'Estuviste muy cerca',
-            description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
+
+    if (rest > 3) {
+        classOfAnswer.value = 'bad-answer'
+        return {
+            title: 'Hay más de los que piensas',
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+        }
+    }
+
+    
 
     classOfAnswer.value = 'bad-answer'
     return {
-        
-        title: 'Estuviste muy lejos',
-        description: `Creíste que había ${dataOfResearch?.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${dataOfResearch?.value.num_estab_correct1}.`,
+
+        title: '',
+        description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
     }
-    
+
 }
 </script>
 <template>
-    <h1 class="mt-3">{{ treatment === 1 ? 'Centros Educativos' : text()?.title }}</h1>
-    <p class="mt-5">
-        Creíste que había <b>{{ results.answer }} </b> centros educativos {{ modifyLabel  }}
-        <template v-if="treatment !== 1">
-            {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
-        </template>
-    </p>
-    <section v-if="treatment !== 1" class="section-of-anwsers mt-10">
+    <section class="container-question">
         <div>
-            Tu respuesta <span :class="classOfAnswer">{{ results.answer }}</span>
-        </div>
+            <h1 class="mt-3">{{ researchStore.researchConfiguration.treatment === 1 ? 'Centros Educativos' : text()?.title
+            }}</h1>
+            <p class="mt-5">
+                Creíste que habían <b>{{ results.answer }} </b> establecimientos <span v-html="modifyLabel" />
+                <template v-if="researchStore.researchConfiguration.treatment !== 1">
+                    {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
+                </template>
+            </p>
+            <section v-if="researchStore.researchConfiguration.treatment !== 1" class="section-of-anwsers mt-10">
+                <div>
+                    Tu respuesta <span :class="classOfAnswer">{{ results.answer }}</span>
+                </div>
 
-        <div>
-            Respuesta Correcta <span>{{ results.correctAnswer }}</span>
+                <div>
+                    Respuesta Correcta <span>{{ results.correctAnswer }}</span>
+                </div>
+            </section>
+
+        </div>
+        <div class="container-question__button">
+            <NextButton @click="nextStep" />
         </div>
     </section>
 </template>

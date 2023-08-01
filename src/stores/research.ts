@@ -1,18 +1,26 @@
 import { StepOFResearch, StepOfCampusAround, StepOfEnrollmentSection, StepOfPerformanceAndPayment } from "@/enums/stepOfResearch.enum";
-import { defaultLocation } from "@/mocks/defaultLocation";
-import { ResearchLocation } from "@/interfaces/research.interface";
+import { ResearchLocation, ResearchConfiguration, ResearchAnswerCL, ResearchAnswerDO } from "@/interfaces/research.interface";
 import { defineStore } from "pinia";
-import { i18n } from "../i18n";
+import { useI18n } from 'vue-i18n'
 import { ActionDataOfResearch } from "@/enums/actionDataOfResearch.enum";
 import { campuses } from "@/mocks/campuses";
+import { ResearchStep } from "@/enums/researchStep.enum";
+import { Tenant } from "@/enums/tenant.enum";
+
 
 export const useResearchStore = defineStore('research', {
     state: () => ({
+        loading: true,
+        researchConfiguration: <ResearchConfiguration>{},
+        treatment: 0,
+        researchStep: <ResearchStep>{},
+        historyStep: <any>[],
+        // posibility deprecated
         isValidStep: true,
         step: StepOFResearch.EnrollmentSection,
         stepChild: StepOfEnrollmentSection.DescriptionEnrollmentSection as number,
-        userLocation: defaultLocation as ResearchLocation,
         listOfCampus: [],
+        listOfComuna: [],
         dataOfResearch: {
             num_estab_answer1: null,
             num_estab_correct1: null,
@@ -26,15 +34,16 @@ export const useResearchStore = defineStore('research', {
         campusesAround: campuses,
         answerCampusAround: null || 0,
         answerCampusPaymentAndPerformance: null || 0,
-        treatment: 0,
     }),
     getters: {
+        isTenantCl: (state) => state.researchConfiguration.tenant.toUpperCase() === Tenant.CL,
+        // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
         campuses: (state) => state.campusesAround,
         totalCampusesAround: (): number => 4,
         totalCampusesPaymentAndPerformance: (): number => 4,
-        centerLocation: (state): ResearchLocation => state.userLocation,
+        centerLocation: (state): ResearchLocation => state.researchConfiguration.location,
         getAnswerCampusAround: (state) => state.answerCampusAround,
         getAnswerCampusPaymentAndPerformance: (state) => state.answerCampusPaymentAndPerformance,
         sizeOfSteps: () => {
@@ -46,23 +55,158 @@ export const useResearchStore = defineStore('research', {
         },
         getTreatment: (state) => state.treatment,
         getListOfCampus: (state) => state.listOfCampus,
-        getDataOfResearch: (state) => state.dataOfResearch,
+        getListOfComuna: (state) => state.listOfComuna,
+        getDataOfResearch: (state): any => state.researchConfiguration.interface,
     },
     actions: {
-        setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
-            const setTreatment = () => {
-                this.treatment = data.treatment;
-                this.userLocation = data.currentLocation;
-                this.dataOfResearch.num_estab_correct1 = data.campusesAround.total;
-                this.dataOfResearch.num_estab_correct2 = data.campusesAround.performanceAndPayment || 0;
+        initResearch() {
+            this.setLoading(true);
+            window.top!.postMessage({
+                    context: 'explorer',
+                    action: 'initData',
+                }, '*');
+
+
+            this.setLoading(false);
+        },
+        setLoading(loading: boolean) {
+            this.loading = loading;
+        },
+        setResearchConfiguration(configuration: ResearchConfiguration) {
+            const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
+            this.researchConfiguration = configuration;
+            this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
+            this.setInterface();
+            this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
+            this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
+            this.setLoading(false)
+        },
+        setInterface() {
+            const interfaceDO: ResearchAnswerDO = {
+                num_estab_answer1: null,
+                num_estab_correct1: null,
+                num_estab_answer2: null,
+                num_estab_correct2: null,
+                plans_to_enroll: null,
+                knows_school: null,
+                school: null,
+                knows_school_not_sure: false,
+            }
+
+            const interfaceCL: ResearchAnswerCL = {
+                num_estab_answer1: null,
+                num_estab_correct1: null,
+                num_estab_answer2: null,
+                num_estab_correct2: null,
+                school: null,
+                comuna: null,
+                question_1: null,
+                question_2: null,
+                question_3: null,
+                num_estab_post: null,
+            }
+
+            this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
+        },
+        setResearchStep(step: ResearchStep) {
+            this.historyStep.push(this.researchStep);
+            this.sendTrackMixpanel(step);
+            this.researchStep = step;
+            this.sendTopPostMessage('setAnswer', '', true);
+        },
+        sendTrackMixpanel(step: ResearchStep) {
+            const trackMixpanelResearchStep = {
+                [ResearchStep.firstQuestion as string]: {
+                    track: 'click_first_question',
+                    data: {
+                        question_1: this.getDataOfResearch.question_1,
+                    }
+                },
+                [ResearchStep.secondQuestion as string]: {
+                    track: 'click_second_question',
+                    data: {
+                        question_2: this.getDataOfResearch.question_2,
+                        num_estab_post: this.getDataOfResearch.num_estab_post,
+                    }
+                },
+                [ResearchStep.thirdQuestion as string]: {
+                    track: 'click_third_question',
+                    data: {
+                        question_3: this.getDataOfResearch.question_3,
+                        school: this.getDataOfResearch.school,
+                        comuna: this.getDataOfResearch.comuna,
+                    }
+                },
+                [ResearchStep.questionCampusAround as string]: {
+                    track: 'click_question_campus_around',
+                    data: {
+                        num_estab_answer1: this.getDataOfResearch.num_estab_answer1,
+                        num_estab_correct1: this.getDataOfResearch.num_estab_correct1,
+                    }
+                },
+                [ResearchStep.answerCampusAround as string]: {
+                    track: 'click_answer_campus_around',
+                    data: {}
+                },
+                [ResearchStep.informationPayment as string]: {
+                    track: 'click_information_payment',
+                    data: {}
+                },
+                [ResearchStep.informationPerformance as string]: {
+                    track: 'click_information_performance',
+                    data: {}
+                },
+                [ResearchStep.questionPerformanceAndPayment as string]: {
+                    track: 'click_question_performance_and_payment',
+                    data: {
+                        num_estab_answer2: this.getDataOfResearch.num_estab_answer2,
+                        num_estab_correct2: this.getDataOfResearch.num_estab_correct2,
+                    }
+                },
+                [ResearchStep.answerPerformanceAndPayment as string]: {
+                    track: 'click_answer_performance_and_payment',
+                    data: {}
+                },
+                [ResearchStep.goToExplorer as string]: {
+                    track: 'click_go_to_explorer',
+                    data: {}
+                },
+
+            }
+
+            this.sendTopPostMessage('setTrackMixPanel', { ...trackMixpanelResearchStep[step] });
+        },
+        setAnswer(answer: any, key: string) {
+            let modifyInterface: any = this.researchConfiguration.interface;
+            modifyInterface[key] = answer;
+            this.researchConfiguration.interface = modifyInterface;
+        },
+        backStep() {
+            if (this.historyStep.length === 0) {
+                this.sendTopPostMessage('close', true)
+                return;
             };
+
+            this.researchStep = this.historyStep.pop();
+        },
+        // psoibility deprecated
+        setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
+            const setInitialData = () => {
+                this.setResearchConfiguration(data as ResearchConfiguration);
+            };
+
+            const setListOfComuna = () => {
+                this.listOfComuna = data;
+            };
+
             const setListOfCampus = () => {
                 this.listOfCampus = data;
             };
 
             const actions = {
-                [ActionDataOfResearch.setTreatment as string]: () => setTreatment(),
+                [ActionDataOfResearch.setInitialData as string]: () => setInitialData(),
                 [ActionDataOfResearch.getListOfCampus as string]: () => setListOfCampus(),
+                [ActionDataOfResearch.getListOfComuna as string]: () => setListOfComuna(),
             }
 
             actions[actionDataOfResearch]();
@@ -91,17 +235,19 @@ export const useResearchStore = defineStore('research', {
             }
 
             function breadcrumCampusAround() {
-                return i18n.global.t('campus_around.title');
+                const { t } = useI18n();
+                return t('campus_around.title');
             }
 
             function breadcrumPerformanceAndPayment() {
-                return i18n.global.t('performance_and_payment.title');
+                const { t } = useI18n();
+                return t('performance_and_payment.title');
             }
 
             function breadcrumGoToExplorer() {
-                return i18n.global.t('go_to_explorer.title');
+                const { t } = useI18n();
+                return t('go_to_explorer.title');
             }
-
 
             return breadcrumbOfStep[this.step];
         },
@@ -127,7 +273,7 @@ export const useResearchStore = defineStore('research', {
             if (!this.isValidStep) return;
 
             const isNextStep = ((this.sizeOfSteps[this.step] / 2) - 1) === this.stepChild
-            
+
             if (isNextStep) {
                 const newStep = this.step + 1;
                 this.router.push({ name: StepOFResearch[newStep] });
@@ -135,7 +281,7 @@ export const useResearchStore = defineStore('research', {
                 this.step++;
                 return;
             }
-            
+
             if (this.stepChild === 1 && this.step === 0 && this.dataOfResearch?.plans_to_enroll === 3) {
                 this.router.push({ name: StepOFResearch[1] });
                 this.stepChild = 0;
