@@ -32,6 +32,7 @@ export interface ResearchAnswerCL {
     question_1: number | null,
     question_2: number | null,
     question_3: number | null,
+    num_estab_post: number | null,
 }
 
 export interface ResearchConfiguration {

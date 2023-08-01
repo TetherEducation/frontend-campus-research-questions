@@ -55,7 +55,7 @@ const getSrcIframeExplorer = () => {
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
     url.searchParams.append('radius', '2');
-    url.searchParams.append('z', '15');
+    url.searchParams.append('z', '14.5');
     url.searchParams.append('filters', `${showFilters.value}`);
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
@@ -108,7 +108,7 @@ const nextStep = () => {
 
                 <div>
                     <span>Puedes informarte más sobre los establecimientos en</span>
-                    <a href="www.sistemadeadmisionescolar.cl" target="_blank" class="">www.sistemadeadmisionescolar.cl</a>
+                    <a href="https://www.sistemadeadmisionescolar.cl/" target="_blank" class="">www.sistemadeadmisionescolar.cl</a>
                 </div>
             </GoogleMap>
         </section>
@@ -121,8 +121,8 @@ const nextStep = () => {
                 Ir a Explorar
             </button>
             <span class="nex-step__disclaimer">
-                Puedes Informarte más sobre los establecimientos en <a
-                    href="www.sistemadeadmisionescolar.cl" target="_blank">www.sistemadeadmisionescolar.cl</a>
+                Puedes Informarte más sobre los establecimientos en 
+                <a href="https://www.sistemadeadmisionescolar.cl/" target="_blank">www.sistemadeadmisionescolar.cl</a>
             </span>
         </div>
 
@@ -130,7 +130,14 @@ const nextStep = () => {
 </template>
 <style scoped>
 .map-iframe{
-    margin-left: -0rem;
+    /* margin-left: -0rem; */
+    /* background-color: red; */
+    width: 100%;
+    min-height: 500px;
+    position: absolute;
+    margin-top: 10rem;
+    /* margin-left: -2rem; */
+    right: 0;
 }
 .next-step {
     position: absolute;
@@ -241,13 +248,13 @@ p {
 }
 
 iframe {
-    margin-left: -2rem;
-    position: absolute !important;
+    /* margin-left: -2rem; */
+    /* position: absolute !important; */
     display: block;
     border: none;
     max-height: 750px;
     height: 100vh !important;
-    width: 100vw !important;
+    width: 100% !important;
 }
 
 .g-map-container-1 {

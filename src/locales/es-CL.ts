@@ -98,7 +98,7 @@ export const es_CL: any = {
         "breadcrumb": "Explora tu zona de interés",
     },
     "gotoexplorer": {
-        "breadcrumb": "Explora tu radio",
+        "breadcrumb": "¡Conoce los establecimientos!",
     },
     // "": {
     //     "breadcrumb": "bread"

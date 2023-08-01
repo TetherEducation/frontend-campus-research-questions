@@ -84,7 +84,7 @@ const styleCircle = {
 <template>
     <section class="map-and-question">
         <div class="g-map" style="position: relative;">
-            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="14.8"
+            <GoogleMap class="g-map-container" :api-key="GMAP_API_KEY" :center="centerLocation" :zoom="13.5"
                 :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
                 :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: centerLocation, ...styleCircle }" />
