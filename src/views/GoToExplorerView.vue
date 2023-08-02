@@ -66,6 +66,10 @@ const getSrcIframeExplorer = () => {
 
 const nextStep = () => {
     researchStore.sendTopPostMessage('setAnswer', '', true);
+    researchStore.sendTopPostMessage('setTrackMixPanel', {
+        track: 'click_go_to_explorer',
+        data: {}
+    })
     researchStore.sendTopPostMessage('close', true);
 }
 
@@ -97,10 +101,11 @@ const nextStep = () => {
             </section>
         </div>
         <!-- Explorer map -->
-        <section class="map-iframe" >
-            <GoogleMap v-if="treatment === 1" class="g-map-container-1" :api-key="GMAP_API_KEY" :center="researchStore.centerLocation" :zoom="13.5"
-                :styles="mapStyle" :disableDefaultUI="true" :clickableIcons="false" :mapTypeControl="false"
-                :fullscreenControl="false" :streetViewControl="false" :gestureHandling="'greedy'" :zoomControl="false">
+        <section class="map-iframe">
+            <GoogleMap v-if="treatment === 1" class="g-map-container-1" :api-key="GMAP_API_KEY"
+                :center="researchStore.centerLocation" :zoom="13.5" :styles="mapStyle" :disableDefaultUI="true"
+                :clickableIcons="false" :mapTypeControl="false" :fullscreenControl="false" :streetViewControl="false"
+                :gestureHandling="'greedy'" :zoomControl="false">
                 <Circle :options="{ center: researchStore.centerLocation, ...styleCircle }" />
                 <CustomMarker :options="{ position: researchStore.centerLocation }">
                     <img src="../assets/marker-user.svg" />
@@ -113,7 +118,7 @@ const nextStep = () => {
                 Ir a Explorar
             </button>
             <span class="nex-step__disclaimer">
-                Puedes Informarte más sobre los establecimientos en 
+                Puedes Informarte más sobre los establecimientos en
                 <a href="https://www.sistemadeadmisionescolar.cl/" target="_blank">www.sistemadeadmisionescolar.cl</a>
             </span>
         </div>
@@ -121,7 +126,7 @@ const nextStep = () => {
     </div>
 </template>
 <style scoped>
-.map-iframe{
+.map-iframe {
     /* margin-left: -0rem; */
     /* background-color: red; */
     width: 100%;
@@ -131,6 +136,7 @@ const nextStep = () => {
     /* margin-left: -2rem; */
     right: 0;
 }
+
 .next-step {
     position: absolute;
     bottom: 0;
@@ -143,7 +149,8 @@ const nextStep = () => {
     align-items: flex-end;
 }
 
-.nex-step__disclaimer, a {
+.nex-step__disclaimer,
+a {
     color: white !important;
     font-family: Inter;
     font-size: 11px;
@@ -253,5 +260,4 @@ iframe {
     max-height: 750px;
     height: 100vh !important;
     width: 100vw !important;
-}
-</style>
+}</style>
