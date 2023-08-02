@@ -2,6 +2,7 @@
 import { useResearchStore } from '../stores/research';
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import NextButton from '@/common/components/NextButton.vue';
 
 const { nextStep, setDataResearch, sendTopPostMessage  } = useResearchStore();
 
@@ -28,10 +29,11 @@ const textButton = computed( () => {
        <router-view></router-view>
     </main>
     <section class="mt-2 research-buttons px-2">
+        <NextButton @click="nextStep()" />
         <button type="button" class="button button-active" :class="{'btn-go': currentStep === 3}" @click="nextStep()">
             {{ textButton }}
         </button>
-        <!-- <button type="button" v-t="'generic.skip'" class="button button-skip"/> -->
+        <button type="button" v-t="'generic.skip'" class="button button-skip"/>
     </section>
 </template>
 <style>

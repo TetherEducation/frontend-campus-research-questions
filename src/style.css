@@ -11,6 +11,7 @@
   --tertiary-color-light: #737373;
   --custom-padding: 1rem;
   /* configuration default */
+  box-sizing: border-box;
   background-color: var(--secondary-color-light);
   color: var(--primary-color) !important;
   /* color-scheme: light dark; */
@@ -26,15 +27,20 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html,
-body {
+html, body{
   margin: 0;
   padding: 0;
-  box-sizing: border-box !important;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 main {
-  padding: var(--custom-padding);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -49,7 +55,7 @@ button {
   color: var(--primary-color-light) !important;
 }
 
-nav {
+/* nav {
   padding: var(--custom-padding);
   background: var(--primary-color-light);
   position: relative;
@@ -96,11 +102,12 @@ progress[value]::-moz-progress-bar {
 
 progress[value]::-moz-progress-value {
   background: var(--secondary-color);
-}
+} */
 
 input.answer-of-question {
   width: 12.5rem;
-  height: 3.5rem !important;
+  height: 3rem !important;
+  margin-top: 1rem;
   background: var(--primary-color-light);
   box-shadow: inset 0px 0px 3px rgba(129, 129, 129, 0.36);
   border-radius: 0.875rem;
@@ -113,9 +120,36 @@ input.answer-of-question {
   text-align: center;
   letter-spacing: 0.0025em;
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   line-height: 1.75rem;
   color: var(--secondary-color);
+}
+
+input.answer-of-question-default {
+  width: 100%;
+  max-width: 350px;
+  height: 2.6rem !important;
+  background: #EBEBEB;
+  border-radius: 0.875rem;
+  -webkit-border-radius: 0.875rem;
+  -moz-border-radius: 0.875rem;
+  -ms-border-radius: 0.875rem;
+  -o-border-radius: 0.875rem;
+  outline: none;
+  border: none;
+  text-align: left;
+  padding: 0 1rem;
+  letter-spacing: 0.0025em;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: var(--secondary-color);
+  border-radius: 8px !important;
+}
+
+input.answer-of-question-default::placeholder {
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 input.answer-of-question::placeholder {
@@ -130,7 +164,7 @@ input.answer-of-question::placeholder {
 .text-between-answer {
   letter-spacing: 0.0025em;
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   line-height: 1.75rem;
   color: var(--secondary-color);
 }
@@ -142,8 +176,8 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 h1 {
-  font-size: 1.25rem;
-  line-height: 2rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
 }
 
 h2 {
@@ -154,14 +188,14 @@ h2 {
 
 label{
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   /* line-height: 1rem; */
 }
 
 p, .label-selection {
   font-style: normal;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.8rem;
   /* line-height: 1.75rem; */
   letter-spacing: 0.0025em;
 }
@@ -176,6 +210,7 @@ p, .label-selection {
 .g-map {
   width: 100%;
   height: 100%;
+  min-height: 300px;
   border-radius: 0.62rem;
   -webkit-border-radius: 0.62rem;
   -moz-border-radius: 0.62rem;
@@ -186,7 +221,8 @@ p, .label-selection {
 
 .g-map-container {
   width: 100%;
-  height: 270px;
+  min-height: 270px;
+  height: 100%;
 }
 
 .question {
@@ -194,6 +230,7 @@ p, .label-selection {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .button {
@@ -259,7 +296,7 @@ p, .label-selection {
 }
 
 .ml-1 {
-  margin-left: 2rem !important;
+  margin-left: 1rem !important;
 }
 
 .ml-2 {
@@ -405,7 +442,63 @@ p, .label-selection {
   padding-left: 20px !important;
 }
 
-@media only screen and (min-width: 1100px) and (min-height: 685px) {
+.container-question {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-question__button {
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  justify-content: center;
+
+  padding-bottom: 1rem;
+}
+
+span {
+  font-size: 0.8rem;
+}
+
+.go-to-explorer__map {
+  width: 100%;
+  height: 100%;
+  max-height: 600px;
+  position: absolute;
+  left: 0;
+  margin-top: 9rem;
+}
+
+@media only screen and (min-width: 1100px) {
+  .map-iframe {
+    margin-top: 7rem !important;
+    right: 0;
+  }
+  span {
+    font-size: 1rem;
+  }
+
+  .go-to-explorer__map {
+    margin-top: 6.5rem;
+    max-height: 700px;
+  }
+
+  .question-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+   h1 {
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+  .container-question__button {
+    justify-content: flex-end;
+    margin: 2rem 0;
+    padding-bottom: 0;
+  }
+
   .pl-custom {
     padding-left: 64px !important;
 }
@@ -418,13 +511,19 @@ p, .label-selection {
     position: absolute;
   }
 
+ 
+
   label {
     font-size: 1rem;
     /* line-height: 0.016rem; */
   }
 
+  .label-selection {
+    font-size: 0.9rem;
+  }
+
   p {
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 2.25rem;
   }
 

@@ -1,6 +1,8 @@
 export enum ActionDataOfResearch {
-    setTreatment = 'setTreatment',
+    setInitialData = 'setInitialData',
     setNameOfCampus = 'setNameOfCampus',
+    setNameOfComuna = 'setNameOfComuna',
+    getListOfComuna = 'getListOfComuna',
     getListOfCampus = 'getListOfCampus',
     setDataOfCampus = 'setDataOfCampus',
 }

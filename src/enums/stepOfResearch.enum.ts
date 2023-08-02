@@ -23,3 +23,7 @@ export enum StepOfPerformanceAndPayment {
     QuestionPerformanceAndPayment,
     AnswerPerformanceAndPayment,
 }
+
+export enum StepOfResearchDefault {
+    welcome
+}
