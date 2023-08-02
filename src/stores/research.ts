@@ -110,7 +110,7 @@ export const useResearchStore = defineStore('research', {
         },
         setResearchStep(step: ResearchStep) {
             this.historyStep.push(this.researchStep);
-            this.sendTrackMixpanel(step);
+            this.sendTrackMixpanel(this.researchStep);
             this.researchStep = step;
             this.sendTopPostMessage('setAnswer', '', true);
         },
