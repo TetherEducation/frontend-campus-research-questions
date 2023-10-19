@@ -37,6 +37,7 @@ export interface ResearchAnswerCL {
 
 export interface ResearchConfiguration {
     tenant: Tenant,
+    typeResearch: string,
     treatment: number,
     totalCampusesAround: number,
     location: ResearchLocation,
