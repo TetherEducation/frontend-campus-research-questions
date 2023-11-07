@@ -36,7 +36,7 @@ export const useResearchStore = defineStore('research', {
         answerCampusPaymentAndPerformance: null || 0,
     }),
     getters: {
-        isTenantCl: (state) => state.researchConfiguration.tenant.toUpperCase() === Tenant.CL,
+        isTenantCl: (state) => state.researchConfiguration?.tenant?.toUpperCase() === Tenant.CL,
         // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
