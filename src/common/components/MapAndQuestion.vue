@@ -13,6 +13,7 @@ const researchStore = useResearchStore();
 const { centerLocation } = storeToRefs(useResearchStore());
 
 const textQuestion = computed(() => {
+    // const text = 'A 3 km de tu zona de interés puede haber muchos establecimientos en el curso que estás buscando postular.'
     return t(`${researchStore.researchStep.toLowerCase()}.question`)
 })
 
