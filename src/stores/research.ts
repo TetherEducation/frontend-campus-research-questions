@@ -36,7 +36,8 @@ export const useResearchStore = defineStore('research', {
         answerCampusPaymentAndPerformance: null || 0,
     }),
     getters: {
-        isTenantCl: (state) => state.researchConfiguration.tenant.toUpperCase() === Tenant.CL,
+        isTenantCl: (state) => state.researchConfiguration?.tenant?.toUpperCase() === Tenant.CL,
+        secondRoundKey: (state) => `${state.researchConfiguration?.researchId || ''}${state.researchConfiguration?.researchType || ''}`,
         // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
@@ -76,6 +77,14 @@ export const useResearchStore = defineStore('research', {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
             this.researchConfiguration = configuration;
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
+
+            if (isTenantCl) {
+                this.researchStep = configuration.researchId && configuration.researchType ? ResearchStep.fourthQuestion : ResearchStep.firstQuestion;
+                console.log(this.researchStep, configuration.researchId, configuration.researchType)
+            }
+            else {
+                this.researchStep = ResearchStep.welcome;
+            }
             this.setInterface();
             this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
             this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
@@ -103,7 +112,10 @@ export const useResearchStore = defineStore('research', {
                 question_1: null,
                 question_2: null,
                 question_3: null,
+                question_4: null,
                 num_estab_post: null,
+                question_cost: null,
+                question_performance: null,
             }
 
             this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
@@ -248,6 +260,8 @@ export const useResearchStore = defineStore('research', {
                 const { t } = useI18n();
                 return t('go_to_explorer.title');
             }
+
+            console.log('entry breadcrumb')
 
             return breadcrumbOfStep[this.step];
         },

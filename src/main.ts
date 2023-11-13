@@ -9,6 +9,7 @@ import Welcome from './pages/Welcome.vue'
 import FirstQuestion from './pages/FirstQuestion.vue'
 import SecondQuestion from './pages/SecondQuestion.vue'
 import ThirdQuestion from './pages/ThirdQuestion.vue'
+import FourthQuestion from './pages/FourthQuestion.vue'
 // import QuestionCampusAround from './pages/QuestionCampusAround.vue'
 import MapAndQuestion from './common/components/MapAndQuestion.vue'
 // import AnswerCampusAround from './pages/AnswerCampusAround.vue'
@@ -63,6 +64,7 @@ createApp(App)
     .component('FirstQuestion', FirstQuestion)
     .component('SecondQuestion', SecondQuestion)
     .component('ThirdQuestion', ThirdQuestion)
+    .component('FourthQuestion', FourthQuestion)
     .component('QuestionCampusAround', MapAndQuestion)
     .component('AnswerCampusAround', ResultsOfQuestion)
     .component('InformationPayment', PerformanceAndPayment)

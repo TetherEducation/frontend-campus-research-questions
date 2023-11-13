@@ -32,6 +32,9 @@ export interface ResearchAnswerCL {
     question_1: number | null,
     question_2: number | null,
     question_3: number | null,
+    question_4: number | null,
+    question_cost: number | null,
+    question_performance: number | null,
     num_estab_post: number | null,
 }
 
@@ -44,4 +47,6 @@ export interface ResearchConfiguration {
     hasPriority: boolean | null,
     totalCampusesAroundPaymentAndPerformance: number,
     interface?: ResearchAnswerCL | ResearchAnswerDO,
+    researchId?: number,
+    researchType?: string | null,
 }

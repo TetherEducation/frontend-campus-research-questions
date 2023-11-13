@@ -12,7 +12,8 @@ const routes: RouteRecordRaw[] = [
             // The code below checks the query string for the treatment, value, and tenant parameters.
             // If the parameters exist, it uses the value parameter to set the totalCampusesAround and
             // totalCampusesAroundPaymentAndPerformance properties of the researchConfiguration object.
-            const { treatment, value, tenant, grades, hasPriority: hasPriority } = to.query;
+            const { treatment, value, tenant, grades, hasPriority: hasPriority, researchId, researchType } = to.query;
+            
             if (treatment && value && tenant) {
                 const store = useResearchStore();
                 const researchConfiguration: ResearchConfiguration = {
@@ -23,6 +24,8 @@ const routes: RouteRecordRaw[] = [
                     totalCampusesAroundPaymentAndPerformance: +value - 1,
                     treatment: +treatment,
                     location: defaultLocation,
+                    researchId: +researchId!,
+                    researchType: researchType as string || null,
                 }
                 store.setResearchConfiguration(researchConfiguration);
             }

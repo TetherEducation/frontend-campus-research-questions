@@ -3,6 +3,7 @@ export enum ResearchStep {
     firstQuestion = 'FirstQuestion',
     secondQuestion = 'SecondQuestion',
     thirdQuestion = 'ThirdQuestion',
+    fourthQuestion = 'FourthQuestion',
     questionCampusAround = 'QuestionCampusAround',
     answerCampusAround = 'AnswerCampusAround',
     informationPayment = 'InformationPayment',
