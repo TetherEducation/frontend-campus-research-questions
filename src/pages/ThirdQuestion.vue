@@ -33,7 +33,7 @@ watch(searchComuna, async (newSearch) => {
 const changeValue = (value: any) => {
     const data = researchStore.getListOfCampus || [];
     if (data?.length > 0) {
-        listOfSchools.value = [...data.map((campus: any) => campus?.campus_name)]
+        listOfSchools.value = [...new Set(data.map((campus: any) => campus?.campus_name))]
     }
 
     window.top!.postMessage(

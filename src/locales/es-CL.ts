@@ -9,7 +9,7 @@ export const es_CL: any = {
     "firstquestion2a": {
         "question": "¿Has pensando en las postulaciones del Periodo Complementario del SAE para el 2024?",
         "results": {
-            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que ",
+            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé.",
             2: "<b>Si,</b> tengo una idea, pero <b>no estoy seguro/a de los establecimientos disponibles</b> para el Periodo Complementario.",
             3: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> de los establecimientos a los que postularé.",
             4: "<b>No, aún no he decidido</b> y no sé a qué establecimientos postularé.",
@@ -21,7 +21,7 @@ export const es_CL: any = {
     "firstquestion2b": {
         "question": "¿Has pensando en las postulaciones del Periodo Complementario del SAE para el 2024?",
         "results": {
-            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que ",
+            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé.",
             2: "<b>Si,</b> tengo una idea, pero <b>no estoy seguro/a de los establecimientos disponibles</b> para el Periodo Complementario.",
             3: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> de los establecimientos a los que postularé.",
             4: "<b>No, aún no he decidido</b> y no sé a qué establecimientos postularé.",
@@ -33,7 +33,7 @@ export const es_CL: any = {
     "firstquestion2c": {
         "question": "¿Has pensando en las postulaciones del Periodo Complementario del SAE para el 2024?",
         "results": {
-            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que ",
+            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé.",
             2: "<b>Si,</b> tengo una idea, pero <b>no estoy seguro/a de los establecimientos disponibles</b> para el Periodo Complementario.",
             3: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> de los establecimientos a los que postularé.",
             4: "<b>No, aún no he decidido</b> y no sé a qué establecimientos postularé.",
@@ -55,7 +55,7 @@ export const es_CL: any = {
         "breadcrumb": "Pregunta 1",
         "question": "¿Has pensando en las postulaciones del SAE para el 2024?",
         "results": {
-            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé",
+            1: "<b>Sí, estoy seguro/a</b> de los establecimientos a los que postularé.postularé",
             2: "<b>Sí,</b> tengo una idea, pero <b>no estoy completamente seguro/a</b> de los establecimientos a los que postularé",
             3: "<b>No, aún no he decidido</b>  y no sé a qué establecimientos postularé",
             4: "",
@@ -204,7 +204,7 @@ export const es_CL: any = {
         "results": {
             1: "No estaba informado/a de que debía postular.",
             2: "Quiero incorporarme a un establecimiento particular pagado.",
-            3: "Inscribiré a mi estudiante en exámenes libres",
+            3: "Inscribiré a mi estudiante en exámenes libres.",
             4: "Estoy evaluando proyectos educativos no formales (como educación en casa, educación en línea, entre otras).",
             5: "Postergaré el ingreso o continuidad educativa de mi estudiante.",
             6: "Hay un error, ya que estoy seguro/a que tengo continuidad en el colegio actual.",
@@ -214,7 +214,7 @@ export const es_CL: any = {
     "fourthquestion2b": {
         "question": "¿Por qué rechazaste la asignación del Periodo Principal?",
         "results": {
-            1: "Fui asignado a mi establecimiento actual",
+            1: "Fui asignado a mi establecimiento actual.",
             2: "Me equivoqué, no era mi intención postular a esa opción.",
             3: "Después de postular, me di cuenta que no me gustaba el establecimiento al que fui asignado.",
             4: "Después de postular, encontré un establecimiento que me gusta más.",
@@ -229,7 +229,7 @@ export const es_CL: any = {
             1: "Pensé que no era necesario agregar más opciones, confiaba en que sería seleccionado/a en uno de los establecimientos que postulé.",
             2: "Sabía que podía quedar sin asignación pero no habían otras opciones que me gustaran.",
             3: "Tenía la intención de agregar más opciones pero no logre hacerlo a tiempo.",
-            4: "Otra razón",
+            4: "Otra razón.",
             5: "",
             6: "",
             7: "",
