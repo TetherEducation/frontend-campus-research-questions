@@ -8,10 +8,10 @@ import { ResearchStep } from '@/enums/researchStep.enum';
 const researchStore = useResearchStore();
 
 const nextStep = () => {
-    const step = researchStore.researchStep === ResearchStep.answerCampusAround ? 
-    ResearchStep.informationPayment : ResearchStep.goToExplorer;
+    const step = researchStore.researchStep === ResearchStep.answerCampusAround ?
+        ResearchStep.informationPayment : ResearchStep.goToExplorer;
     researchStore.setResearchStep(step)
-    
+
     // if (!researchStore.isTenantCl) {
     //     researchStore.setAnswer(payloadSecondQuestion.knows_school, 'knows_school')
 
@@ -52,7 +52,7 @@ const labelCorrect = () => {
 
 const modifyLabel = computed(() => {
     const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular'
-    return researchStore.researchStep === ResearchStep.answerCampusAround 
+    return researchStore.researchStep === ResearchStep.answerCampusAround
         ? 'en el curso que estás buscando postular' : labelPayment
 })
 
@@ -60,12 +60,13 @@ const classOfAnswer = ref<string>('')
 
 const text = () => {
     const rest: any = restOfAnswer.value;
+    const changeText = researchStore.secondRoundKey !== '';
 
     if (rest === 0) {
         classOfAnswer.value = 'good-answer'
         return {
             title: 'Es correcto',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: changeText ? `Creíste que habían ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.` : `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
@@ -73,14 +74,14 @@ const text = () => {
         classOfAnswer.value = 'bad-answer'
         return {
             title: '',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
     if (rest <= 3) {
         return {
             title: 'Estuviste muy cerca',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
@@ -88,11 +89,11 @@ const text = () => {
         classOfAnswer.value = 'bad-answer'
         return {
             title: 'Hay más de los que piensas',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} centros educativos a 2km de tu ubicación, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: `Creíste que habían ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, y efectivamente hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
-    
+
 
     classOfAnswer.value = 'bad-answer'
     return {

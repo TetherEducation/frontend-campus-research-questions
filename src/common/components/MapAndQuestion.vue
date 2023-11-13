@@ -14,7 +14,7 @@ const { centerLocation } = storeToRefs(useResearchStore());
 
 const textQuestion = computed(() => {
     // const text = 'A 3 km de tu zona de interés puede haber muchos establecimientos en el curso que estás buscando postular.'
-    return t(`${researchStore.researchStep.toLowerCase()}.question`)
+    return t(`${researchStore.researchStep.toLowerCase()}${researchStore.secondRoundKey !== '' ? `.${researchStore.secondRoundKey}` : ''}.question`)
 })
 
 const isPerformanceAndpayment = computed(() => {
@@ -22,7 +22,8 @@ const isPerformanceAndpayment = computed(() => {
 })
 
 const textDescription = () => {
-    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
+    
+    return t(`${researchStore.researchStep.toLowerCase()}${researchStore.secondRoundKey !== '' ? `.${researchStore.secondRoundKey}` : ''}.description`, 
     { total: researchStore.researchConfiguration.totalCampusesAround })
 }
 

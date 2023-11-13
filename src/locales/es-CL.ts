@@ -238,15 +238,21 @@ export const es_CL: any = {
     "questioncampusaround": {
         "2a": {
             "breadcrumb": "Explora tu zona de interés",
+            "description": "A <b>3 km de tu zona de interés</b> puede haber muchos establecimientos con el curso que estás buscando postular.",
+            "question": "¿Cuántos crees que tienen vacantes?"
         },
         "2b": {
             "breadcrumb": "Explora tu zona de interés",
+            "description": "A <b>3 km de tu zona de interés</b> puede haber muchos establecimientos con el curso que estás buscando postular.",
+            "question": "¿Cuántos crees que tienen vacantes?"
         },
         "2c": {
             "breadcrumb": "Explora tu zona de interés",
+            "description": "A <b>3 km de tu zona de interés</b> puede haber muchos establecimientos con el curso que estás buscando postular.",
+            "question": "¿Cuántos crees que tienen vacantes?"
         },
         "breadcrumb": "Explora tu zona de interés",
-        "description": "A <b>2 km de tu zona de interés</b> puede haber muchos establecimientos con el curso que estás buscando postular.",
+        "description": "A <b>3 km de tu zona de interés</b> puede haber muchos establecimientos con el curso que estás buscando postular.",
         "question": "¿Cuántos crees que son?"
     },
     "questiocampusaround2a": {
