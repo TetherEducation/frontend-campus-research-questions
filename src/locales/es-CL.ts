@@ -261,9 +261,27 @@ export const es_CL: any = {
         "question": "¿Cuántos crees que tienen vacantes?"
     },
     "answercampusaround": {
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
         "breadcrumb": "Explora tu zona de interés",
     },
     "informationpayment": {
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
         "breadcrumb": "Explora tu zona de interés",
         "title": "Costos de Mensualidad",
         "description": "Los establecimientos educativos se pueden <b>agrupar en diferentes categorías</b> según su costo:",
@@ -287,6 +305,15 @@ export const es_CL: any = {
         },
     },
     "informationperformance": {
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
         "breadcrumb": "Explora tu zona de interés",
         "title": "Desempeño Académico",
         "description":"Los establecimientos educativos se <b>agrupan en distintos niveles</b> según la <b>Agencia de Calidad de la Educación del MINEDUC.</b> Te invitamos a revisarlos:",
@@ -310,14 +337,44 @@ export const es_CL: any = {
         },
     },
     "questionperformanceandpayment":{
+            "2a": {
+                "breadcrumb": "Explora tu zona de interés",
+                "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
+            },
+            "2b": {
+                "breadcrumb": "Explora tu zona de interés",
+                "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
+            },
+            "2c": {
+                "breadcrumb": "Explora tu zona de interés",
+                "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
+            },
             "breadcrumb": "Explora tu zona de interés",
             "description": "De los <b>{total} establecimientos</b> ubicados a 2 km de tu preferencia, que imparten el curso al que deseas postular:",
             "question": "¿Cuántos crees que son de <b>bajo costo</b> y de <b>medio o alto desempeño para el estudiante?</b>",
     },
     "answerperformanceandpayment": {
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
         "breadcrumb": "Explora tu zona de interés",
     },
     "gotoexplorer": {
+        "2a": {
+            "breadcrumb": "¡Conoce los establecimientos!",
+        },
+        "2b": {
+            "breadcrumb": "¡Conoce los establecimientos!",
+        },
+        "2c": {
+            "breadcrumb": "¡Conoce los establecimientos!",
+        },
         "breadcrumb": "¡Conoce los establecimientos!",
     },
     // "": {
