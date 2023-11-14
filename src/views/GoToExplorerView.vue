@@ -57,7 +57,7 @@ const getSrcIframeExplorer = () => {
     url.searchParams.append('radius', '2');
     url.searchParams.append('z', '14.5');
     url.searchParams.append('filters', `${showFilters.value}`);
-    url.searchParams.append('vacancies', 'true')
+    url.searchParams.append('vacanciesOff', 'false')
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
     }
