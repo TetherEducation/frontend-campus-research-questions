@@ -75,6 +75,8 @@ const setNexStep = () => {
         researchStore.setAnswer(payloadSecondQuestion.knows_school, 'knows_school')
 
     }
+
+    if (!payloadSecondQuestion.question_3) return;
     researchStore.setAnswer(payloadSecondQuestion.question_3, 'question_3')
     researchStore.setAnswer(payloadSecondQuestion.school, 'school')
     researchStore.setAnswer(payloadSecondQuestion.comuna, 'comuna')
