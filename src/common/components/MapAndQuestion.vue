@@ -137,8 +137,7 @@ const styleCircle = {
         <div class="question">
             <p v-if="isPerformanceAndpayment" class="mt-3">
                 <!-- De los <b>{{ labelTotal }} establecimientos</b> ubicados a 2 km de tu preferencia, que imparte el curso al que deseas postular. -->
-                De los <b>{{ labelTotal }} establecimientos</b> ubicados a 3 km de tu preferencia, que imparten el curso al que 
-deseas postular:
+                De los <b>{{ labelTotal }} establecimientos educacionales, con vacantes</b> en el curso al que deseas postular, ubicados a 3 km de tu zona de interés:
             </p>
             <p v-else class="mt-3" v-html="textDescription()" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />

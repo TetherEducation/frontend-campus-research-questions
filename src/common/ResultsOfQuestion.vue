@@ -117,7 +117,7 @@ const text = () => {
             <h1 class="mt-3">{{ researchStore.researchConfiguration.treatment === 1 ? 'Centros Educativos' : text()?.title
             }}</h1>
             <p class="mt-5">
-                Creíste que habían <b>{{ results.answer }} </b> establecimientos con vacantes <span v-html="modifyLabel" />
+                Creíste que habían <b>{{ results.answer }} </b> establecimientos con vacantes <span v-html="modifyLabel" />.
                 <template v-if="researchStore.researchConfiguration.treatment !== 1">
                     {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
                 </template>
