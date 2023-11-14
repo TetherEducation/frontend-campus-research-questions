@@ -7,7 +7,7 @@ const researchStore = useResearchStore();
 
 const nextStep = () => {
     
-    if(!researchStore.researchConfiguration.interface.question_performance) return;
+    if(!researchStore.researchConfiguration.interface.question_cost) return;
     const nextNavigate = ResearchStep.informationPerformance;
     researchStore.setResearchStep(nextNavigate)
     return;
@@ -19,7 +19,7 @@ const step = computed(() => {
 })
 
 const selectPayment = (id: number) => {
-    const key = 'question_performance'
+    const key = 'question_cost'
     
     researchStore.setAnswer(String(id), key);
 }

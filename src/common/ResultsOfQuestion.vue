@@ -58,9 +58,9 @@ const labelCorrect = () => {
 }
 
 const modifyLabel = computed(() => {
-    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular'
+    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular.'
     return researchStore.researchStep === ResearchStep.answerCampusAround
-        ? 'en el curso que estás buscando postular' : labelPayment
+        ? 'en el curso que estás buscando postular.' : labelPayment
 })
 
 const classOfAnswer = ref<string>('')
@@ -117,7 +117,7 @@ const text = () => {
             <h1 class="mt-3">{{ researchStore.researchConfiguration.treatment === 1 ? 'Centros Educativos' : text()?.title
             }}</h1>
             <p class="mt-5">
-                Creíste que habían <b>{{ results.answer }} </b> establecimientos con vacantes <span v-html="modifyLabel" />.
+                Creíste que habían <b>{{ results.answer }} </b> establecimientos con vacantes{{ modifyLabel ? '' : '.' }} <span v-html="modifyLabel"/>
                 <template v-if="researchStore.researchConfiguration.treatment !== 1">
                     {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
                 </template>

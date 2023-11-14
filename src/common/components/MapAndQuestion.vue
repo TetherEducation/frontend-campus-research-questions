@@ -63,11 +63,11 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    // if (isPerformanceAndpayment.value && (Number(event?.target.value) > researchStore.researchConfiguration.totalCampusesAround)) {
-    //     event.target.value = null;
-    //     answer = null;
-    //     return;
-    // }
+    if (isPerformanceAndpayment.value && (Number(event?.target.value) >= researchStore.researchConfiguration.interface?.num_estab_answer1)) {
+        event.target.value = null;
+        answer = null;
+        return;
+    }
 
     answer = Number(event?.target.value);
 }
