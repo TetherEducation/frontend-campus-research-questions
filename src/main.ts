@@ -32,6 +32,7 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import PerformanceAndPayment from './views/PerformanceAndPayment.vue';
 import GoToExplorerViewVue from './views/GoToExplorerView.vue';
+import PaymentQuestion from './views/PaymentQuestion.vue';
 
 const vuetify = createVuetify({
   components,
@@ -72,6 +73,7 @@ createApp(App)
     .component('QuestionPerformanceAndPayment', MapAndQuestion)
     .component('AnswerPerformanceAndPayment', ResultsOfQuestion)
     .component('GoToExplorer', GoToExplorerViewVue)
+    .component('PaymentQuestion', PaymentQuestion)
     
     // .component('answercampusaround', MapAndQuestion)
     // .component('AnswerCampusesAround', AnswerCampusAround)

@@ -62,6 +62,7 @@ const text = () => {
     const rest: any = restOfAnswer.value;
     const changeText = researchStore.secondRoundKey !== '';
 
+    console.log('change text', changeText)
     if (rest === 0) {
         classOfAnswer.value = 'good-answer'
         return {
@@ -74,14 +75,14 @@ const text = () => {
         classOfAnswer.value = 'bad-answer'
         return {
             title: '',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: `Creíste que habían ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
     if (rest <= 3) {
         return {
             title: 'Estuviste muy cerca',
-            description: `Creíste que había ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
+            description: `Creíste que habían ${interfaceResearch.value?.num_estab_answer1} establecimientos con vacantes en el curso que estás buscando postular, pero en realidad hay ${interfaceResearch.value?.num_estab_correct1}.`,
         }
     }
 
@@ -110,7 +111,7 @@ const text = () => {
             <h1 class="mt-3">{{ researchStore.researchConfiguration.treatment === 1 ? 'Centros Educativos' : text()?.title
             }}</h1>
             <p class="mt-5">
-                Creíste que habían <b>{{ results.answer }} </b> establecimientos <span v-html="modifyLabel" />
+                Creíste que habían <b>{{ results.answer }} </b> establecimientos con vacantes <span v-html="modifyLabel" />
                 <template v-if="researchStore.researchConfiguration.treatment !== 1">
                     {{ labelCorrect() }} <b>{{ results.correctAnswer }}.</b>
                 </template>

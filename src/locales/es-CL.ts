@@ -336,6 +336,29 @@ export const es_CL: any = {
             "description": "El <b>6%</b> de los establecimientos en Chile se encuentran en esta categoría.",
         },
     },
+    "paymentquestion": {
+        "title": "Desempeño Académico de tu primera preferencia",
+        "description":"¿Qué categoría de desempeño tiene tu primera preferencia: <b>{school}?</b>",
+        "free": {
+            "title": "Alto",
+            "description": "El <b>13%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "low": {
+            "title": "Medio",
+            "description": "El <b>57%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "medium": {
+            "title": "Medio - Bajo",
+            "description": "El <b>24%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "high": {
+            "title": "Insuficiente",
+            "description": "El <b>6%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        }
+    },
     "questionperformanceandpayment":{
             "2a": {
                 "breadcrumb": "Explora tu zona de interés",

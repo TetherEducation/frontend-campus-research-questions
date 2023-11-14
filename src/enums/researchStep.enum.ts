@@ -11,4 +11,6 @@ export enum ResearchStep {
     questionPerformanceAndPayment = 'QuestionPerformanceAndPayment',
     answerPerformanceAndPayment = 'AnswerPerformanceAndPayment',
     goToExplorer = 'GoToExplorer',
+    paymentQuestion = 'PaymentQuestion',
+    PerformanceQuestion = 'PerformanceQuestion',
 }
