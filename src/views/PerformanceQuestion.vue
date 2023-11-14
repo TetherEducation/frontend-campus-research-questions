@@ -7,6 +7,7 @@ const researchStore = useResearchStore();
 
 const nextStep = () => {
     
+    if(!researchStore.researchConfiguration.interface.question_performance) return;
     const nextNavigate = ResearchStep.questionPerformanceAndPayment;
     researchStore.setResearchStep(nextNavigate)
     return;
