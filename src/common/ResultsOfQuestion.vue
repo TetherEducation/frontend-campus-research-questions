@@ -13,7 +13,7 @@ const nextStep = () => {
     if (researchStore.researchStep === ResearchStep.answerCampusAround) {
         nextStep = ResearchStep.informationPayment;
     } else {
-        nextStep = ResearchStep.answerPerformanceAndPayment === researchStore.researchStep ? ResearchStep.informationPerformance : ResearchStep.goToExplorer;
+        nextStep = ResearchStep.goToExplorer;
     }
 
     

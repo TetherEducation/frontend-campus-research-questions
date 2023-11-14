@@ -7,7 +7,7 @@ const researchStore = useResearchStore();
 
 const nextStep = () => {
     
-    const nextNavigate = isPaymentStep.value ? ResearchStep.informationPerformance : ResearchStep.goToExplorer;
+    const nextNavigate = ResearchStep.questionPerformanceAndPayment;
     researchStore.setResearchStep(nextNavigate)
     return;
 }
@@ -17,9 +17,6 @@ const step = computed(() => {
     return researchStore.researchStep.toLowerCase();
 })
 
-const isPaymentStep = computed(() => {
-    return researchStore.researchStep === ResearchStep.informationPayment;
-})
 
 const selectPayment = (id: number) => {
     const key = 'question_performance'

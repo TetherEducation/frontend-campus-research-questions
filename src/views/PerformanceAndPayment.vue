@@ -8,11 +8,19 @@ const researchStore = useResearchStore();
 const nextStep = () => {
     let nextNavigate;
 
-    if(researchStore.researchConfiguration.interface?.school && researchStore.isTenantCl) {
+    const school = !researchStore.researchConfiguration.interface?.school;
+    if(school && researchStore.isTenantCl) {
         nextNavigate = researchStore.researchStep === ResearchStep.informationPerformance ? ResearchStep.PerformanceQuestion : ResearchStep.paymentQuestion;
         
     } else {
-        nextNavigate = isPaymentStep.value ? ResearchStep.informationPerformance : ResearchStep.questionPerformanceAndPayment;
+
+        if (researchStore.researchStep === ResearchStep.informationPerformance) {
+            nextNavigate = school ? ResearchStep.PerformanceQuestion : ResearchStep.questionPerformanceAndPayment;
+        } else if (researchStore.researchStep === ResearchStep.informationPayment) {
+            nextNavigate = school ? ResearchStep.paymentQuestion : ResearchStep.informationPerformance;
+        } else {
+            nextNavigate = ResearchStep.questionPerformanceAndPayment;
+        }
     }
 
     researchStore.setResearchStep(nextNavigate)
