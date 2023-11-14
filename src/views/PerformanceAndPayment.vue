@@ -8,7 +8,7 @@ const researchStore = useResearchStore();
 const nextStep = () => {
     let nextNavigate;
 
-    const school = !researchStore.researchConfiguration.interface?.school;
+    const school = researchStore.researchConfiguration.interface?.school;
     if(school && researchStore.isTenantCl) {
         nextNavigate = researchStore.researchStep === ResearchStep.informationPerformance ? ResearchStep.PerformanceQuestion : ResearchStep.paymentQuestion;
         
