@@ -10,7 +10,6 @@ const nextStep = () => {
     const nextNavigate = isPaymentStep.value ? ResearchStep.informationPerformance : ResearchStep.questionPerformanceAndPayment;
     researchStore.setResearchStep(nextNavigate)
     return;
-    // return researchStore.setResearchStep(ResearchStep.informationPerformance)
 }
 
 const school = researchStore.researchConfiguration.interface?.school;
@@ -22,24 +21,32 @@ const isPaymentStep = computed(() => {
     return researchStore.researchStep === ResearchStep.informationPayment;
 })
 
-
+const selectPayment = (id: number) => {
+    const key = 'question_cost'
+    
+    researchStore.setAnswer(String(id), key);
+}
 </script>
 <template>
     <section class="container-question justify-space-between">
         <div>
             <div class="d-flex">
                 <div>
-                    <h1 class="mt-4" v-html="$t(`${step}.title`)" />
+                    <h1 class="mt-4">
+                        Costo de tu primera preferencia
+                    </h1>
                     <div>
-                        <p class="mt-5" v-html="$t(`${step}.description`)" />
-                        <b>{{ school }}</b>
+                        <p class="mt-5">¿Qué categoría de costo tiene tu primera preferencia: <b>{{ school }}</b>?</p>
+                    </div>
+                    <div>
+                        <p class="mt-5">Selecciona uno: </p>
                     </div>
                 </div>
                
             </div>
             <section class="section-detail pl-custom mt-5">
                 <!-- free -->
-                <div class="d-flex flex-column">
+                <div @click="selectPayment(1)" class="d-flex flex-column" :class="{'section-selected': researchStore.answerPayment  === '1'}">
                     <div class="d-flex flex-row  w-full align-items-center mt-4">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +63,7 @@ const isPaymentStep = computed(() => {
                     
                 </div>
                 <!-- low -->
-                <div class="d-flex flex-column">
+                <div @click="selectPayment(2)" class="d-flex flex-column" :class="{'section-selected': researchStore.answerPayment  === '2'}">
                     <div class="d-flex flex-row  w-full align-items-center mt-4">
                         <svg  width="36" height="36" viewBox="0 0 36 36" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +79,7 @@ const isPaymentStep = computed(() => {
                     
                 </div>
                 <!-- middle high -->
-                <div class="d-flex flex-column">
+                <div @click="selectPayment(3)" class="d-flex flex-column" :class="{'section-selected': researchStore.answerPayment  === '3'}">
                     <div class="d-flex flex-row  w-full align-items-center mt-4">
                         <svg  width="37" height="36" viewBox="0 0 37 36" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +99,7 @@ const isPaymentStep = computed(() => {
 
                 </div>
                 <!-- high -->
-                <div class="d-flex flex-column">
+                <div @click="selectPayment(4)" class="d-flex flex-column" :class="{'section-selected': researchStore.answerPayment  === '4'}">
                     <div class="d-flex flex-row  w-full align-items-center mt-4">
                         <svg  width="37" height="36" viewBox="0 0 37 36" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +119,7 @@ const isPaymentStep = computed(() => {
                         <p class="ml-5" v-html="$t(`${step}.high.title`)" />
                     </div>
                 </div>
-                <div class="d-flex flex-column">
+                <div @click="selectPayment(0)" class="d-flex flex-column" :class="{'section-selected': researchStore.answerPayment  === '0'}">
                     <div class="d-flex flex-row  w-full align-items-center mt-4">
                         <!-- <svg  width="37" height="36" viewBox="0 0 37 36" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -141,7 +148,10 @@ const isPaymentStep = computed(() => {
     </section>
 </template>
 <style scoped>
-.section-detail > div:focus {
+.section-detail > div {
+    cursor: pointer;
+}
+.section-selected {
     border: 2px solid #62C7D3;
 }
 

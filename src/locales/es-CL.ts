@@ -340,6 +340,35 @@ export const es_CL: any = {
         "title": "Desempeño Académico de tu primera preferencia",
         "description":"¿Qué categoría de desempeño tiene tu primera preferencia: <b>{school}?</b>",
         "free": {
+            "title": "Gratuito",
+            "description": "El <b>13%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "low": {
+            "title": "CLP $1 - $50.000",
+            "description": "El <b>57%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "medium": {
+            "title": "CLP $50,001 - $100.000",
+            "description": "El <b>24%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "high": {
+            "title": "Más de CLP $100.000",
+            "description": "El <b>6%</b> de los establecimientos en Chile se encuentran en esta categoría.",
+        },
+        "2a": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+    },
+    "performancequestion": {
+        "title": "Desempeño Académico de tu primera preferencia",
+        "description":"¿Qué categoría de desempeño tiene tu primera preferencia: <b>{school}?</b>",
+        "free": {
             "title": "Alto",
             "description": "El <b>13%</b> de los establecimientos en Chile se encuentran en esta categoría.",
         },
@@ -357,7 +386,13 @@ export const es_CL: any = {
         },
         "2a": {
             "breadcrumb": "Explora tu zona de interés",
-        }
+        },
+        "2b": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
+        "2c": {
+            "breadcrumb": "Explora tu zona de interés",
+        },
     },
     "questionperformanceandpayment":{
             "2a": {

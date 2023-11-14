@@ -46,7 +46,8 @@ export interface ResearchConfiguration {
     grades: number[] | null,
     hasPriority: boolean | null,
     totalCampusesAroundPaymentAndPerformance: number,
-    interface?: ResearchAnswerCL | ResearchAnswerDO,
+    // interface?: ResearchAnswerCL | ResearchAnswerDO,
+    interface?: any,
     researchId?: number,
     researchType?: string | null,
 }

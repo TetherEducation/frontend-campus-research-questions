@@ -38,6 +38,8 @@ export const useResearchStore = defineStore('research', {
     getters: {
         isTenantCl: (state) => state.researchConfiguration?.tenant?.toUpperCase() === Tenant.CL,
         secondRoundKey: (state) => `${state.researchConfiguration?.researchId || ''}${state.researchConfiguration?.researchType || ''}`,
+        answerPayment: (state) => state?.researchConfiguration?.interface?.question_cost || '',
+        answerPerformance: (state) => state?.researchConfiguration?.interface?.question_performance || '',
         // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
@@ -80,7 +82,6 @@ export const useResearchStore = defineStore('research', {
 
             if (isTenantCl) {
                 this.researchStep = configuration.researchId && configuration.researchType ? ResearchStep.fourthQuestion : ResearchStep.firstQuestion;
-                console.log(this.researchStep, configuration.researchId, configuration.researchType)
             }
             else {
                 this.researchStep = ResearchStep.welcome;
@@ -261,7 +262,6 @@ export const useResearchStore = defineStore('research', {
                 return t('go_to_explorer.title');
             }
 
-            console.log('entry breadcrumb')
 
             return breadcrumbOfStep[this.step];
         },

@@ -8,9 +8,16 @@ import { ResearchStep } from '@/enums/researchStep.enum';
 const researchStore = useResearchStore();
 
 const nextStep = () => {
-    const step = researchStore.researchStep === ResearchStep.answerCampusAround ?
-        ResearchStep.informationPayment : ResearchStep.goToExplorer;
-    researchStore.setResearchStep(step)
+    let nextStep: ResearchStep;
+
+    if (researchStore.researchStep === ResearchStep.answerCampusAround) {
+        nextStep = ResearchStep.informationPayment;
+    } else {
+        nextStep = ResearchStep.answerPerformanceAndPayment === researchStore.researchStep ? ResearchStep.informationPerformance : ResearchStep.goToExplorer;
+    }
+
+    
+    researchStore.setResearchStep(nextStep);
 
     // if (!researchStore.isTenantCl) {
     //     researchStore.setAnswer(payloadSecondQuestion.knows_school, 'knows_school')
@@ -62,7 +69,6 @@ const text = () => {
     const rest: any = restOfAnswer.value;
     const changeText = researchStore.secondRoundKey !== '';
 
-    console.log('change text', changeText)
     if (rest === 0) {
         classOfAnswer.value = 'good-answer'
         return {
