@@ -9,7 +9,8 @@ const researchStore = useResearchStore();
 
 defineProps<{ changestyle: boolean }>();
 const question: any = () => {
-  const keyOfi18n = researchStore.researchStep.toLocaleLowerCase();
+  const keyOfi18nSecondRound = researchStore.secondRoundKey.toLocaleLowerCase();
+  const keyOfi18n = researchStore.researchStep.toLocaleLowerCase() + keyOfi18nSecondRound;
 
   return {
     title: t(`${keyOfi18n}.question`),
@@ -17,6 +18,10 @@ const question: any = () => {
       t(`${keyOfi18n}.results.1`),
       t(`${keyOfi18n}.results.2`),
       t(`${keyOfi18n}.results.3`),
+      t(`${keyOfi18n}.results.4`),
+      t(`${keyOfi18n}.results.5`),
+      t(`${keyOfi18n}.results.6`),
+      t(`${keyOfi18n}.results.7`),
     ].filter((result: string) => result)
   }
 }

@@ -9,6 +9,7 @@ import Welcome from './pages/Welcome.vue'
 import FirstQuestion from './pages/FirstQuestion.vue'
 import SecondQuestion from './pages/SecondQuestion.vue'
 import ThirdQuestion from './pages/ThirdQuestion.vue'
+import FourthQuestion from './pages/FourthQuestion.vue'
 // import QuestionCampusAround from './pages/QuestionCampusAround.vue'
 import MapAndQuestion from './common/components/MapAndQuestion.vue'
 // import AnswerCampusAround from './pages/AnswerCampusAround.vue'
@@ -31,6 +32,8 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import PerformanceAndPayment from './views/PerformanceAndPayment.vue';
 import GoToExplorerViewVue from './views/GoToExplorerView.vue';
+import PaymentQuestion from './views/PaymentQuestion.vue';
+import PerformanceQuestion from './views/PerformanceQuestion.vue';
 
 const vuetify = createVuetify({
   components,
@@ -63,6 +66,7 @@ createApp(App)
     .component('FirstQuestion', FirstQuestion)
     .component('SecondQuestion', SecondQuestion)
     .component('ThirdQuestion', ThirdQuestion)
+    .component('FourthQuestion', FourthQuestion)
     .component('QuestionCampusAround', MapAndQuestion)
     .component('AnswerCampusAround', ResultsOfQuestion)
     .component('InformationPayment', PerformanceAndPayment)
@@ -70,7 +74,8 @@ createApp(App)
     .component('QuestionPerformanceAndPayment', MapAndQuestion)
     .component('AnswerPerformanceAndPayment', ResultsOfQuestion)
     .component('GoToExplorer', GoToExplorerViewVue)
-    
+    .component('PaymentQuestion', PaymentQuestion)
+    .component('PerformanceQuestion', PerformanceQuestion)
     // .component('answercampusaround', MapAndQuestion)
     // .component('AnswerCampusesAround', AnswerCampusAround)
     // .component('QuestionPerformanceAndPayment', QuestionPerformanceAndPayment)

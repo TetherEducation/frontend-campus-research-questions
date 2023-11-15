@@ -10,6 +10,7 @@ export enum StepOfEnrollmentSection {
     FirstQuestionEnrollmentSection,
     SecondQuestionEnrollmentSection,
     ThirdQuestionEnrollmentSection,
+    FourthQuestionEnrollmentSection,
 }
 
 export enum StepOfCampusAround {

@@ -33,7 +33,7 @@ watch(searchComuna, async (newSearch) => {
 const changeValue = (value: any) => {
     const data = researchStore.getListOfCampus || [];
     if (data?.length > 0) {
-        listOfSchools.value = [...data.map((campus: any) => campus?.campus_name)]
+        listOfSchools.value = [...new Set(data.map((campus: any) => campus?.campus_name))]
     }
 
     window.top!.postMessage(
@@ -75,6 +75,8 @@ const setNexStep = () => {
         researchStore.setAnswer(payloadSecondQuestion.knows_school, 'knows_school')
 
     }
+
+    if (!payloadSecondQuestion.question_3) return;
     researchStore.setAnswer(payloadSecondQuestion.question_3, 'question_3')
     researchStore.setAnswer(payloadSecondQuestion.school, 'school')
     researchStore.setAnswer(payloadSecondQuestion.comuna, 'comuna')
@@ -116,13 +118,17 @@ const setResultRadioButton = (result: number) => {
                     <h5 v-t="'thirdquestion.how_name_school'" class="mt-12" />
                     <div class="mt-4 d-flex flex-row flex-wrap gap-5">
                         <v-autocomplete v-model="nameComuna" v-model:search="searchComuna" :items="listOfComunas"
-                            item-title="name" item-value="id" hide-no-data placeholder="Comuna" solo flat persistent-placeholder
-                            background-color="#EBEBEB" class="autocomplete-input" />
+                            item-title="name" item-value="id" hide-no-data placeholder="Comuna" solo flat
+                            persistent-placeholder background-color="#EBEBEB" class="autocomplete-input" />
                         <v-autocomplete v-model="nameSchool" v-model:search="search" :items="listOfSchools" hide-no-data
                             placeholder="Establecimiento" solo flat background-color="#EBEBEB"
                             class="autocomplete autocomplete-input" />
                     </div>
+                    <span class="message-alert">
+                    *Recuerda verificar si el establecimiento tiene vacantes para el periodo complementario.
+                </span>
                 </template>
+               
             </div>
         </div>
         <div class="container-question__button">
@@ -131,6 +137,15 @@ const setResultRadioButton = (result: number) => {
     </section>
 </template>
 <style scoped>
+.messge-alert {
+    color: var(--alias-grayscale-label, #6E7191) !important;
+    font-family: Inter !important;
+    font-size: 0.75rem !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 1.25rem !important;
+}
+
 .autocomplete-input {
     margin-left: 0.5rem;
     width: 100%;

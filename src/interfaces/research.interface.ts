@@ -32,7 +32,12 @@ export interface ResearchAnswerCL {
     question_1: number | null,
     question_2: number | null,
     question_3: number | null,
+    question_4: number | null,
+    question_cost: number | null,
+    question_performance: number | null,
     num_estab_post: number | null,
+    totalCampusesWhitVacanciesAround: number | null,
+    totalCampusesWhitVacanciesAroundPaymentAndPerformance : number | null,
 }
 
 export interface ResearchConfiguration {
@@ -44,5 +49,8 @@ export interface ResearchConfiguration {
     grades: number[] | null,
     hasPriority: boolean | null,
     totalCampusesAroundPaymentAndPerformance: number,
-    interface?: ResearchAnswerCL | ResearchAnswerDO,
+    // interface?: ResearchAnswerCL | ResearchAnswerDO,
+    interface?: any,
+    researchId?: number,
+    researchType?: string | null,
 }

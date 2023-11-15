@@ -7,12 +7,12 @@ const { t } = useI18n();
 const researchStore = useResearchStore();
 
 const breadcrumb = computed(() => {
-    return t(`${researchStore.researchStep.toLowerCase()}.breadcrumb`);
+    return t(`${researchStore.researchStep.toLowerCase()}${researchStore.secondRoundKey !== '' ? `.${researchStore.secondRoundKey}` : ''}.breadcrumb`);
 })
 
 </script>
 <template>
-    <nav>        
+    <nav>
         <button type="button" @click="researchStore.backStep()" class="mr-4">
             <img src="@/assets/arrow-left.svg" alt="arrow left" width="24">
         </button>
@@ -35,7 +35,8 @@ nav {
 h1 {
     margin-bottom: -0.5rem;
 }
-nav > img {
+
+nav>img {
     top: 0;
     right: 0;
     margin: 1.5rem;
@@ -43,7 +44,7 @@ nav > img {
     width: 40px;
 }
 
-nav > button {
+nav>button {
     position: absolute;
     background: transparent;
     top: 0;
@@ -81,8 +82,8 @@ progress[value]::-moz-progress-value {
         padding: 1.5rem 4rem 0;
 
     }
-    
-    nav > img {
+
+    nav>img {
         width: 70px;
     }
 }

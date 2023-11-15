@@ -36,7 +36,10 @@ export const useResearchStore = defineStore('research', {
         answerCampusPaymentAndPerformance: null || 0,
     }),
     getters: {
-        isTenantCl: (state) => state.researchConfiguration.tenant.toUpperCase() === Tenant.CL,
+        isTenantCl: (state) => state.researchConfiguration?.tenant?.toUpperCase() === Tenant.CL,
+        secondRoundKey: (state) => `${state.researchConfiguration?.researchId || ''}${state.researchConfiguration?.researchType || ''}`,
+        answerPayment: (state) => state?.researchConfiguration?.interface?.question_cost || '',
+        answerPerformance: (state) => state?.researchConfiguration?.interface?.question_performance || '',
         // posibility deprecated
         currentStep: (state) => state.step,
         currentStepChild: (state) => state.stepChild,
@@ -72,13 +75,22 @@ export const useResearchStore = defineStore('research', {
         setLoading(loading: boolean) {
             this.loading = loading;
         },
-        setResearchConfiguration(configuration: ResearchConfiguration) {
+        setResearchConfiguration(configuration: any) {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
             this.researchConfiguration = configuration;
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
+
+            if (isTenantCl) {
+                this.researchStep = configuration.researchId && configuration.researchType ? ResearchStep.fourthQuestion : ResearchStep.firstQuestion;
+            }
+            else {
+                this.researchStep = ResearchStep.welcome;
+            }
             this.setInterface();
             this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
             this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAround, 'totalCampusesWhitVacanciesAround')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAroundPaymentAndPerformance, 'totalCampusesWhitVacanciesAroundPaymentAndPerformance')
             this.setLoading(false)
         },
         setInterface() {
@@ -103,7 +115,12 @@ export const useResearchStore = defineStore('research', {
                 question_1: null,
                 question_2: null,
                 question_3: null,
+                question_4: null,
                 num_estab_post: null,
+                question_cost: null,
+                question_performance: null,
+                totalCampusesWhitVacanciesAround: null,
+                totalCampusesWhitVacanciesAroundPaymentAndPerformance: null,
             }
 
             this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
@@ -191,8 +208,9 @@ export const useResearchStore = defineStore('research', {
         },
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
+            
             const setInitialData = () => {
-                this.setResearchConfiguration(data as ResearchConfiguration);
+                this.setResearchConfiguration(data as any);
             };
 
             const setListOfComuna = () => {
@@ -248,6 +266,7 @@ export const useResearchStore = defineStore('research', {
                 const { t } = useI18n();
                 return t('go_to_explorer.title');
             }
+
 
             return breadcrumbOfStep[this.step];
         },

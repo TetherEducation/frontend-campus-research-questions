@@ -13,7 +13,8 @@ const researchStore = useResearchStore();
 const { centerLocation } = storeToRefs(useResearchStore());
 
 const textQuestion = computed(() => {
-    return t(`${researchStore.researchStep.toLowerCase()}.question`)
+    // const text = 'A 3 km de tu zona de interés puede haber muchos establecimientos en el curso que estás buscando postular.'
+    return t(`${researchStore.researchStep.toLowerCase()}${researchStore.secondRoundKey !== '' ? `.${researchStore.secondRoundKey}` : ''}.question`)
 })
 
 const isPerformanceAndpayment = computed(() => {
@@ -21,8 +22,9 @@ const isPerformanceAndpayment = computed(() => {
 })
 
 const textDescription = () => {
-    return t(`${researchStore.researchStep.toLowerCase()}.description`, 
-    { total: researchStore.researchConfiguration.totalCampusesAround })
+
+    return t(`${researchStore.researchStep.toLowerCase()}${researchStore.secondRoundKey !== '' ? `.${researchStore.secondRoundKey}` : ''}.description`,
+        { total: researchStore.researchConfiguration.totalCampusesAround })
 }
 
 let answer: number | null;
@@ -36,11 +38,13 @@ const nextStep = () => {
     }
 }
 
+const totalCampusesWhitVacanciesAround = researchStore.researchConfiguration.interface.totalCampusesWhitVacanciesAround
+
 const labelTotal = computed(() => {
-    return researchStore.researchConfiguration.treatment === 1 ? '': researchStore.researchConfiguration.interface?.num_estab_correct1
+    return researchStore.researchConfiguration.treatment === 1 ? '' : totalCampusesWhitVacanciesAround
 })
 const getAnswer = (event: any) => {
-    if(event?.target.value === '0') {
+    if (event?.target.value === '0') {
         answer = Number(event?.target.value);
         return;
     }
@@ -61,7 +65,11 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    if (isPerformanceAndpayment.value && (Number(event?.target.value) > researchStore.researchConfiguration.totalCampusesAround)) {
+    let dataOfValuePerformance = researchStore.treatment === 1 ? researchStore.researchConfiguration.interface.num_estab_answer1 : totalCampusesWhitVacanciesAround;
+
+    dataOfValuePerformance = isPerformanceAndpayment.value && researchStore.treatment !== 1 ? researchStore.researchConfiguration.interface.num_estab_answer1 : totalCampusesWhitVacanciesAround;
+
+    if (isPerformanceAndpayment.value && (Number(event?.target.value) > dataOfValuePerformance)) {
         event.target.value = null;
         answer = null;
         return;
@@ -134,16 +142,17 @@ const styleCircle = {
         </div>
         <div class="question">
             <p v-if="isPerformanceAndpayment" class="mt-3">
-                De los <b>{{ labelTotal }} establecimientos</b> ubicados a 2 km de tu preferencia, que imparte el curso al que deseas postular.
+                <!-- De los <b>{{ labelTotal }} establecimientos</b> ubicados a 2 km de tu preferencia, que imparte el curso al que deseas postular. -->
+                De los <b>{{ labelTotal }} establecimientos educacionales, con vacantes</b> en el curso al que deseas
+                postular, ubicados a 3 km de tu zona de interés:
             </p>
             <p v-else class="mt-3" v-html="textDescription()" />
             <h1 for="answer" class="mt-8" v-html="textQuestion" />
             <div>
                 <input @input="getAnswer($event)" name="answer" id="answer" class="answer-of-question" type="number"
                     placeholder="" />
-                <span v-if="researchStore.researchConfiguration.treatment > 1 && isPerformanceAndpayment" class="text-between-answer ml-3">de {{
-                    researchStore.researchConfiguration.interface?.num_estab_correct1
-                }}</span>
+                <span v-if="researchStore.researchConfiguration.treatment > 1 && isPerformanceAndpayment"
+                    class="text-between-answer ml-3">de {{ totalCampusesWhitVacanciesAround }}</span>
             </div>
             <NextButton class="mt-10 mb-4 question-button" @click="nextStep()" />
         </div>
