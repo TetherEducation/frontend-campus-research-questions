@@ -65,7 +65,9 @@ const getAnswer = (event: any) => {
         return;
     }
 
-    const dataOfValuePerformance = researchStore.treatment === 1 ? researchStore.researchConfiguration.interface.num_estab_answer1 : totalCampusesWhitVacanciesAround;
+    let dataOfValuePerformance = researchStore.treatment === 1 ? researchStore.researchConfiguration.interface.num_estab_answer1 : totalCampusesWhitVacanciesAround;
+
+    dataOfValuePerformance = isPerformanceAndpayment.value && researchStore.treatment !== 1 ? researchStore.researchConfiguration.interface.num_estab_answer1 : totalCampusesWhitVacanciesAround;
 
     if (isPerformanceAndpayment.value && (Number(event?.target.value) > dataOfValuePerformance)) {
         event.target.value = null;
