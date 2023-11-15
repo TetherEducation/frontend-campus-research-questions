@@ -36,6 +36,8 @@ export interface ResearchAnswerCL {
     question_cost: number | null,
     question_performance: number | null,
     num_estab_post: number | null,
+    totalCampusesWhitVacanciesAround: number | null,
+    totalCampusesWhitVacanciesAroundPaymentAndPerformance : number | null,
 }
 
 export interface ResearchConfiguration {

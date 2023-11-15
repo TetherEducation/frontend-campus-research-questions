@@ -75,7 +75,7 @@ export const useResearchStore = defineStore('research', {
         setLoading(loading: boolean) {
             this.loading = loading;
         },
-        setResearchConfiguration(configuration: ResearchConfiguration) {
+        setResearchConfiguration(configuration: any) {
             const isTenantCl = configuration.tenant.toUpperCase() === Tenant.CL;
             this.researchConfiguration = configuration;
             this.researchStep = isTenantCl ? ResearchStep.firstQuestion : ResearchStep.welcome;
@@ -89,6 +89,8 @@ export const useResearchStore = defineStore('research', {
             this.setInterface();
             this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
             this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAround, 'totalCampusesWhitVacanciesAround')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAroundPaymentAndPerformance, 'totalCampusesWhitVacanciesAroundPaymentAndPerformance')
             this.setLoading(false)
         },
         setInterface() {
@@ -117,6 +119,8 @@ export const useResearchStore = defineStore('research', {
                 num_estab_post: null,
                 question_cost: null,
                 question_performance: null,
+                totalCampusesWhitVacanciesAround: null,
+                totalCampusesWhitVacanciesAroundPaymentAndPerformance: null,
             }
 
             this.researchConfiguration.interface = this.isTenantCl ? interfaceCL : interfaceDO;
@@ -204,8 +208,9 @@ export const useResearchStore = defineStore('research', {
         },
         // psoibility deprecated
         setDataResearch(actionDataOfResearch: ActionDataOfResearch, data: any) {
+            
             const setInitialData = () => {
-                this.setResearchConfiguration(data as ResearchConfiguration);
+                this.setResearchConfiguration(data as any);
             };
 
             const setListOfComuna = () => {

@@ -36,14 +36,14 @@ const interfaceResearch = computed(() => {
 
 const restOfAnswer = computed(() => {
     return researchStore.researchStep === ResearchStep.answerCampusAround ?
-        interfaceResearch.value!.num_estab_correct1! - +interfaceResearch.value!.num_estab_answer1! : interfaceResearch.value!.num_estab_correct2! - +interfaceResearch.value!.num_estab_answer2!
+        interfaceResearch.value!.totalCampusesWhitVacanciesAround! - +interfaceResearch.value!.num_estab_answer1! : interfaceResearch.value!.totalCampusesWhitVacanciesAroundPaymentAndPerformance! - +interfaceResearch.value!.num_estab_answer2!
     // return currentStep.value === 2 ? dataOfResearch?.value.num_estab_correct2 - +dataOfResearch?.value?.num_estab_answer2 : interfaceResearch.value?.num_estab_correct1 - +interfaceResearch.value?.num_estab_answer1
 });
 
 const results = computed(() => {
     const isCampusAround = researchStore.researchStep === ResearchStep.answerCampusAround;
     return {
-        correctAnswer: isCampusAround ? interfaceResearch.value?.num_estab_correct1 : interfaceResearch.value?.num_estab_correct2,
+        correctAnswer: isCampusAround ? interfaceResearch.value?.totalCampusesWhitVacanciesAround : interfaceResearch.value?.totalCampusesWhitVacanciesAroundPaymentAndPerformance,
         answer: isCampusAround ? interfaceResearch.value?.num_estab_answer1 : interfaceResearch.value?.num_estab_answer2,
     }
 })
@@ -53,14 +53,13 @@ const isCorrect = computed(() => {
 })
 
 const labelCorrect = () => {
-    { { isCorrect.value } }
     return isCorrect.value ? ', y efectivamente hay' : ', pero en realidad hay'
 }
 
 const modifyLabel = computed(() => {
-    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular.'
+    const labelPayment = researchStore.researchConfiguration.treatment === 1 ? '' : 'en el curso que estabas buscando postular'
     return researchStore.researchStep === ResearchStep.answerCampusAround
-        ? 'en el curso que estás buscando postular.' : labelPayment
+        ? 'en el curso que estás buscando postular' : labelPayment
 })
 
 const classOfAnswer = ref<string>('')
