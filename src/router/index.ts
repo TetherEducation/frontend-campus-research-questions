@@ -1,4 +1,3 @@
-import { ResearchConfiguration } from '@/interfaces/research.interface';
 import { defaultLocation } from '@/mocks/defaultLocation';
 import { useResearchStore } from '@/stores/research';
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
@@ -16,7 +15,7 @@ const routes: RouteRecordRaw[] = [
             
             if (treatment && value && tenant) {
                 const store = useResearchStore();
-                const researchConfiguration: ResearchConfiguration = {
+                const researchConfiguration: any = {
                     tenant: tenant as any,
                     grades: grades?.toString().split(',').map((grade: string) => +grade) || null,
                     hasPriority: !!hasPriority,
