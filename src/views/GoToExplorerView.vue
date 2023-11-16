@@ -62,6 +62,7 @@ const getSrcIframeExplorer = () => {
         url.searchParams.append('payment', '2');
         url.searchParams.append('performance', '3');
         url.searchParams.append('payment', '4');
+        url.searchParams.append('admission', '1')
     }
     // url.searchParams.append('vacanciesOff', 'false');
     for (const grade of (grades || [])) {
