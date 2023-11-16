@@ -54,10 +54,10 @@ const getSrcIframeExplorer = () => {
     const url = new URL('/research_iframe', urlRoot);
     url.searchParams.append('lat', location.lat.toString());
     url.searchParams.append('lng', location.lng.toString());
-    url.searchParams.append('radius', '2');
+    url.searchParams.append('radius', '3');
     url.searchParams.append('z', '14.5');
     url.searchParams.append('filters', `${showFilters.value}`);
-    url.searchParams.append('vacanciesOff', 'false');
+    // url.searchParams.append('vacanciesOff', 'false');
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
     }
