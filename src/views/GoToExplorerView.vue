@@ -19,7 +19,7 @@ const styleCircle = {
 const { researchConfiguration } = useResearchStore();
 
 const showFilters = computed(() => {
-    return treatment.value === 3;
+    return treatment.value !== 1 ;
 })
 
 const treatment = computed(() => {
