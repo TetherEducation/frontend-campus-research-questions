@@ -133,60 +133,49 @@ export const useResearchStore = defineStore('research', {
         },
         sendTrackMixpanel(step: ResearchStep) {
             const trackMixpanelResearchStep = {
+                [ResearchStep.fourthQuestion as string]: {
+                    track: 'research_Q4',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
+                },
                 [ResearchStep.firstQuestion as string]: {
-                    track: 'click_first_question',
-                    data: {
-                        question_1: this.getDataOfResearch.question_1,
-                    }
+                    track: 'research_Q1',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.secondQuestion as string]: {
-                    track: 'click_second_question',
-                    data: {
-                        question_2: this.getDataOfResearch.question_2,
-                        num_estab_post: this.getDataOfResearch.num_estab_post,
-                    }
+                    track: 'research_Q2',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.thirdQuestion as string]: {
-                    track: 'click_third_question',
-                    data: {
-                        question_3: this.getDataOfResearch.question_3,
-                        school: this.getDataOfResearch.school,
-                        comuna: this.getDataOfResearch.comuna,
-                    }
+                    track: 'research_Q3',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.questionCampusAround as string]: {
-                    track: 'click_question_campus_around',
-                    data: {
-                        num_estab_answer1: this.getDataOfResearch.num_estab_answer1,
-                        num_estab_correct1: this.getDataOfResearch.num_estab_correct1,
-                    }
+                    track: 'research_Qsch3k',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.answerCampusAround as string]: {
-                    track: 'click_answer_campus_around',
-                    data: {}
+                    track: 'research_Qsch3k_answer',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.informationPayment as string]: {
-                    track: 'click_information_payment',
-                    data: {}
+                    track: 'research_payment_screen',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.informationPerformance as string]: {
-                    track: 'click_information_performance',
-                    data: {}
+                    track: 'research_payment_performance',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.questionPerformanceAndPayment as string]: {
-                    track: 'click_question_performance_and_payment',
-                    data: {
-                        num_estab_answer2: this.getDataOfResearch.num_estab_answer2,
-                        num_estab_correct2: this.getDataOfResearch.num_estab_correct2,
-                    }
+                    track: 'research_payment_performance_question',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.answerPerformanceAndPayment as string]: {
-                    track: 'click_answer_performance_and_payment',
-                    data: {}
+                    track: 'research_payment__performance_and_payment',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
                 [ResearchStep.goToExplorer as string]: {
-                    track: 'click_go_to_explorer',
-                    data: {}
+                    track: 'research_payment__go_to_explorer',
+                    data: {...this.getDataOfResearch, researchType: this.researchConfiguration.researchType }
                 },
 
             }
