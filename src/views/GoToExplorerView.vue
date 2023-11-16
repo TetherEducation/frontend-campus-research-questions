@@ -57,6 +57,13 @@ const getSrcIframeExplorer = () => {
     url.searchParams.append('radius', '3');
     url.searchParams.append('z', '14.5');
     url.searchParams.append('filters', `${showFilters.value}`);
+    if (researchStore.researchConfiguration.treatment !== 1) {
+        url.searchParams.append('payment', '1');
+        url.searchParams.append('payment', '2');
+        url.searchParams.append('performance', '3');
+        url.searchParams.append('payment', '4');
+
+    }
     // url.searchParams.append('vacanciesOff', 'false');
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
