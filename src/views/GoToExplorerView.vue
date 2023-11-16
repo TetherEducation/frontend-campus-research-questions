@@ -26,7 +26,7 @@ const treatment = computed(() => {
     return researchStore.researchConfiguration.treatment;
 })
 const getSrcIframeExplorer = () => {
-    const { location, grades, hasPriority: applyScholarships } = researchConfiguration;
+    const { location, grades } = researchConfiguration;
 
     // FIXME: Hardcoded for now
 
@@ -62,15 +62,12 @@ const getSrcIframeExplorer = () => {
         url.searchParams.append('payment', '2');
         url.searchParams.append('performance', '3');
         url.searchParams.append('payment', '4');
-
     }
     // url.searchParams.append('vacanciesOff', 'false');
     for (const grade of (grades || [])) {
         url.searchParams.append('grade', grade.toString());
     }
-    url.searchParams.append('force_scholarships', `${applyScholarships}`);
-
-    console.log('url', url)
+    // url.searchParams.append('force_scholarships', `${applyScholarships}`);
     return url.toString();
 };
 

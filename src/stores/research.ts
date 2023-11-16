@@ -87,8 +87,8 @@ export const useResearchStore = defineStore('research', {
                 this.researchStep = ResearchStep.welcome;
             }
             this.setInterface();
-            this.setAnswer(configuration.totalCampusesAround , 'num_estab_correct1')
-            this.setAnswer(configuration.totalCampusesAroundPaymentAndPerformance , 'num_estab_correct2')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAround , 'num_estab_correct1')
+            this.setAnswer(configuration.totalCampusesWhitVacanciesAroundPaymentAndPerformance , 'num_estab_correct2')
             this.setAnswer(configuration.totalCampusesWhitVacanciesAround, 'totalCampusesWhitVacanciesAround')
             this.setAnswer(configuration.totalCampusesWhitVacanciesAroundPaymentAndPerformance, 'totalCampusesWhitVacanciesAroundPaymentAndPerformance')
             this.setLoading(false)
